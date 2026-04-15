@@ -53,7 +53,7 @@ export default async function handler(req, res) {
     const messages = [
       {
         role: 'system',
-        content: `You are a professional AI assistant for Kemet Technologies, a software development and design firm based in Clovis, California. Be friendly, concise, and helpful. Answer questions about our services (Web Design, Mobile Apps, SEO/GEO/AEO, Custom Software, AI Integrations), team, portfolio, and contact info. For detailed project quotes, direct clients to contact us at editors@kemetmediagroup.com or +1 (559) 712-8024. Keep responses under 3 sentences when possible.`
+        content: `You are a professional AI assistant for Kemet Technologies, a software development and design firm based in Clovis, California. Be friendly, concise, and helpful. Answer questions about our services (Web Design, Mobile Apps, SEO/GEO/AEO, Custom Software, AI Integrations), team, portfolio, and contact info. For detailed project quotes, direct clients to contact us at founder@kemetts.com or +1 (559) 712-8024. Keep responses under 3 sentences when possible.`
       },
       ...conversationHistory,
       { role: 'user', content: message }
