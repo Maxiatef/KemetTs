@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Kemet Technologies</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F7FA;
+      --surface: #EBEEF4;
+      --surface2: #E0E5EE;
+      --text: #0F1419;
+      --muted: #5A6B7F;
+      --primary: #143c93;
+      --accent: #ba1d49;
+      --accent-warm: #d96f18;
+      --border: rgba(20, 60, 147, 0.15);
+      --dark: #0D0E10;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      background: rgba(250, 248, 244, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Open Sans', 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      height: auto;
+      min-height: 46px;
+    }
+
+    .nav-logo img {
+      height: 46px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.6rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* underline that expands from center */
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.28rem;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      background: var(--text);
+      color: var(--bg);
+      padding: 0.4rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: var(--text);
+    }
+
+    /* HERO */
+    .page-hero {
+      min-height: 55vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 9rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .page-hero-eyebrow {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-hero-eyebrow::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 6vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      max-width: 700px;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .page-hero-sub {
+      margin-top: 1.75rem;
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.85;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 4rem;
+      margin-top: 3.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .hero-stat-num span {
+      color: var(--accent);
+    }
+
+    .hero-stat-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      position: sticky;
+      top: 72px;
+      z-index: 50;
+      background: rgba(245, 247, 250, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      overflow-x: auto;
+    }
+
+    .filter-btn {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.45rem 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .filter-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .filter-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .filter-count {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    /* PORTFOLIO GRID - ALTERNATING LAYOUT */
+    .portfolio-section {
+      padding: 5rem 4rem 8rem;
+    }
+
+    .portfolio-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+    }
+
+    /* PROJECT ROW - ALTERNATING LAYOUT */
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(60px);
+    }
+
+    /* Alternating: odd rows have image left, even rows have image right */
+    .project-row:nth-child(odd) {
+      animation: slideInLeft 0.8s ease forwards;
+    }
+
+    .project-row:nth-child(even) {
+      animation: slideInRight 0.8s ease forwards;
+    }
+
+    .project-row.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-100px) translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px) translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+      }
+    }
+
+    /* IMAGE SECTION */
+    .project-image {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface);
+      aspect-ratio: 16 / 12;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      transition: transform 0.6s ease, box-shadow 0.6s ease;
+    }
+
+    .project-row:nth-child(odd) .project-image {
+      animation: floatInLeft 1s ease forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+    }
+
+    .project-row:nth-child(even) .project-image {
+      animation: floatInRight 1s ease forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+    }
+
+    @keyframes floatInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    @keyframes floatInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    .project-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .project-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .project-image:hover img {
+      transform: scale(1.08);
+    }
+
+    .project-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(20, 60, 147, 0.1) 0%, rgba(186, 29, 73, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .project-image:hover::after {
+      opacity: 1;
+    }
+
+    /* CONTENT SECTION */
+    .project-content {
+      padding: 2rem 0;
+    }
+
+    .project-row:nth-child(odd) .project-content {
+      animation: fadeInContent 1s ease forwards;
+      animation-delay: 0.6s;
+      opacity: 0;
+    }
+
+    .project-row:nth-child(even) .project-content {
+      animation: fadeInContent 1s ease forwards;
+      animation-delay: 0.6s;
+      opacity: 0;
+    }
+
+    @keyframes fadeInContent {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .project-category {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(186, 29, 73, 0.1);
+      border-radius: 4px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+      transition: color 0.3s ease;
+    }
+
+    .project-row:hover .project-title {
+      color: var(--accent);
+    }
+
+    .project-location {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .project-description {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+
+    .project-link {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-decoration: none;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 0;
+      border-bottom: 2px solid var(--accent);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .project-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.4s ease;
+    }
+
+    .project-link:hover::after {
+      width: 100%;
+    }
+
+    .project-link:hover {
+      color: var(--primary);
+      gap: 1rem;
+    }
+
+    .project-link svg {
+      transition: transform 0.3s ease;
+    }
+
+    .project-link:hover svg {
+      transform: translateX(5px);
+    }
+
+    /* PROJECT NUMBER */
+    .project-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 8rem;
+      font-weight: 700;
+      color: var(--border);
+      position: absolute;
+      top: -30px;
+      z-index: -1;
+      line-height: 1;
+      animation: fadeInNumber 1.5s ease forwards;
+      opacity: 0;
+    }
+
+    .project-row:nth-child(odd) .project-number {
+      left: -20px;
+    }
+
+    .project-row:nth-child(even) .project-number {
+      right: -20px;
+    }
+
+    @keyframes fadeInNumber {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 0.15;
+        transform: scale(1);
+      }
+    }
+
+    /* STATS STRIP */
+    .stats-strip {
+      background: var(--dark);
+      padding: 5rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(20, 60, 147, 0.2);
+    }
+
+    .stat-item {
+      padding: 0 3rem;
+      border-right: 1px solid rgba(20, 60, 147, 0.15);
+      text-align: center;
+    }
+
+    .stat-item:first-child {
+      padding-left: 0;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #F5F7FA;
+      line-height: 1;
+    }
+
+    .stat-num em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .stat-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245, 247, 250, 0.4);
+      margin-top: 0.75rem;
+    }
+
+    /* CTA */
+    .cta-strip {
+      padding: 6rem 4rem;
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .cta-strip-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .cta-strip-text em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--dark);
+      color: #F5F7FA;
+      padding: 1rem 2.2rem;
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      padding: 3rem 4rem 2rem;
+      border-top: 1px solid rgba(20, 60, 147, 0.2);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(20, 60, 147, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.45);
+      line-height: 1.8;
+      margin-top: 1rem;
+      max-width: 260px;
+    }
+
+    .footer-col-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .footer-links-list a {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-links-list a::before {
+      content: '·';
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .footer-links-list a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #F5F7FA;
+      letter-spacing: 0.12em;
+    }
+
+    .footer-logo span {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(245, 247, 250, 0.3);
+      letter-spacing: 0.05em;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .page-hero {
+        padding: 8rem 1.5rem 4rem;
+      }
+
+      .hero-stats {
+        flex-wrap: wrap;
+        gap: 2.5rem;
+      }
+
+      .filter-bar {
+        padding: 1rem 1.5rem;
+      }
+
+      .portfolio-section {
+        padding: 3rem 1.5rem 6rem;
+      }
+
+      .portfolio-grid {
+        gap: 4rem;
+      }
+
+      .project-row {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .project-row:nth-child(even) {
+        direction: rtl;
+      }
+
+      .project-row:nth-child(even)>* {
+        direction: ltr;
+      }
+
+      .project-number {
+        font-size: 5rem;
+        top: -20px;
+      }
+
+      .project-row:nth-child(odd) .project-number {
+        left: -10px;
+      }
+
+      .project-row:nth-child(even) .project-number {
+        right: -10px;
+      }
+
+      .stats-strip {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        padding: 4rem 1.5rem;
+      }
+
+      .stat-item {
+        border-right: none;
+        padding: 0;
+      }
+
+      .cta-strip {
+        padding: 4rem 1.5rem;
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      footer {
+        padding: 3rem 1.5rem 2rem;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="site-enhancements.css" />
+  <script src="site-enhancements.js" defer></script>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blogs.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start Project</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero-eyebrow">Selected Work</div>
+    <h1>Work We're Proud<br /><em>to Stand Behind</em></h1>
+    <p class="page-hero-sub">Every project represents a real business challenge — and a solution built with intention,
+      precision, and accountability.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">12<span>+</span></div>
+        <div class="hero-stat-label">Featured Projects</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">100<span>+</span></div>
+        <div class="hero-stat-label">Clients Served</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">120<span>+</span></div>
+        <div class="hero-stat-label">Projects Completed</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">7<span>+</span></div>
+        <div class="hero-stat-label">Years Experience</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
+    <button class="filter-btn" data-filter="marketing">Marketing Sites</button>
+    <button class="filter-btn" data-filter="media">Media</button>
+    <button class="filter-btn" data-filter="software">Software</button>
+    <span class="filter-count" id="filterCount">Showing 12 projects</span>
+  </div>
+
+  <!-- PORTFOLIO GRID -->
+  <section class="portfolio-section">
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">120<em>+</em></div>
+      <div class="stat-label">Projects Delivered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100<em>%</em></div>
+      <div class="stat-label">Client Retention</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">7<em>+</em></div>
+      <div class="stat-label">Years in Business</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5<em>★</em></div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <div class="cta-strip-text">Have a project in mind?<br /><em>Let's build something great.</em></div>
+    <a href="contact.html" class="btn-primary">Start Your Project →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
+          of engineering and design expertise.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links-list">
+          <li><a href="#">Web Design &amp; Dev</a></li>
+          <li><a href="#">Mobile Apps</a></li>
+          <li><a href="#">SEO, GEO &amp; AEO</a></li>
+          <li><a href="#">Custom Software</a></li>
+          <li><a href="#">AI Integrations</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links-list">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blogs.html">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links-list">
+          <li><a href="tel:+15597128024">+1 (559) 712-8024</a></li>
+          <li><a href="mailto:editors@kemetmediagroup.com">editors@kemetmediagroup.com</a></li>
+          <li><a href="#">Clovis, CA 93612</a></li>
+          <li><a href="#">Book a Call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const projects = [
+      {
+        num: '01',
+        cat: 'E-Commerce',
+        filter: 'ecommerce',
+        name: 'Queen Mini Market',
+        location: 'Belleville, NJ',
+        desc: 'A fully functional online grocery and deli store built for seamless ordering and local delivery management.',
+        image: 'media/queen/quennmockup.png',
+        url: 'https://queennj.com/'
+      },
+      {
+        num: '02',
+        cat: 'E-Commerce',
+        filter: 'ecommerce',
+        name: 'SF-Shoply',
+        location: 'Nationwide',
+        desc: 'An e-commerce platform for specialty halal food delivery with comprehensive product catalog and shipping integrations.',
+        image: 'media/SF Shoply/sfmockup.png',
+        url: 'https://www.sfshoply.com/'
+      },
+      {
+        num: '03',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'Hero Expressway',
+        location: 'Wilmington, CA',
+        desc: 'A professional marketing website for a drayage trucking company conveying operational capability and credibility.',
+        image: 'media/hero/heromockup.png',
+        url: 'https://heroexpresswayinc.com/'
+      },
+      {
+        num: '04',
+        cat: 'E-Commerce',
+        filter: 'ecommerce',
+        name: 'Golden Eagle Jewelry',
+        location: 'Specialty Retail',
+        desc: 'An e-commerce site for an exclusive distributor of professional jewelry-making alloys and plating solutions.',
+        image: 'media/golden/goldenmockup.png',
+        url: 'https://goldeneaglejewelrytools.com/'
+      },
+      {
+        num: '05',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'Matteo Landscaping',
+        location: 'California',
+        desc: 'A visual, project-focused website showcasing completed work and driving local service inquiries.',
+        image: 'media/matteo/matteomockup.png',
+        url: 'https://www.matteolandscaping.com/'
+      },
+      {
+        num: '06',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'Elegant Transportation',
+        location: 'California',
+        desc: 'A clean, accessible website for a non-emergency medical transportation company highlighting service reliability.',
+        image: 'media/elegant/elegantmockup.png',
+        url: 'https://www.eleganttrans.net/'
+      },
+      {
+        num: '07',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'Urban Design Engineering',
+        location: 'Architecture',
+        desc: 'A professional digital presence for an architectural and engineering firm reflecting technical precision.',
+        image: 'media/urban/urbanmockup.png',
+        url: 'https://urbandesignengineering.com/'
+      },
+      {
+        num: '08',
+        cat: 'E-Commerce',
+        filter: 'ecommerce',
+        name: 'Brothers Dream Distro',
+        location: 'United States',
+        desc: 'A digital storefront for a family-owned distribution business with product management and wholesale ordering flows.',
+        image: 'media/bd/bdmockup.png',
+        url: 'https://brothersdreamdistro.com/'
+      },
+      {
+        num: '09',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'St. George Security',
+        location: 'California',
+        desc: 'A corporate website communicating professionalism, trust, and service range to commercial and residential clients.',
+        image: 'media/st/stmockup.png',
+        url: 'https://www.stgeorgeprivatesecurity.com/'
+      },
+      {
+        num: '10',
+        cat: 'Corporate Website',
+        filter: 'web',
+        name: 'Pacific Dental Clinic Fresno',
+        location: 'Fresno, CA',
+        desc: 'A trusted dental clinic website focused on service clarity, patient confidence, and appointment conversion.',
+        image: 'media/pacific/pacificmockup.png',
+        url: 'https://pacificdentalclinics.com/'
+      },
+      {
+        num: '11',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'C4 Fresno',
+        location: 'Fresno, CA',
+        desc: 'A mission-driven website designed to communicate programs clearly and support community engagement.',
+        image: 'media/c4/c4mockup.png',
+        url: 'https://www.c4fresno.org/'
+      },
+      {
+        num: '12',
+        cat: 'Corporate Website',
+        filter: 'web',
+        name: 'True Care Clinic Florida',
+        location: 'Florida',
+        desc: 'A healthcare web presence built to improve trust, communicate services, and support patient outreach.',
+        image: 'media/careclinic/careclinicmockup.png',
+        url: 'https://truecareclinic.net/'
+      },
+      {
+        num: '13',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'Crystal Housekeeping',
+        location: 'United States',
+        desc: 'A service-focused website for a housekeeping brand with clear offerings and lead generation flow.',
+        image: 'media/crystalhouse/crystalhousemockup.png',
+        url: 'https://www.crystalhousekeeping.net/'
+      },
+      {
+        num: '14',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'Stavros Catering',
+        location: 'United States',
+        desc: 'A polished catering website highlighting menu presentation, event credibility, and inquiry conversion.',
+        image: 'media/stavros/stavrosmockup.png',
+        url: 'https://stavroscatering.com/'
+      },
+      {
+        num: '15',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'Luxury Limo OC',
+        location: 'Orange County, CA',
+        desc: 'A premium transportation website showcasing services, fleet appeal, and fast booking pathways.',
+        image: 'media/luxurylimo/luxurylimomockup.png',
+        url: 'https://www.luxurylimooc.com/'
+      },
+      {
+        num: '16',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'Zuni\'s Plumbing Lamoore',
+        location: 'Lamoore, CA',
+        desc: 'A local-service website structured for trust, service discovery, and direct customer conversion.',
+        image: 'media/zunis/zunismockup.png',
+        url: 'https://www.zunisplumbing.com/'
+      },
+      {
+        num: '17',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'I.E. Finish Carpentry',
+        location: 'United States',
+        desc: 'A craftsmanship-focused marketing website for finish carpentry services and project lead capture.',
+        image: 'media/ie/iemockup.png',
+        url: 'https://www.iefinish.com/'
+      },
+      {
+        num: '18',
+        cat: 'Corporate Website',
+        filter: 'web',
+        name: 'Archangel Michael & Gabriel Coptic Orthodox Church Fresno',
+        location: 'Fresno, CA',
+        desc: 'A community-centered church website built for announcements, events, ministries, and visitor guidance.',
+        image: 'media/aamgcoc/aamgcocmockup.png',
+        url: 'https://www.aamgcoc.org/'
+      },
+      {
+        num: '19',
+        cat: 'Corporate Website',
+        filter: 'web',
+        name: 'Global Nexus Management',
+        location: 'United States',
+        desc: 'Corporate website with service showcase, project portfolio, and lead generation system.',
+        image: 'media/globalnexus/globalnexusmockup.png',
+        url: 'https://gnmusa.com/'
+      },
+      {
+        num: '20',
+        cat: 'E-Commerce',
+        filter: 'ecommerce',
+        name: 'German Kitchen Studio',
+        location: 'United States',
+        desc: 'Full e-commerce platform redesign with custom product builder and streamlined checkout flow.',
+        image: 'media/gks/gksmockup.png',
+        url: 'https://gksus.com/'
+      }
+    ];
+
+    const grid = document.getElementById('portfolioGrid');
+    const filterCount = document.getElementById('filterCount');
+
+    function renderGrid(filter) {
+      const filtered = filter === 'all' ? projects : projects.filter(p => p.filter === filter);
+      filterCount.textContent = `Showing ${filtered.length} project${filtered.length !== 1 ? 's' : ''}`;
+      grid.innerHTML = '';
+
+      filtered.forEach((p, i) => {
+        const row = document.createElement('div');
+        row.className = 'project-row';
+        row.style.animationDelay = `${i * 0.15}s`;
+
+        const imgHtml = p.image ? ('<img src="' + p.image + '" alt="' + p.name + ' Mockup" loading="lazy" onerror="this.style.display=\'none\'; this.parentElement.classList.add(\'project-image--fallback\');">') : ('<div class="project-image-placeholder" aria-hidden="true"><div class="ph-title">' + p.name + '</div></div>');
+
+        row.innerHTML = `
+          <div class="project-number">${p.num}</div>
+          <div class="project-image">
+            ${imgHtml}
+          </div>
+          <div class="project-content">
+            <span class="project-category">${p.cat}</span>
+            <h2 class="project-title">${p.name}</h2>
+            <div class="project-location">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              ${p.location || ''}
+            </div>
+            <p class="project-description">${p.desc || ''}</p>
+            <a href="${p.url || '#'}" class="project-link" ${p.url ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="return false;"'}>
+              View Project
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </div>
+        `;
+
+        const isEvenIndex = i % 2 === 0;
+        if (!isEvenIndex) {
+          const content = row.querySelector('.project-content');
+          const image = row.querySelector('.project-image');
+          row.innerHTML = '';
+          row.appendChild(content);
+          row.appendChild(image);
+          const number = document.createElement('div');
+          number.className = 'project-number';
+          number.textContent = p.num;
+          row.insertBefore(number, row.firstChild);
+        }
+
+        grid.appendChild(row);
+
+        setTimeout(() => {
+          row.classList.add('visible');
+        }, 100 + (i * 150));
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div style="text-align:center;color:var(--muted);font-family:'Open Sans',sans-serif;font-size:0.75rem;letter-spacing:0.15em;padding:5rem;text-transform:uppercase;">No projects in this category yet</div>`;
+      }
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderGrid(btn.dataset.filter);
+      });
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Initial render
+    renderGrid('all');
+
+    // Observe all project rows for scroll animation
+    setTimeout(() => {
+      document.querySelectorAll('.project-row').forEach(row => {
+        observer.observe(row);
+      });
+    }, 100);
+  </script>
+</body>
+
+</html>

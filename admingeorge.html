@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — Kemet Technologies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F7FA;
+      --surface: #FFFFFF;
+      --surface2: #EBEEF4;
+      --text: #0F1419;
+      --muted: #5A6B7F;
+      --primary: #143c93;
+      --accent: #ba1d49;
+      --accent-warm: #d96f18;
+      --border: rgba(20, 60, 147, 0.12);
+      --success: #22c55e;
+      --danger: #ef4444;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* LOGIN SCREEN */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      position: relative;
+    }
+
+    .login-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(20, 60, 147, 0.04) 80px);
+      pointer-events: none;
+    }
+
+    .login-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 3rem;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-box p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .login-input:focus { border-color: var(--accent); }
+
+    .login-btn {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: background 0.3s;
+    }
+
+    .login-btn:hover { background: var(--primary); transform: translateY(-1px); }
+    .login-error { color: var(--danger); font-size: 0.8rem; margin-top: 0.5rem; display: none; }
+
+    /* ADMIN PANEL */
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+
+    /* TOP BAR */
+    .admin-topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .admin-logo {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--text);
+    }
+
+    .admin-logo span { color: var(--accent); }
+
+    .admin-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .admin-badge {
+      background: var(--accent);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .logout-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .logout-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+    .btn-export {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .btn-export:hover { background: #2E5CB8; transform: translateY(-1px); }
+
+    /* TABS */
+    .admin-tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 2rem;
+      margin-top: 66px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .admin-tab {
+      padding: 1rem 2rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+
+    .admin-tab:hover { color: var(--text); }
+    .admin-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* CONTENT AREA */
+    .admin-content {
+      padding: 2rem;
+      max-width: none;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* STATS CARDS */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .stat-card-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .stat-card-value span { color: var(--accent); }
+
+    /* SECTION HEADER */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .btn-add {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.7rem 1.4rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: background 0.3s;
+    }
+
+    .btn-add:hover { background: var(--primary); transform: translateY(-1px); }
+
+    /* TABLE */
+    .admin-table {
+      width: 100%;
+      table-layout: auto;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .admin-table thead th {
+      background: var(--surface2);
+      padding: 1rem;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .admin-table tbody td {
+      padding: 1rem;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .admin-table tbody tr:last-child td { border-bottom: none; }
+    .admin-table tbody tr:hover { background: rgba(20, 60, 147, 0.02); }
+
+    .table-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-edit, .btn-delete, .btn-view {
+      padding: 0.4rem 0.8rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 0.03em;
+    }
+
+    .btn-edit { background: var(--primary); color: white; }
+    .btn-edit:hover { background: #2E5CB8; }
+    .btn-delete { background: var(--danger); color: white; }
+    .btn-delete:hover { background: #dc2626; }
+    .btn-view { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    .btn-view:hover { border-color: var(--accent); color: var(--accent); }
+
+    .badge-category {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(186, 29, 73, 0.08);
+      color: var(--accent);
+    }
+
+    .text-muted { color: var(--muted); }
+    .text-small { font-size: 0.78rem; }
+
+    .truncate {
+      max-width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #blogTable th:nth-child(2),
+    #blogTable td:nth-child(2) {
+      width: 100%;
+    }
+
+    .blog-title-cell {
+      min-width: 420px;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    #blogTable th:nth-child(1),
+    #blogTable td:nth-child(1) {
+      width: 52px;
+      white-space: nowrap;
+    }
+
+    #blogTable th:nth-child(3),
+    #blogTable td:nth-child(3),
+    #blogTable th:nth-child(4),
+    #blogTable td:nth-child(4),
+    #blogTable th:nth-child(5),
+    #blogTable td:nth-child(5),
+    #blogTable th:nth-child(6),
+    #blogTable td:nth-child(6) {
+      white-space: nowrap;
+    }
+
+    /* LOADING SPINNER */
+    .loader {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(20, 60, 147, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--primary), var(--accent));
+      animation: loadingSlide 1.5s ease-in-out infinite;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(186, 29, 73, 0.3);
+      margin-bottom: 1rem;
+    }
+
+    @keyframes loadingSlide {
+      0% { width: 0; opacity: 1; }
+      50% { width: 100%; opacity: 1; }
+      100% { width: 0; opacity: 1; }
+    }
+
+    /* SKELETON LOADERS */
+    .skeleton {
+      background: linear-gradient(90deg, var(--surface2) 25%, rgba(255,255,255,0.5) 50%, var(--surface2) 75%);
+      background-size: 200% 100%;
+      animation: skeletonLoading 1.5s infinite;
+    }
+
+    @keyframes skeletonLoading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .skeleton-table-row td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skeleton-text {
+      height: 16px;
+      margin: 0.5rem 0;
+      border-radius: 4px;
+    }
+
+    .refresh-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .refresh-btn:hover { background: #2E5CB8; }
+    .refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .refresh-btn.loading svg { animation: spin 0.8s linear infinite; }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+    }
+
+    .empty-state h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+
+    .modal-close:hover { color: var(--accent); }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: 'Roboto', sans-serif;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { min-height: 150px; resize: vertical; }
+    .form-select { appearance: none; cursor: pointer; }
+
+    .btn-save {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-save:hover { background: var(--primary); }
+
+    /* COVER IMAGE UPLOAD */
+    .cover-upload {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .cover-upload:hover { border-color: var(--accent); }
+
+    .cover-upload img {
+      max-width: 100%;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+    }
+
+    /* MESSAGE DETAIL */
+    .message-detail { display: none; }
+    .message-detail.active { display: block; }
+
+    #tab-messages,
+    #messagesList,
+    #messageDetail,
+    #tab-messages .admin-table,
+    #tab-messages .message-detail-card {
+      width: 100%;
+      max-width: none;
+    }
+
+    #tab-messages .admin-table {
+      display: table;
+      table-layout: auto;
+      min-width: 100%;
+    }
+
+    .message-detail-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .message-detail-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .message-detail-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+    }
+
+    .message-detail-meta {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .meta-item strong { color: var(--text); }
+
+    .message-detail-body {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text);
+      background: var(--bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      border: 1px solid var(--border);
+    }
+
+    .back-to-list {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      background: none;
+      border: none;
+      transition: color 0.3s;
+    }
+
+    .back-to-list:hover { color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .admin-tabs { overflow-x: auto; }
+      .admin-tab { padding: 1rem; font-size: 0.7rem; white-space: nowrap; }
+      .admin-content { padding: 1rem; }
+      .admin-table { font-size: 0.78rem; }
+      .admin-table thead th, .admin-table tbody td { padding: 0.75rem; }
+      .table-actions { flex-direction: column; }
+    }
+  </style>
+  <link rel="stylesheet" href="site-enhancements.css" />
+  <script src="site-enhancements.js" defer></script>
+</head>
+
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h2>Admin Access</h2>
+      <p>Enter password to access the admin panel</p>
+      <input type="password" class="login-input" id="loginPassword" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="login-btn" onclick="doLogin()">Sign In</button>
+      <p class="login-error" id="loginError">Incorrect password. Try again.</p>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div class="admin-panel" id="adminPanel">
+
+    <!-- TOP BAR -->
+    <div class="admin-topbar">
+      <div class="admin-logo">KEMET<span>.</span> Admin</div>
+      <div class="admin-topbar-right">
+        <button class="btn-export" onclick="exportData()" title="Download data.json for server upload">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export Data
+        </button>
+        <span class="admin-badge">Owner</span>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('blogs', this)">Blog Management</button>
+      <button class="admin-tab" onclick="switchTab('messages', this)">Messages & Leads</button>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="admin-content">
+      <div id="dataStatus" class="text-small text-muted" style="margin-bottom:1rem;display:none;"></div>
+
+      <!-- ══════════ BLOG TAB ══════════ -->
+      <div class="tab-panel active" id="tab-blogs">
+
+        <!-- Stats -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-card-label">Total Posts</div>
+            <div class="stat-card-value" id="statTotalPosts">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Categories</div>
+            <div class="stat-card-value" id="statCategories">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">With Images</div>
+            <div class="stat-card-value" id="statWithImages">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Total Messages</div>
+            <div class="stat-card-value"><span id="statMessages">0</span></div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title">All Blog Posts</h2>
+          <a href="blog-create.html" class="btn-add">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Post
+          </a>
+        </div>
+
+        <div id="blogLoadingBar" class="loading-bar" style="display:none;"></div>
+
+        <table class="admin-table" id="blogTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Date</th>
+              <th>Author</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="blogTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- ══════════ MESSAGES TAB ══════════ -->
+      <div class="tab-panel" id="tab-messages">
+
+        <div class="section-header">
+          <h2 class="section-title">Contact Form Messages</h2>
+          <button class="refresh-btn" id="refreshMessagesBtn" onclick="refreshMessages()" title="Refresh messages from Google Sheets">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36M20.49 15a9 9 0 0 1-14.85 3.36"/></svg>
+            Refresh Data
+          </button>
+        </div>
+
+        <div id="messagesLoadingBar" class="loading-bar" style="display:none;"></div>
+
+        <!-- Messages List -->
+        <div id="messagesList">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="messagesTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Message Detail View -->
+        <div class="message-detail" id="messageDetail">
+          <button class="back-to-list" onclick="hideMessageDetail()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back to all messages
+          </button>
+          <div class="message-detail-card">
+            <div class="message-detail-header">
+              <div class="message-detail-name" id="msgDetailName"></div>
+            </div>
+            <div class="message-detail-meta" id="msgDetailMeta"></div>
+            <div class="message-detail-body" id="msgDetailBody"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BLOG MODAL -->
+  <div class="modal-overlay" id="blogModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeBlogModal()">&times;</button>
+      <h3 class="modal-title" id="modalTitle">New Blog Post</h3>
+
+      <input type="hidden" id="editPostId" value="">
+
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-input" id="blogTitle" placeholder="Post title...">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select class="form-select" id="blogCategory">
+          <option value="Technology">Technology</option>
+          <option value="Design">Design</option>
+          <option value="Development">Development</option>
+          <option value="Business">Business</option>
+          <option value="Tutorial">Tutorial</option>
+          <option value="News">News</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Author</label>
+        <input type="text" class="form-input" id="blogAuthor" value="Kemet Team">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Excerpt / Summary</label>
+        <textarea class="form-textarea" id="blogExcerpt" placeholder="Brief summary..." style="min-height:80px;"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Cover Image</label>
+        <div class="cover-upload" id="coverUpload" onclick="document.getElementById('coverInput').click()">
+          <span id="coverLabel">Click to upload image</span>
+          <img id="coverPreview" style="display:none;" alt="Cover">
+        </div>
+        <input type="file" id="coverInput" accept="image/*" style="display:none;" onchange="handleCoverImage(event)">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Content (HTML supported)</label>
+        <textarea class="form-textarea" id="blogContent" placeholder="Write your blog content here... HTML tags are supported."></textarea>
+      </div>
+
+      <button class="btn-save" onclick="saveBlogPost()">Save Post</button>
+    </div>
+  </div>
+
+  <script>
+    /* ══════════════════════════════════
+       AUTH
+    ══════════════════════════════════ */
+    const ADMIN_PASSWORD = "kemet2026";
+
+    let refreshTimer = null;
+    let isAutoRefreshing = false;
+
+    function startAutoRefresh() {
+      if (refreshTimer) clearInterval(refreshTimer);
+      // Refresh every 30 seconds only if tab is visible
+      refreshTimer = setInterval(() => {
+        if (document.visibilityState === 'visible' && cachedMessages.length > 0) {
+          // Silently refresh in background without showing skeleton
+          getMessages(false).then(() => {
+            if (document.getElementById('tab-messages').classList.contains('active')) {
+              renderMessagesTable();
+            }
+          });
+        }
+      }, 30000);
+    }
+
+    function doLogin() {
+      const pw = document.getElementById('loginPassword').value;
+      if (pw === ADMIN_PASSWORD) {
+        sessionStorage.setItem('kemetAdmin', 'true');
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminPanel').classList.add('active');
+        loadAll();
+        startAutoRefresh();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+
+    function doLogout() {
+      if (refreshTimer) clearInterval(refreshTimer);
+      sessionStorage.removeItem('kemetAdmin');
+      location.reload();
+    }
+
+    // Session check moved to bottom of script (after all functions are defined)
+
+    /* ══════════════════════════════════
+       TABS
+    ══════════════════════════════════ */
+    function switchTab(tab, tabEl) {
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      tabEl.classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+      if (tab === 'messages') hideMessageDetail();
+    }
+
+    /* ══════════════════════════════════
+       DATA HELPERS - Using localStorage
+    ══════════════════════════════════ */
+
+    function getPosts() {
+      try {
+        const posts = localStorage.getItem('kemetBlogPosts');
+        return posts ? JSON.parse(posts) : [];
+      } catch (e) {
+        console.error('Error loading posts:', e);
+        return [];
+      }
+    }
+
+    let cachedBlogs = [];
+    let isFetchingBlogs = false;
+    let lastBlogsFetch = 0;
+
+    let cachedMessages = [];
+    let isFetchingMessages = false;
+    let lastMessagesFetch = 0;
+
+    async function getBlogs(useCache = true) {
+      try {
+        // Use cache if recent (less than 10 seconds old)
+        if (useCache && cachedBlogs.length > 0 && Date.now() - lastBlogsFetch < 10000) {
+          return cachedBlogs;
+        }
+
+        if (isFetchingBlogs) {
+          return cachedBlogs;
+        }
+
+        isFetchingBlogs = true;
+
+        // Prefer server-side `data.json` (local file) - fallback to localStorage
+        try {
+          const resp = await fetch('data.json?' + Date.now(), { cache: 'no-store' });
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data && Array.isArray(data.posts)) {
+              cachedBlogs = data.posts;
+              lastBlogsFetch = Date.now();
+              return cachedBlogs;
+            }
+          }
+        } catch (err) {
+          console.warn('Could not fetch data.json, falling back to localStorage:', err);
+        }
+
+        // Fallback: read from localStorage
+        const posts = getPosts();
+        cachedBlogs = posts || [];
+        lastBlogsFetch = Date.now();
+        return cachedBlogs;
+      } catch (e) {
+        console.error('Error loading blogs:', e);
+        return cachedBlogs;
+      } finally {
+        isFetchingBlogs = false;
+      }
+    }
+
+    async function getMessages(useCache = true) {
+      try {
+        // Use cache if recent (less than 10 seconds old)
+        if (useCache && cachedMessages.length > 0 && Date.now() - lastMessagesFetch < 10000) {
+          return cachedMessages;
+        }
+
+        // Prevent simultaneous requests
+        if (isFetchingMessages) {
+          return cachedMessages;
+        }
+
+        isFetchingMessages = true;
+
+        // Always prefer server-side `data.json` for messages.
+        try {
+          const resp = await fetch('/data.json?' + Date.now(), { cache: 'no-store' });
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data && Array.isArray(data.messages)) {
+              cachedMessages = data.messages;
+            } else {
+              cachedMessages = [];
+            }
+            lastMessagesFetch = Date.now();
+            return cachedMessages;
+          }
+        } catch (err) {
+          console.warn('Could not fetch data.json for messages:', err);
+        }
+
+        // If server fetch fails, return empty array (no localStorage fallback)
+        cachedMessages = [];
+        lastMessagesFetch = Date.now();
+        return cachedMessages;
+      } catch (e) {
+        console.error('Error loading messages:', e);
+        return cachedMessages;
+      } finally {
+        isFetchingMessages = false;
+      }
+    }
+
+    // Load data from localStorage (try data.json for migration)
+    async function loadDataFromFile() {
+      const statusEl = document.getElementById('dataStatus');
+      try {
+        // First check localStorage
+        let posts = getPosts();
+        let messages = getMessages();
+        
+        // If empty, try to load from data.json for migration
+        if ((posts.length === 0 || messages.length === 0)) {
+          try {
+            const resp = await fetch('data.json?' + Date.now(), { cache: 'no-store' });
+            if (resp.ok) {
+              const data = await resp.json();
+              
+              // Use server-side data.json for posts and messages (do not migrate to localStorage)
+              if (data.posts && Array.isArray(data.posts) && data.posts.length > 0) {
+                posts = data.posts;
+                console.log('Loaded ' + posts.length + ' posts from data.json');
+              }
+              if (data.messages && Array.isArray(data.messages) && data.messages.length > 0) {
+                messages = data.messages;
+                console.log('Loaded ' + messages.length + ' messages from data.json');
+              }
+            }
+          } catch (e) {
+            console.error('Could not load data.json for migration:', e);
+          }
+        }
+        
+        if (statusEl) statusEl.style.display = 'none';
+      } catch (e) {
+        console.error('Error loading data:', e);
+        if (statusEl) {
+          statusEl.style.display = 'block';
+          statusEl.textContent = 'Data loaded from browser storage.';
+        }
+      }
+    }
+
+    function saveDataToFile(partial) {
+      try {
+        if (partial.posts !== undefined) {
+          localStorage.setItem('kemetBlogPosts', JSON.stringify(partial.posts));
+        }
+        if (partial.messages !== undefined) {
+          localStorage.setItem('kemetMessages', JSON.stringify(partial.messages));
+        }
+      } catch (e) {
+        console.error('Error saving data:', e);
+        alert('Could not save data. Browser storage may be full.');
+      }
+    }
+
+    function savePosts(posts) {
+      saveDataToFile({ posts });
+    }
+
+    // Export all data as downloadable data.json
+    function exportData() {
+      const data = {
+        posts: getPosts(),
+        messages: getMessages()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'data.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    /* ══════════════════════════════════
+       LOAD ALL
+    ══════════════════════════════════ */
+    async function loadAll() {
+      // Show loading indicators immediately - no delay
+      await renderBlogTable();
+      await renderMessagesTable();
+      updateStats();
+    }
+
+    /* ══════════════════════════════════
+       STATS
+    ══════════════════════════════════ */
+    function updateStats() {
+      const posts = cachedBlogs;
+      const msgs = cachedMessages;
+      const cats = [...new Set(posts.map(p => p.category))];
+      const withImg = posts.filter(p => (p.image || p.coverimg)).length;
+
+      document.getElementById('statTotalPosts').textContent = posts.length;
+      document.getElementById('statCategories').textContent = cats.length;
+      document.getElementById('statWithImages').textContent = withImg;
+      document.getElementById('statMessages').textContent = msgs.length;
+    }
+
+    /* ══════════════════════════════════
+       BLOG TABLE
+    ══════════════════════════════════ */
+    function showBlogSkeleton() {
+      const tbody = document.getElementById('blogTableBody');
+      let skeletonHTML = '';
+      for (let i = 0; i < 5; i++) {
+        skeletonHTML += `
+          <tr class="skeleton-table-row skeleton">
+            <td class="skeleton-text" style="width:30px;"></td>
+            <td class="skeleton-text" style="width:180px;"></td>
+            <td class="skeleton-text" style="width:100px;"></td>
+            <td class="skeleton-text" style="width:120px;"></td>
+            <td class="skeleton-text" style="width:120px;"></td>
+            <td class="skeleton-text" style="width:150px;"></td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = skeletonHTML;
+    }
+
+    async function renderBlogTable() {
+      showBlogSkeleton();
+      document.getElementById('blogLoadingBar').style.display = 'block';
+      
+      // Bug 3 fix: removed artificial 800ms delay — render as soon as data arrives
+      const posts = await getBlogs(false);
+      const tbody = document.getElementById('blogTableBody');
+
+      document.getElementById('blogLoadingBar').style.display = 'none';
+
+      if (posts.length === 0) {
+        tbody.innerHTML = `<tr><td colspan=\"6\"><div class=\"empty-state\"><h3>No posts yet</h3><p class=\"text-small text-muted\">Click \"New Post\" to create your first blog.</p></div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = posts.map((p, i) => `
+        <tr>
+          <td class=\"text-muted text-small\">${i + 1}</td>
+          <td class=\"blog-title-cell\">${p.title}</td>
+          <td><span class=\"badge-category\">${p.category}</span></td>
+          <td class=\"text-muted text-small\" title=\"${p.date}\">${p.date || '—'}</td>
+          <td class=\"text-muted text-small\">${p.author}</td>
+          <td>
+            <div class=\"table-actions\">
+              <a href=\"blog-create.html?id=${p.id}\" class=\"btn-edit\">Edit</a>
+              <button class=\"btn-delete\" onclick=\"deleteBlogPost(${p.id})\">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    /* ══════════════════════════════════
+       BLOG MODAL
+    ══════════════════════════════════ */
+    const COVER_UPLOAD_ENDPOINT = 'upload-cover.php';
+    const COVER_UPLOAD_TOKEN = '';
+
+    let coverImageData = '';
+    let coverImageHtml = '';
+    let coverImageFile = null;
+
+    function isImgTag(str) {
+      return typeof str === 'string' && str.trim().toLowerCase().startsWith('<img');
+    }
+
+    function extractImgSrc(tag) {
+      if (!tag || typeof tag !== 'string') return '';
+      const m = tag.match(/src\s*=\s*"([^"]+)"/) || tag.match(/src\s*=\s*'([^']+)'/);
+      return m ? m[1] : '';
+    }
+
+    function makeImgTag(src, alt) {
+      if (!src) return '';
+      const a = (alt || '').replace(/"/g, '&quot;');
+      return `<img src="${src}" alt="${a}">`;
+    }
+
+    async function uploadCoverToServer(postId) {
+      if (!coverImageFile) {
+        if (coverImageHtml) {
+          return extractImgSrc(coverImageHtml) || '';
+        }
+        return coverImageData || '';
+      }
+
+      const fd = new FormData();
+      fd.append('cover', coverImageFile);
+      fd.append('postId', String(postId));
+      fd.append('title', (document.getElementById('blogTitle')?.value || '').trim());
+
+      const headers = {};
+      if (COVER_UPLOAD_TOKEN) {
+        headers['X-Upload-Token'] = COVER_UPLOAD_TOKEN;
+      }
+
+      const response = await fetch(COVER_UPLOAD_ENDPOINT, {
+        method: 'POST',
+        headers,
+        body: fd
+      });
+
+      const raw = await response.text();
+      let data = null;
+      try {
+        data = JSON.parse(raw);
+      } catch (e) {
+        throw new Error('Upload endpoint returned non-JSON response.');
+      }
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Cover upload failed');
+      }
+
+      // Bug 2 fix: prefer data.url (absolute with hostname) over data.path (relative).
+      // upload-cover.php returns both; always use the absolute URL so <img> tags resolve correctly.
+      const uploadedUrl = data.url || data.path || '';
+      if (!uploadedUrl) {
+        throw new Error('Upload succeeded but no URL/path was returned.');
+      }
+
+      coverImageFile = null;
+      coverImageHtml = '';
+      coverImageData = uploadedUrl;
+      return uploadedUrl;
+    }
+
+    function openBlogModal(id) {
+      document.getElementById('editPostId').value = '';
+      document.getElementById('blogTitle').value = '';
+      document.getElementById('blogCategory').value = 'Technology';
+      document.getElementById('blogAuthor').value = 'Kemet Team';
+      document.getElementById('blogExcerpt').value = '';
+      document.getElementById('blogContent').value = '';
+      coverImageData = '';
+      coverImageHtml = '';
+      coverImageFile = null;
+      document.getElementById('coverPreview').style.display = 'none';
+      document.getElementById('coverLabel').style.display = 'block';
+      document.getElementById('modalTitle').textContent = 'New Blog Post';
+
+      document.getElementById('blogModal').classList.add('active');
+    }
+
+    function closeBlogModal() {
+      document.getElementById('blogModal').classList.remove('active');
+    }
+
+    function handleCoverImage(e) {
+      const file = e.target.files[0];
+      if (file) {
+        // Upload limit matches upload-cover.php
+        if (file.size > 5 * 1024 * 1024) {
+          alert('Image is too large. Please use an image smaller than 5MB.');
+          e.target.value = '';
+          return;
+        }
+        coverImageFile = file;
+        const r = new FileReader();
+        r.onload = function(ev) {
+          coverImageData = ev.target.result;
+          coverImageHtml = '';
+          document.getElementById('coverPreview').src = coverImageData;
+          document.getElementById('coverPreview').style.display = 'block';
+          document.getElementById('coverLabel').style.display = 'none';
+        };
+        r.readAsDataURL(file);
+      }
+    }
+
+    function formatDate() {
+      return new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    async function saveBlogPost() {
+      const title = document.getElementById('blogTitle').value.trim();
+      const category = document.getElementById('blogCategory').value;
+      const author = document.getElementById('blogAuthor').value.trim();
+      const excerpt = document.getElementById('blogExcerpt').value.trim();
+      const content = document.getElementById('blogContent').value.trim();
+      const editId = document.getElementById('editPostId').value;
+      const blogId = String(editId || Date.now());
+
+      if (!title) { alert('Title is required.'); return; }
+      if (!content) { alert('Content is required.'); return; }
+
+      const saveBtn = document.querySelector('#blogModal .btn-save');
+      if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Saving…'; }
+
+      try {
+          const uploadedCover = await uploadCoverToServer(blogId);
+
+          // Normalize uploaded cover to a relative path when possible (remove host and leading slash)
+          let finalImage = '';
+          if (uploadedCover) {
+            if (/^https?:\/\//i.test(uploadedCover)) {
+              finalImage = uploadedCover.replace(/^https?:\/\/[^\/]+/i, '').replace(/^\//, '');
+            } else {
+              finalImage = String(uploadedCover).replace(/^\//, '');
+            }
+          } else if (coverImageData) {
+            finalImage = coverImageData;
+          }
+
+          const blog = {
+            id: blogId,
+            title,
+            category,
+            author: author || 'Kemet Team',
+            excerpt: excerpt || content.replace(/<[^>]*>/g, '').substring(0, 150),
+            content,
+            image: finalImage || '',
+            date: formatDate()
+          };
+
+        console.debug('Saving blog payload:', blog);
+
+        // Bug 1 fix: GAS doPost only reads e.postData.contents (JSON) or e.parameter (query string).
+        // FormData (multipart) is invisible to GAS. Send JSON so the sheet row is populated correctly.
+        const payload = {
+          action: 'saveBlog',
+          id: String(blog.id),
+          title: blog.title,
+          category: blog.category,
+          author: blog.author,
+          excerpt: blog.excerpt,
+          content: blog.content,
+          date: blog.date,
+          image: blog.image || ''
+        };
+          console.debug('Saving ID:', blog.id, 'image URL length:', (blog.image || '').length);
+
+          // Update the local posts array then persist the full data file via save-data.php
+          let posts = await getBlogs(false);
+          const idx = posts.findIndex(p => String(p.id) === String(blog.id));
+          if (idx >= 0) {
+            posts[idx] = Object.assign({}, posts[idx], blog);
+          } else {
+            posts.unshift(blog);
+          }
+
+          const messages = await getMessages(false);
+
+          const response = await fetch('save-data.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ posts: posts, messages: messages }),
+            cache: 'no-store'
+          });
+
+          let data = null;
+          try { data = await response.json(); } catch (jsonErr) { const txt = await response.text().catch(() => ''); data = { success: response.ok, message: txt }; }
+
+          console.debug('Save response:', response.status, data);
+
+          if (response.ok && data && data.success) {
+            closeBlogModal();
+            // Update cache and UI
+            cachedBlogs = posts;
+            lastBlogsFetch = Date.now();
+            try { savePosts(posts); } catch (e) { console.warn('Failed to update local cache:', e); }
+            await renderBlogTable();
+            updateStats();
+            alert('Blog post saved successfully!');
+          } else {
+            const msg = (data && data.message) ? data.message : 'Unknown server error';
+            console.warn('Save failed, falling back to local save:', msg);
+            // fallback to local save
+            try {
+              const postsLocal = getPosts();
+              const saving = Object.assign({}, blog);
+              const idx2 = postsLocal.findIndex(p => String(p.id) === String(blog.id));
+              if (idx2 >= 0) { postsLocal[idx2] = Object.assign({}, postsLocal[idx2], saving); } else { postsLocal.unshift(saving); }
+              savePosts(postsLocal);
+              closeBlogModal();
+              cachedBlogs = [];
+              lastBlogsFetch = 0;
+              await renderBlogTable();
+              updateStats();
+              alert('Saved locally. Server may be unavailable.');
+            } catch (e) {
+              console.error('Local fallback failed:', e);
+              alert('Failed to save post: ' + (msg || 'Unknown error'));
+            }
+          }
+      } catch (e) {
+        console.error('Save error:', e);
+        // fallback: save to localStorage
+        try {
+              const blog = {
+                id: blogId,
+                title,
+                category,
+                author: author || 'Kemet Team',
+                excerpt: excerpt || content.replace(/<[^>]*>/g, '').substring(0, 150),
+                content,
+                image: coverImageData || '',
+                date: formatDate()
+              };
+          const posts = getPosts();
+          const saving = Object.assign({}, blog);
+          const idx = posts.findIndex(p => String(p.id) === String(blog.id));
+          if (idx >= 0) { posts[idx] = Object.assign({}, posts[idx], saving); } else { posts.unshift(saving); }
+          savePosts(posts);
+          closeBlogModal();
+          cachedBlogs = [];
+          lastBlogsFetch = 0;
+          await renderBlogTable();
+          updateStats();
+          alert('Saved locally. Server may be unavailable.');
+        } catch (localErr) {
+          console.error('Save fallback failed:', localErr);
+          alert('Unable to save post. Error: ' + e.message);
+        }
+      } finally {
+        if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'Save Post'; }
+      }
+    }
+
+    function editBlogPost(id) {
+      const post = cachedBlogs.find(p => p.id == id);
+      if (!post) return;
+
+      document.getElementById('editPostId').value = post.id;
+      document.getElementById('blogTitle').value = post.title;
+      document.getElementById('blogCategory').value = post.category;
+      document.getElementById('blogAuthor').value = post.author;
+      document.getElementById('blogExcerpt').value = post.excerpt;
+      document.getElementById('blogContent').value = post.content;
+      document.getElementById('modalTitle').textContent = 'Edit Post';
+
+      const srcRaw = post.image || post.coverimg || '';
+      if (srcRaw) {
+        if (isImgTag(srcRaw)) {
+          coverImageHtml = srcRaw;
+          coverImageData = extractImgSrc(srcRaw) || '';
+        } else {
+          coverImageHtml = '';
+          coverImageData = srcRaw;
+        }
+        coverImageFile = null;
+        if (coverImageData) {
+          document.getElementById('coverPreview').src = coverImageData;
+          document.getElementById('coverPreview').style.display = 'block';
+          document.getElementById('coverLabel').style.display = 'none';
+        }
+      } else {
+        coverImageData = '';
+        coverImageHtml = '';
+        coverImageFile = null;
+        document.getElementById('coverPreview').style.display = 'none';
+        document.getElementById('coverLabel').style.display = 'block';
+      }
+
+      document.getElementById('blogModal').classList.add('active');
+    }
+
+    async function deleteBlogPost(id) {
+      if (!confirm('Are you sure you want to delete this post?')) return;
+      
+      try {
+        const response = await fetch('/api/blog/' + encodeURIComponent(id), {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          cache: 'no-store'
+        });
+
+        const data = await response.json().catch(() => null);
+
+        if (response.ok && data && data.success) {
+          // Update cache and UI
+          const posts = await getBlogs(false);
+          cachedBlogs = posts;
+          lastBlogsFetch = Date.now();
+          try { savePosts(posts); } catch (e) { /* ignore */ }
+          await renderBlogTable();
+          updateStats();
+          alert('Blog post deleted successfully!');
+        } else {
+          alert('Failed to delete blog post: ' + ((data && data.error) || 'Unknown error'));
+        }
+      } catch (e) {
+        console.error('Delete error:', e);
+        alert('Unable to delete post right now. Error: ' + (e && e.message));
+      }
+    }
+
+    /* ══════════════════════════════════
+       MESSAGES TABLE
+    ══════════════════════════════════ */
+    function showMessagesSkeleton() {
+      const tbody = document.getElementById('messagesTableBody');
+      let skeletonHTML = '';
+      for (let i = 0; i < 5; i++) {
+        skeletonHTML += `
+          <tr class="skeleton-table-row skeleton">
+            <td class="skeleton-text" style="width:30px;"></td>
+            <td class="skeleton-text" style="width:150px;"></td>
+            <td class="skeleton-text" style="width:200px;"></td>
+            <td class="skeleton-text" style="width:100px;"></td>
+            <td class="skeleton-text" style="width:100px;"></td>
+            <td class="skeleton-text" style="width:100px;"></td>
+            <td class="skeleton-text" style="width:150px;"></td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = skeletonHTML;
+    }
+
+    async function renderMessagesTable() {
+      showMessagesSkeleton();
+      document.getElementById('messagesLoadingBar').style.display = 'block';
+      
+      // Bug 3 fix: removed artificial 800ms delay — render as soon as data arrives
+      const msgs = await getMessages(false);
+      const tbody = document.getElementById('messagesTableBody');
+
+      document.getElementById('messagesLoadingBar').style.display = 'none';
+
+      if (msgs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><h3>No messages yet</h3><p class="text-small text-muted">Messages from the contact form will appear here.</p></div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = msgs.map((m, i) => `
+        <tr>
+          <td class="text-muted text-small">${i + 1}</td>
+          <td><strong>${m.name}</strong>${m.company ? '<br><span class="text-small text-muted">' + m.company + '</span>' : ''}</td>
+          <td class="text-muted text-small"><a href="mailto:${m.email}" style="color:var(--primary)">${m.email}</a></td>
+          <td class="text-muted text-small">${m.phone || '—'}</td>
+          <td><span class="badge-category">${m.service || 'General'}</span></td>
+          <td class="text-muted text-small" title="${m.date}">${m.date || '—'}</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn-view" onclick="viewMessage(${i})">View</button>
+              <button class="btn-delete" onclick="deleteMessage(${i})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function refreshMessages() {
+      const btn = document.getElementById('refreshMessagesBtn');
+      btn.disabled = true;
+      btn.classList.add('loading');
+      
+      // Force fresh fetch by bypassing cache
+      await getMessages(false);
+      await renderMessagesTable();
+      
+      btn.disabled = false;
+      btn.classList.remove('loading');
+    }
+
+    function viewMessage(idx) {
+      const m = cachedMessages[idx];
+      if (!m) return;
+
+      document.getElementById('msgDetailName').textContent = m.name;
+      document.getElementById('msgDetailMeta').innerHTML = `
+        <div class="meta-item"><strong>Email:</strong> <a href="mailto:${m.email}" style="color:var(--primary)">${m.email}</a></div>
+        <div class="meta-item"><strong>Phone:</strong> ${m.phone || '—'}</div>
+        <div class="meta-item"><strong>Company:</strong> ${m.company || '—'}</div>
+        <div class="meta-item"><strong>Service:</strong> ${m.service || 'General'}</div>
+        <div class="meta-item"><strong>Budget:</strong> ${m.budget || '—'}</div>
+        <div class="meta-item"><strong>Timeline:</strong> ${m.timeline || '—'}</div>
+        <div class="meta-item"><strong>Source:</strong> ${m.source || '—'}</div>
+        <div class="meta-item"><strong>Date:</strong> ${m.date || '—'}</div>
+      `;
+      document.getElementById('msgDetailBody').textContent = m.message || m.project || m.notes || 'No message content.';
+
+      document.getElementById('messagesList').style.display = 'none';
+      document.getElementById('messageDetail').classList.add('active');
+    }
+
+    function hideMessageDetail() {
+      document.getElementById('messagesList').style.display = 'block';
+      document.getElementById('messageDetail').classList.remove('active');
+    }
+
+    async function deleteMessage(idx) {
+      if (!confirm('Delete this message?')) return;
+      
+      const msg = cachedMessages[idx];
+      if (!msg || !msg.id) {
+        alert('Unable to delete message - invalid ID.');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/message/' + encodeURIComponent(msg.id), {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          cache: 'no-store'
+        });
+
+        const data = await response.json().catch(() => null);
+
+        if (response.ok && data && data.success) {
+          // Refresh the messages list
+          const messages = await getMessages(false);
+          cachedMessages = messages;
+          lastMessagesFetch = Date.now();
+          try { localStorage.setItem('kemetMessages', JSON.stringify(messages)); } catch (e) { /* ignore */ }
+          await renderMessagesTable();
+          updateStats();
+          alert('Message deleted successfully!');
+        } else {
+          alert('Failed to delete message: ' + ((data && data.error) || 'Unknown error'));
+        }
+      } catch (e) {
+        console.error('Delete error:', e);
+        alert('Unable to delete message right now. Error: ' + (e && e.message));
+      }
+    }
+
+    /* ══════════════════════════════════
+       INIT — runs after all functions defined
+    ══════════════════════════════════ */
+    if (sessionStorage.getItem('kemetAdmin') === 'true') {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').classList.add('active');
+      loadAll();
+      startAutoRefresh();
+    }
+  </script>
+</body>
+
+</html>

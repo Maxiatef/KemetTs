@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Kemet Technologies</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F7FA;
+      --surface: #EBEEF4;
+      --surface2: #E0E5EE;
+      --text: #0F1419;
+      --muted: #5A6B7F;
+      --primary: #143c93;
+      --accent: #ba1d49;
+      --accent-warm: #d96f18;
+      --border: rgba(20, 60, 147, 0.15);
+      --dark: #0D0E10;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      background: rgba(250, 248, 244, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Open Sans', 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      height: auto;
+      min-height: 46px;
+    }
+
+    .nav-logo img {
+      height: 46px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.6rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* underline that expands from center */
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.28rem;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      background: var(--text);
+      color: var(--bg);
+      padding: 0.4rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: var(--text);
+    }
+
+    /* HERO */
+    .page-hero {
+      min-height: 45vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 9rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .page-hero-eyebrow {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-hero-eyebrow::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      max-width: 100%;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .page-hero-sub {
+      margin-top: 1.75rem;
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 80%;
+      line-height: 1.85;
+    }
+
+    /* BLOG GRID */
+    .blog-section {
+      padding: 4rem 4rem 8rem;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    /* FEATURED POST */
+    .blog-card.featured {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .blog-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .blog-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    .blog-card-image {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+    }
+
+    .blog-card.featured .blog-card-image {
+      aspect-ratio: 16 / 9;
+    }
+
+    .blog-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .blog-card:hover .blog-card-image img {
+      transform: scale(1.08);
+    }
+
+    .blog-card-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .blog-card:hover .blog-card-image::after {
+      opacity: 1;
+    }
+
+    .blog-card-image .no-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--muted);
+    }
+
+    .blog-card-image .no-image-placeholder svg {
+      width: 48px;
+      height: 48px;
+      opacity: 0.3;
+    }
+
+    .blog-card-content {
+      padding: 1.5rem;
+    }
+
+    .blog-card.featured .blog-card-content {
+      padding: 2rem;
+    }
+
+    .blog-card-category {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .blog-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      transition: color 0.3s ease;
+    }
+
+    .blog-card.featured .blog-card-title {
+      font-size: 1.8rem;
+    }
+
+    .blog-card:hover .blog-card-title {
+      color: var(--accent);
+    }
+
+    .blog-card-excerpt {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+      display: -webkit-box;
+      /* Standard property for newer browsers */
+      line-clamp: 3;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .blog-card.featured .blog-card-excerpt {
+      /* Standard property for newer browsers */
+      line-clamp: 4;
+      -webkit-line-clamp: 4;
+    }
+
+    .blog-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .blog-card-date {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .blog-card-read {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap 0.3s ease;
+    }
+
+    .blog-card:hover .blog-card-read {
+      gap: 0.8rem;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+
+    .empty-state-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      color: var(--border);
+    }
+
+    .empty-state h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .empty-state p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .empty-state-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.9rem 1.8rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.3s ease;
+    }
+
+    .empty-state-btn:hover {
+      background: var(--primary);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      padding: 3rem 4rem 2rem;
+      border-top: 1px solid rgba(20, 60, 147, 0.2);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(20, 60, 147, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.45);
+      line-height: 1.8;
+      margin-top: 1rem;
+      max-width: 260px;
+    }
+
+    .footer-col-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .footer-links-list a {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-links-list a::before {
+      content: '·';
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .footer-links-list a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #F5F7FA;
+      letter-spacing: 0.12em;
+    }
+
+    .footer-logo span {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(245, 247, 250, 0.3);
+      letter-spacing: 0.05em;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1200px) {
+      .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .blog-card.featured {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+    }
+
+    @media(max-width:900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .page-hero {
+        padding: 8rem 1.5rem 3rem;
+      }
+
+      .blog-section {
+        padding: 2rem 1.5rem 6rem;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+       .blog-card.featured {
+         grid-column: span 1;
+       }
+       
+       .blog-intro {
+         padding: 3rem 1.5rem 3rem;
+       }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+
+    /* SKELETON LOADING */
+    .skeleton {
+      background: linear-gradient(90deg, #9ca3af 0%, #e5e7eb 50%, #9ca3af 100%);
+      background-size: 200% 100%;
+      animation: skeletonLoading 1.2s infinite ease-in-out;
+      border-radius: 8px;
+    }
+
+    @keyframes skeletonLoading {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    .skeleton-card {
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 16/12;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .skeleton-image {
+      width: 100%;
+      height: 200px;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .skeleton-content {
+      padding: 1.2rem;
+      background: white;
+    }
+
+    .skeleton-category {
+      width: 60px;
+      height: 20px;
+      border-radius: 4px;
+      margin-bottom: 0.8rem;
+    }
+
+    .skeleton-title {
+      width: 85%;
+      height: 24px;
+      border-radius: 4px;
+      margin-bottom: 0.8rem;
+    }
+
+    .skeleton-excerpt {
+      width: 100%;
+      height: 16px;
+      border-radius: 4px;
+      margin-bottom: 0.6rem;
+    }
+
+    .skeleton-excerpt:last-of-type {
+      width: 80%;
+    }
+
+     .skeleton-meta {
+       width: 40%;
+       height: 14px;
+       border-radius: 4px;
+       margin-top: 1rem;
+     }
+   
+   /* BLOG INTRODUCTION */
+   .blog-intro {
+     padding: 6rem 4rem 4rem;
+     background: var(--bg);
+     position: relative;
+   }
+   
+   .blog-intro::before {
+     content: '';
+     position: absolute;
+     inset: 0;
+     background-image:
+       radial-gradient(ellipse 80% 60% at 20% 30%, rgba(186, 29, 73, 0.04), transparent),
+       radial-gradient(ellipse 60% 80% at 80% 70%, rgba(20, 60, 147, 0.03), transparent);
+     pointer-events: none;
+   }
+   
+   .blog-intro .container {
+     max-width: 900px;
+     margin: 0 auto;
+     position: relative;
+     z-index: 2;
+   }
+   
+   .blog-intro .section-title {
+     font-family: 'Playfair Display', serif;
+     font-size: clamp(2.8rem, 5vw, 4.5rem);
+     font-weight: 700;
+     line-height: 1.1;
+     color: var(--text);
+     margin-bottom: 1.5rem;
+     letter-spacing: -0.02em;
+   }
+   
+   .blog-intro .section-intro {
+     font-size: 1.1rem;
+     line-height: 1.8;
+     color: var(--muted);
+     max-width: 700px;
+   }
+   
+    @media(max-width:900px) {
+      .blog-intro {
+        padding: 3rem 1.5rem 3rem;
+      }
+
+      .blog-intro .section-title {
+        font-size: clamp(2rem, 8vw, 2.8rem);
+      }
+
+      .blog-intro .section-intro {
+        font-size: 0.98rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="site-enhancements.css" />
+  <script src="site-enhancements.js" defer></script>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blogs.html" class="active">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start Project</a>
+  </nav>
+
+    <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero-eyebrow">Blog &amp; Insights</div>
+    <h1>The Kemet Technologies Blog</h1>
+    <p class="page-hero-sub">The Kemet Technologies blog is where our team shares what we're seeing in the field — emerging technology trends, strategic frameworks, and actionable guidance for business owners and digital leaders navigating a rapidly evolving landscape.
+        We write for decision-makers, not just developers. If you're trying to understand your options, evaluate a technology investment, or stay ahead of digital trends without getting lost in technical jargon — you're in the right place.
+      </p>
+  </section>
+
+  <section class="blog-intro">
+    <div class="container">
+      <div class="section-label">Editorial Focus</div>
+      <h2 class="section-title">Ideas, strategy, and practical guidance for leaders building with technology.</h2>
+      <p class="section-intro">From AI adoption and custom software planning to website conversion strategy, we share the frameworks we use with clients every day so teams can make better digital decisions with more confidence.</p>
+    </div>
+  </section>
+
+
+  <!-- BLOG GRID -->
+  <section class="blog-section">
+    <div class="blog-grid" id="blogGrid"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
+          of engineering and design expertise.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links-list">
+          <li><a href="#">Web Design &amp; Dev</a></li>
+          <li><a href="#">Mobile Apps</a></li>
+          <li><a href="#">SEO, GEO &amp; AEO</a></li>
+          <li><a href="#">Custom Software</a></li>
+          <li><a href="#">AI Integrations</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links-list">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blogs.html">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links-list">
+          <li><a href="tel:+15597128024">+1 (559) 712-8024</a></li>
+          <li><a href="mailto:editors@kemetmediagroup.com">editors@kemetmediagroup.com</a></li>
+          <li><a href="#">Clovis, CA 93612</a></li>
+          <li><a href="#">Book a Call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Load blogs from Google Sheets
+    async function loadData() {
+      // Show skeleton loaders first
+      showBlogsSkeleton();
+      
+      try {
+        // Load from local data.json first
+        const response = await fetch('data.json?' + Date.now(), { cache: 'no-store' });
+        if (response.ok) {
+          const data = await response.json();
+          if (data && Array.isArray(data.posts)) {
+            window.allBlogs = data.posts;
+          } else {
+            window.allBlogs = [];
+          }
+        } else {
+          window.allBlogs = [];
+        }
+      } catch (e) {
+        console.error('Error loading blogs from data.json:', e);
+        window.allBlogs = [];
+      }
+      
+      /* Bug 3 fix: removed artificial 800ms delay — render immediately once data arrives */
+      renderBlogCards();
+    }
+
+    /*Get posts from global allBlogs array */
+    function getPosts() {
+      return window.allBlogs || [];
+    }
+
+    function isImgTag(str) {
+      return typeof str === 'string' && str.trim().toLowerCase().startsWith('<img');
+    }
+
+    function makeImgTag(src, alt) {
+      if (!src) return '';
+      const a = (alt || '').replace(/"/g, '&quot;');
+      return `<img src="${src}" alt="${a}">`;
+    }
+
+    function slugify(str) {
+      return String(str || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function showBlogsSkeleton() {
+      const grid = document.getElementById('blogGrid');
+      const skeletonHTML = Array(4).fill(0).map(() => `
+        <article class="blog-card skeleton-card">
+          <div class="skeleton-image skeleton"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-category skeleton"></div>
+            <div class="skeleton-title skeleton"></div>
+            <div class="skeleton-excerpt skeleton"></div>
+            <div class="skeleton-excerpt skeleton"></div>
+            <div class="skeleton-meta skeleton"></div>
+          </div>
+        </article>
+      `).join('');
+      
+      grid.innerHTML = skeletonHTML;
+    }
+
+    function renderBlogCards() {
+      const grid = document.getElementById('blogGrid');
+      const posts = getPosts();
+      
+      /* // If no posts, show empty state (not skeleton - that's already shown during loading) */
+      if (!posts || posts.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/>
+              <line x1="7" y1="8" x2="17" y2="8"/>
+              <line x1="7" y1="12" x2="17" y2="12"/>
+              <line x1="7" y1="16" x2="12" y2="16"/>
+            </svg>
+            <h3>No blog posts yet</h3>
+            <p>Start creating content to share your insights with the world.</p>
+            <a href="blog-create.html" class="empty-state-btn">Create Your First Post</a>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = posts.map((post, index) => {
+        const isFeatured = index === 0;
+          const slug = slugify(post.title || String(post.id));
+          const slugParam = encodeURIComponent(slug);
+          const srcRaw = post.image || post.coverimg || '';
+          const src = isImgTag(srcRaw) ? srcRaw : (srcRaw ? String(srcRaw).replace(/\\/g, '/') : '');
+          const imageHTML = src
+            ? (isImgTag(src) ? src : makeImgTag(src, post.title))
+            : `<div class="no-image-placeholder">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                 <circle cx="8.5" cy="8.5" r="1.5"/>
+                 <polyline points="21 15 16 10 5 21"/>
+               </svg>
+             </div>`;
+        
+        return `
+          <article class="blog-card ${isFeatured ? 'featured' : ''}" onclick="viewPost('${slugParam}')">
+            <div class="blog-card-image">
+              ${imageHTML}
+            </div>
+            <div class="blog-card-content">
+              <span class="blog-card-category">${post.category}</span>
+              <h2 class="blog-card-title">${post.title}</h2>
+              <p class="blog-card-excerpt">${post.excerpt}</p>
+              <div class="blog-card-meta">
+                <span class="blog-card-date">${post.date}</span>
+                <span class="blog-card-read">Read More →</span>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      /* // Animate cards on scroll */
+      const cards = document.querySelectorAll('.blog-card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, i * 100);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      cards.forEach(card => observer.observe(card));
+    }
+
+    function viewPost(slugParam) {
+      window.location.href = `blog-post.html?title=${slugParam}`;
+    }
+
+    // Initialize - load from data.json first
+    loadData();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Post — Kemet Technologies</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F7FA;
+      --surface: #EBEEF4;
+      --surface2: #E0E5EE;
+      --text: #0F1419;
+      --muted: #5A6B7F;
+      --primary: #143c93;
+      --accent: #ba1d49;
+      --accent-warm: #d96f18;
+      --border: rgba(20, 60, 147, 0.15);
+      --dark: #0D0E10;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      background: rgba(250, 248, 244, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Open Sans', 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      height: auto;
+      min-height: 46px;
+    }
+
+    .nav-logo img {
+      height: 46px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.6rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* underline that expands from center */
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.28rem;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      background: var(--text);
+      color: var(--bg);
+      padding: 0.4rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: var(--text);
+    }
+
+    /* POST HERO */
+    .post-hero {
+      padding-top: 100px;
+      background: var(--dark);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 4rem 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .post-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .post-back:hover {
+      color: var(--accent);
+    }
+
+    .post-category {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      background: rgba(186, 29, 73, 0.2);
+      border-radius: 4px;
+    }
+
+    .post-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.85rem;
+    }
+
+    .post-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .post-meta-item svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+    }
+
+    .post-hero-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      background: linear-gradient(135deg, rgba(20, 60, 147, 0.3) 0%, rgba(186, 29, 73, 0.2) 100%);
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    /* COVER IMAGE */
+    .post-cover {
+      max-width: 1100px;
+      margin: -3rem auto 0;
+      padding: 0 4rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .post-cover img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+      display: block;
+    }
+
+    /* POST CONTENT */
+    .post-content-wrapper {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 4rem 4rem 6rem;
+    }
+
+    .post-content {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--text);
+    }
+
+    .post-content h1, .post-content h2, .post-content h3 {
+      font-family: 'Playfair Display', serif;
+      margin: 2.5rem 0 1rem;
+      color: var(--text);
+    }
+
+    .post-content h1 { font-size: 2.2rem; }
+    .post-content h2 { font-size: 1.8rem; }
+    .post-content h3 { font-size: 1.4rem; }
+
+    .post-content p {
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .post-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin: 2rem 0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-content blockquote {
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      background: var(--surface);
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+
+    .post-content ul, .post-content ol {
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .post-content li {
+      margin-bottom: 0.75rem;
+    }
+
+    .post-content a {
+      color: var(--accent);
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    .post-content a:hover {
+      color: var(--primary);
+    }
+
+    .post-content hr {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 3rem 0;
+    }
+
+    /* SHARE SECTION */
+    .post-share {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+
+    .post-share-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .share-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .share-btn:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .share-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+
+    /* NOT FOUND */
+    .not-found {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .not-found h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .not-found p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .not-found a {
+      background: var(--accent);
+      color: white;
+      padding: 0.85rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .not-found a:hover {
+      background: var(--primary);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      padding: 3rem 4rem 2rem;
+      border-top: 1px solid rgba(20, 60, 147, 0.2);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(20, 60, 147, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.45);
+      line-height: 1.8;
+      margin-top: 1rem;
+      max-width: 260px;
+    }
+
+    .footer-col-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .footer-links-list a {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-links-list a::before {
+      content: '·';
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .footer-links-list a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #F5F7FA;
+      letter-spacing: 0.12em;
+    }
+
+    .footer-logo span {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(245, 247, 250, 0.3);
+      letter-spacing: 0.05em;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+    /* RESPONSIVE */
+    @media(max-width:900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .post-hero-content {
+        padding: 4rem 1.5rem 3rem;
+      }
+
+      .post-cover {
+        padding: 0 1.5rem;
+        margin-top: -2rem;
+      }
+
+      .post-content-wrapper {
+        padding: 3rem 1.5rem 5rem;
+      }
+
+      .post-meta {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      
+    }
+  </style>
+  <link rel="stylesheet" href="site-enhancements.css" />
+  <script src="site-enhancements.js" defer></script>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blogs.html" class="active">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start Project</a>
+  </nav>
+
+  <!-- POST CONTENT (dynamically populated) -->
+  <div id="postContainer"></div>
+
+  <!-- EDIT BUTTON -->
+  
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
+          of engineering and design expertise.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links-list">
+          <li><a href="#">Web Design &amp; Dev</a></li>
+          <li><a href="#">Mobile Apps</a></li>
+          <li><a href="#">SEO, GEO &amp; AEO</a></li>
+          <li><a href="#">Custom Software</a></li>
+          <li><a href="#">AI Integrations</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links-list">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blogs.html">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links-list">
+          <li><a href="tel:+15597128024">+1 (559) 712-8024</a></li>
+          <li><a href="mailto:editors@kemetmediagroup.com">editors@kemetmediagroup.com</a></li>
+          <li><a href="#">Clovis, CA 93612</a></li>
+          <li><a href="#">Book a Call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    let serverPosts = [];
+
+    function getPosts() {
+      return serverPosts;
+    }
+
+    function isImgTag(str) {
+      return typeof str === 'string' && str.trim().toLowerCase().startsWith('<img');
+    }
+
+    function slugify(str) {
+      return String(str || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function getPostId() {
+      const params = new URLSearchParams(window.location.search);
+      return parseInt(params.get('id'));
+    }
+
+    // Load data from data.json file
+    async function loadData() {
+      try {
+        const resp = await fetch('data.json?' + Date.now(), { cache: 'no-store' });
+        if (resp.ok) {
+          const data = await resp.json();
+          serverPosts = Array.isArray(data.posts) ? data.posts : [];
+        }
+      } catch (e) {
+        serverPosts = [];
+      }
+      renderPost();
+    }
+
+    function renderPost() {
+      const container = document.getElementById('postContainer');
+      const params = new URLSearchParams(window.location.search);
+      const idParam = params.get('id');
+      const titleParam = params.get('title');
+      const posts = getPosts();
+
+      let post = null;
+      if (idParam) {
+        // Try numeric id match first
+        post = posts.find(p => String(p.id) === String(idParam));
+        if (!post) {
+          // If not found, treat the `id` param as a slug or raw title
+          const decodedId = decodeURIComponent(idParam || '');
+          post = posts.find(p => slugify(p.title) === decodedId || String(p.title) === decodedId);
+        }
+      }
+      if (!post && titleParam) {
+        const decoded = decodeURIComponent(titleParam || '');
+        post = posts.find(p => slugify(p.title) === decoded || String(p.title) === decoded);
+      }
+
+      if (!post) {
+        container.innerHTML = `
+          <div class="not-found" style="padding-top: 120px;">
+            <h2>Post Not Found</h2>
+            <p>The blog post you're looking for doesn't exist or has been removed.</p>
+            <a href="blogs.html">Back to Blog</a>
+          </div>
+        `;
+        return;
+      }
+
+      // Update page title
+      document.title = `${post.title} — Kemet Blog`;
+
+      const coverImageRaw = post.image || post.coverimg || '';
+      const coverImage = isImgTag(coverImageRaw) ? coverImageRaw : (coverImageRaw ? String(coverImageRaw).replace(/\\/g, '/') : '');
+      const coverHTML = coverImage
+        ? (isImgTag(coverImage)
+            ? `<div class="post-cover animate-in animate-delay-2">${coverImage}</div>`
+            : `<div class="post-cover animate-in animate-delay-2"><img src="${coverImage}" alt="${post.title}"></div>`)
+        : '';
+
+      container.innerHTML = `
+        <!-- POST HERO -->
+        <section class="post-hero">
+          <div class="post-hero-content">
+            <a href="blogs.html" class="post-back animate-in animate-delay-1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+              </svg>
+              Back to Blog
+            </a>
+            <span class="post-category animate-in animate-delay-2">${post.category}</span>
+            <h1 class="post-title animate-in animate-delay-2">${post.title}</h1>
+            <div class="post-meta animate-in animate-delay-3">
+              <span class="post-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                ${post.author}
+              </span>
+              <span class="post-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                ${post.date}
+              </span>
+            </div>
+          </div>
+          <div class="post-hero-bg"></div>
+        </section>
+
+        ${coverHTML}
+
+        <!-- POST CONTENT -->
+        <article class="post-content-wrapper">
+          <div class="post-content animate-in animate-delay-3">
+            ${post.content}
+          </div>
+
+          <!-- SHARE -->
+          <div class="post-share">
+            <span class="post-share-label">Share</span>
+            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}" target="_blank" class="share-btn" title="Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn" title="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(post.title)}" target="_blank" class="share-btn" title="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="#" class="share-btn" title="Copy Link" onclick="copyLink(event)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      `;
+
+      // Edit button removed — no href to set
+    }
+
+    function copyLink(event) {
+      event.preventDefault();
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Link copied to clipboard!');
+      });
+    }
+
+    // Initialize - load from data.json first
+    loadData();
+  </script>
+</body>
+
+</html>

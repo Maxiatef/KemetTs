@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Learn about Kemet Technologies, our mission, values, and the cross-functional team behind our digital solutions." />
+  <title>About Us - Kemet Technologies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F7FA;
+      --surface: #EBEEF4;
+      --surface2: #E0E5EE;
+      --text: #0F1419;
+      --muted: #5A6B7F;
+      --accent: #ba1d49;
+      --accent-warm: #d96f18;
+      --border: rgba(20, 60, 147, 0.15);
+      --dark: #0D0E10;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      background: rgba(250, 248, 244, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Open Sans', 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      height: auto;
+      min-height: 46px;
+    }
+
+    .nav-logo img {
+      height: 46px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.6rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* underline that expands from center */
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.28rem;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      background: var(--text);
+      color: var(--bg);
+      padding: 0.4rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: var(--text);
+    }
+
+    .section-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .about-hero {
+      min-height: 94vh;
+      padding: 10rem 4rem 6rem;
+      background: var(--dark);
+      color: #F5F7FA;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(20, 60, 147, 0.07) 80px);
+      pointer-events: none;
+    }
+
+    .about-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 75% 25%, rgba(186, 29, 73, 0.12), transparent);
+      pointer-events: none;
+    }
+
+    .hero-content,
+    .hero-panel {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 6.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-content h1 em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      max-width: 620px;
+      color: rgba(245, 247, 250, 0.68);
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+
+    .hero-panel {
+      border-left: 1px solid rgba(20, 60, 147, 0.25);
+      padding-left: 2rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .hero-kpi {
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid rgba(245, 247, 250, 0.08);
+    }
+
+    .hero-kpi-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #F5F7FA;
+    }
+
+    .hero-kpi-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(245, 247, 250, 0.45);
+    }
+
+    .story {
+      padding: 7rem 4rem;
+      background: var(--bg);
+      position: relative;
+    }
+
+    .story::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(ellipse 70% 60% at 20% 40%, rgba(186, 29, 73, 0.04), transparent);
+      pointer-events: none;
+    }
+
+    .story-grid {
+      position: relative;
+      z-index: 2;
+      max-width: 1220px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 3rem;
+    }
+
+    .story-copy p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .mission-vision {
+      padding: 2rem 4rem 7rem;
+      background: var(--bg);
+    }
+
+    .mv-grid {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem;
+    }
+
+    .mv-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2.2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .mv-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+    }
+
+    .mv-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px rgba(13, 14, 16, 0.08);
+    }
+
+    .mv-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .mv-card p {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 0.96rem;
+    }
+
+    .values {
+      padding: 7rem 4rem;
+      background: var(--surface);
+    }
+
+    .values-head {
+      max-width: 1220px;
+      margin: 0 auto 2.2rem;
+    }
+
+    .values-grid {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .value-card {
+      background: var(--bg);
+      padding: 2rem;
+      min-height: 225px;
+      transition: background 0.25s ease;
+    }
+
+    .value-card:hover {
+      background: var(--surface2);
+    }
+
+    .value-num {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      display: inline-block;
+    }
+
+    .value-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .value-card p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.92rem;
+    }
+
+    .team {
+      padding: 7rem 4rem;
+      background: var(--bg);
+      position: relative;
+    }
+
+    .team::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(90deg, transparent, transparent 89px, rgba(20, 60, 147, 0.05) 90px);
+      pointer-events: none;
+    }
+
+    .team-wrap {
+      max-width: 1220px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .team-head {
+      margin-bottom: 2.3rem;
+      max-width: 760px;
+    }
+
+    .team-head p {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 1rem;
+      margin-top: 0.9rem;
+    }
+
+    .team-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .team-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+
+    .team-row-3 .team-member {
+      flex: 1 1 calc((100% - 2rem) / 3);
+      max-width: calc((100% - 2rem) / 3);
+    }
+
+    .team-row-2 {
+      width: 66.3%;
+      margin: 0 auto;
+    }
+
+    .team-row-2 .team-member {
+      flex: 1 1 calc((100% - 1rem) / 2);
+      max-width: calc((100% - 1rem) / 2);
+    }
+
+    .team-member {
+      margin: 0;
+      padding: 0;
+    }
+
+    .team-member figure {
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      aspect-ratio: 4 / 5;
+    }
+
+    .team-member figure img {
+      min-width: 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1) rotate(0) translateY(0);
+      transition: transform 0.4s ease-in-out;
+      display: block;
+    }
+
+    .team-member figcaption {
+      padding: 1.25rem;
+      color: transparent;
+      background: transparent;
+      position: absolute;
+      z-index: 5;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .team-member figcaption p {
+      font-size: 0.86rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .team-member figcaption ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      visibility: visible;
+      transition: all 0.1s ease-in-out;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .team-member figcaption ul li {
+      display: inline-flex;
+    }
+
+    .team-member figcaption ul li a {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(245, 247, 250, 0.6);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .team-member figcaption ul li a:hover {
+      color: var(--dark);
+      background: #fff;
+      border-color: #fff;
+    }
+
+    .team-member figcaption ul li a svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .team-member figure:hover figcaption {
+      visibility: visible;
+      color: #fff;
+      background: rgba(186, 29, 73, 0.9);
+      height: 100%;
+    }
+
+    .team-member figure:hover img {
+      transform: scale(1.1) rotate(1deg) translateY(12px);
+    }
+
+    .team-member h4 {
+      margin: 0.8rem 0 0.2rem;
+      padding: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .team-member .role {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--accent);
+      line-height: 1.5;
+    }
+
+    .numbers {
+      padding: 6rem 4rem;
+      background: var(--dark);
+      color: #F5F7FA;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .numbers::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(ellipse 70% 50% at 70% 20%, rgba(186, 29, 73, 0.14), transparent);
+      pointer-events: none;
+    }
+
+    .numbers-wrap {
+      position: relative;
+      z-index: 2;
+      max-width: 1220px;
+      margin: 0 auto;
+    }
+
+    .numbers-head {
+      margin-bottom: 1.8rem;
+    }
+
+    .numbers-head .section-title {
+      color: #F5F7FA;
+    }
+
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.8rem;
+    }
+
+    .number-chip {
+      border: 1px solid rgba(245, 247, 250, 0.14);
+      border-radius: 4px;
+      padding: 1rem;
+      background: rgba(245, 247, 250, 0.03);
+      min-height: 105px;
+      display: grid;
+      align-content: center;
+      gap: 0.4rem;
+    }
+
+    .number-chip strong {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #F5F7FA;
+      line-height: 1;
+    }
+
+    .number-chip span {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.63rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245, 247, 250, 0.58);
+      line-height: 1.5;
+    }
+
+    .about-cta {
+      padding: 6.5rem 4rem;
+      background: var(--surface);
+    }
+
+    .about-cta-inner {
+      max-width: 950px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about-cta-inner p {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1rem;
+      max-width: 760px;
+      margin: 1rem auto 2rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--dark);
+      color: #F5F7FA;
+      text-decoration: none;
+      padding: 0.95rem 2.2rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: var(--dark);
+      padding: 3rem 4rem 2rem;
+      border-top: 1px solid rgba(20, 60, 147, 0.2);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(20, 60, 147, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.45);
+      line-height: 1.8;
+      margin-top: 1rem;
+      max-width: 260px;
+    }
+
+    .footer-col-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .footer-links-list a {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-links-list a::before {
+      content: '.';
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .footer-links-list a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #F5F7FA;
+      letter-spacing: 0.12em;
+    }
+
+    .footer-logo span {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(245, 247, 250, 0.3);
+      letter-spacing: 0.05em;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1100px) {
+      .about-hero,
+      .story,
+      .mission-vision,
+      .values,
+      .team,
+      .numbers,
+      .about-cta,
+      footer {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+
+      .about-hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero-panel {
+        border-left: 0;
+        border-top: 1px solid rgba(20, 60, 147, 0.25);
+        padding-top: 1rem;
+        padding-left: 0;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.9rem;
+      }
+
+      .story-grid,
+      .mv-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .team-row {
+        flex-wrap: wrap;
+      }
+
+      .team-row-3 .team-member,
+      .team-row-2 .team-member {
+        flex: 1 1 calc((100% - 1rem) / 2);
+        max-width: calc((100% - 1rem) / 2);
+      }
+
+      .team-row-2 {
+        width: 100%;
+      }
+
+      .numbers-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .about-hero,
+      .story,
+      .mission-vision,
+      .values,
+      .team,
+      .numbers,
+      .about-cta,
+      footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .about-hero {
+        padding-top: 8rem;
+        min-height: auto;
+      }
+
+      .hero-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .values-grid,
+      .numbers-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-row-3 .team-member,
+      .team-row-2 .team-member {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+
+    /* Hide scroll progress bar on about page */
+    .kemet-scroll-progress {
+      display: none !important;
+    }
+  </style>
+  <link rel="stylesheet" href="site-enhancements.css" />
+  <script src="site-enhancements.js" defer></script>
+</head>
+
+<body>
+  <nav>
+    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="blogs.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start Project</a>
+  </nav>
+
+  <section class="about-hero">
+    <div class="hero-content reveal">
+      <div class="section-label">About Us</div>
+      <h1>More Than a Tech Firm.<br />We are a <em>Strategic Growth Partner</em></h1>
+      <p class="hero-sub">We combine technical depth with business intelligence to help organizations build, launch, and scale their digital products with confidence.</p>
+    </div>
+    <aside class="hero-panel reveal" aria-label="Company highlights">
+      <div class="hero-kpi">
+        <div class="hero-kpi-num">7+</div>
+        <div class="hero-kpi-label">Years Delivering</div>
+      </div>
+      <div class="hero-kpi">
+        <div class="hero-kpi-num">120+</div>
+        <div class="hero-kpi-label">Projects Built</div>
+      </div>
+      <div class="hero-kpi">
+        <div class="hero-kpi-num">US</div>
+        <div class="hero-kpi-label">Nationwide Reach</div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="story">
+    <div class="story-grid">
+      <div class="reveal">
+        <div class="section-label">Who We Are</div>
+        <h2 class="section-title">Our Story</h2>
+      </div>
+      <div class="story-copy reveal">
+        <p>Kemet Technologies was founded with a clear purpose: to fill a critical gap in the market for a technology partner that is both genuinely capable and genuinely accountable.</p>
+        <p>Headquartered in Clovis, California, and serving clients across the United States, we have spent more than seven years designing, engineering, and delivering digital solutions for businesses across diverse industries, from e-commerce and logistics to healthcare, real estate, and professional services.</p>
+        <p>Our name draws inspiration from Kemet, the ancient Egyptian word for the fertile, life-giving land. It reflects our commitment to helping businesses grow and thrive through the power of thoughtful technology.</p>
+        <p>Today, our team of designers, developers, and strategists operates as a fully remote-capable firm, giving our clients direct access to senior talent without geographic limitations.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mission-vision">
+    <div class="mv-grid">
+      <article class="mv-card reveal">
+        <div class="section-label">Mission</div>
+        <h3>Our Mission</h3>
+        <p>To empower businesses of all sizes with innovative, reliable, and results-driven digital solutions, delivered with integrity, precision, and a deep commitment to client success.</p>
+      </article>
+      <article class="mv-card reveal">
+        <div class="section-label">Vision</div>
+        <h3>Our Vision</h3>
+        <p>To be the most trusted technology partner for growth-focused businesses nationwide, recognized not just for the quality of what we build, but for the outcomes we help our clients achieve.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="values-head reveal">
+      <div class="section-label">Core Values</div>
+      <h2 class="section-title">The Principles We Work By</h2>
+    </div>
+    <div class="values-grid">
+      <article class="value-card reveal">
+        <span class="value-num">01</span>
+        <h3>Integrity First</h3>
+        <p>We are transparent about what is possible, honest about timelines, and accountable for our results. Always.</p>
+      </article>
+      <article class="value-card reveal">
+        <span class="value-num">02</span>
+        <h3>Client-Centered Execution</h3>
+        <p>Every decision we make, from architecture to design, is guided by a single question: does this serve our client's business goals?</p>
+      </article>
+      <article class="value-card reveal">
+        <span class="value-num">03</span>
+        <h3>Technical Excellence</h3>
+        <p>We hold ourselves to high standards in every line of code, every design system, and every system we architect.</p>
+      </article>
+      <article class="value-card reveal">
+        <span class="value-num">04</span>
+        <h3>Continuous Innovation</h3>
+        <p>The technology landscape evolves rapidly. We invest continuously in staying ahead, so our clients do not have to.</p>
+      </article>
+      <article class="value-card reveal">
+        <span class="value-num">05</span>
+        <h3>Long-Term Partnerships</h3>
+        <p>We measure success not by project completion, but by the sustained growth of the businesses we serve.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="team">
+    <div class="team-wrap">
+      <div class="team-head reveal">
+        <div class="section-label">Team Section</div>
+        <h2 class="section-title">The People Behind the Work</h2>
+        <p>A cross-functional team of professionals united by a shared commitment to craft and client success.</p>
+      </div>
+      <div class="team-rows">
+        <div class="team-row team-row-3">
+          <div class="team-member reveal">
+            <figure>
+              <img src="media/team/team-1.jpg" alt="George Wahba" loading="lazy" />
+              <figcaption>
+                <p>Visionary behind Kemet Technologies, leading strategy, partnerships, and delivery excellence across engagements.</p>
+                <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/george-wahba-34678176/" target="_blank" rel="noopener noreferrer" aria-label="George Wahba LinkedIn profile">
+                      <svg viewBox="0 0 24 24"><path d="M6.94 8.86H3.56V20h3.38V8.86zM5.25 3.5A1.96 1.96 0 1 0 5.3 7.42a1.96 1.96 0 0 0-.05-3.92zM20.44 13.72c0-3.33-1.78-4.88-4.15-4.88-1.91 0-2.76 1.05-3.24 1.78v-1.53H9.68c.04 1.01 0 10.91 0 10.91h3.37v-6.09c0-.33.03-.66.12-.9.27-.66.89-1.35 1.94-1.35 1.37 0 1.92 1.05 1.92 2.59V20h3.37v-6.28z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+            <h4>George Wahba</h4>
+            <p class="role">Founder &amp; CEO</p>
+          </div>
+
+          <div class="team-member reveal">
+            <figure>
+              <img src="media/team/team-2.jpg" alt="Antonios Milad" loading="lazy" />
+              <figcaption>
+                <p>Drives technical execution with architecture leadership, delivery standards, and cross-team engineering quality.</p>
+                <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/antonios-milad/" target="_blank" rel="noopener noreferrer" aria-label="Antonios Milad LinkedIn profile">
+                      <svg viewBox="0 0 24 24"><path d="M6.94 8.86H3.56V20h3.38V8.86zM5.25 3.5A1.96 1.96 0 1 0 5.3 7.42a1.96 1.96 0 0 0-.05-3.92zM20.44 13.72c0-3.33-1.78-4.88-4.15-4.88-1.91 0-2.76 1.05-3.24 1.78v-1.53H9.68c.04 1.01 0 10.91 0 10.91h3.37v-6.09c0-.33.03-.66.12-.9.27-.66.89-1.35 1.94-1.35 1.37 0 1.92 1.05 1.92 2.59V20h3.37v-6.28z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+            <h4>Antonios Milad</h4>
+            <p class="role">Software Development Manager &amp; Technical Team Leader</p>
+          </div>
+
+          <div class="team-member reveal">
+            <figure>
+              <img src="media/team/team-3.jpg" alt="Abanoub Mounir" loading="lazy" />
+              <figcaption>
+                <p>Shapes intuitive experiences and translates business objectives into purposeful product interfaces.</p>
+                <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/abanoub-mounir-27b4a5152/" target="_blank" rel="noopener noreferrer" aria-label="Abanoub Mounir LinkedIn profile">
+                      <svg viewBox="0 0 24 24"><path d="M6.94 8.86H3.56V20h3.38V8.86zM5.25 3.5A1.96 1.96 0 1 0 5.3 7.42a1.96 1.96 0 0 0-.05-3.92zM20.44 13.72c0-3.33-1.78-4.88-4.15-4.88-1.91 0-2.76 1.05-3.24 1.78v-1.53H9.68c.04 1.01 0 10.91 0 10.91h3.37v-6.09c0-.33.03-.66.12-.9.27-.66.89-1.35 1.94-1.35 1.37 0 1.92 1.05 1.92 2.59V20h3.37v-6.28z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+            <h4>Abanoub Mounir</h4>
+            <p class="role">UI/UX Designer</p>
+          </div>
+        </div>
+
+        <div class="team-row team-row-3">
+          <div class="team-member reveal">
+            <figure>
+              <img src="media/team/team-4.jpg" alt="Bishoy Sabri" loading="lazy" />
+              <figcaption>
+                <p>Designs resilient data architecture and systems that support scale, analytics, and operational clarity.</p>
+                <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/beshoysabri/" target="_blank" rel="noopener noreferrer" aria-label="Bishoy Sabri LinkedIn profile">
+                      <svg viewBox="0 0 24 24"><path d="M6.94 8.86H3.56V20h3.38V8.86zM5.25 3.5A1.96 1.96 0 1 0 5.3 7.42a1.96 1.96 0 0 0-.05-3.92zM20.44 13.72c0-3.33-1.78-4.88-4.15-4.88-1.91 0-2.76 1.05-3.24 1.78v-1.53H9.68c.04 1.01 0 10.91 0 10.91h3.37v-6.09c0-.33.03-.66.12-.9.27-.66.89-1.35 1.94-1.35 1.37 0 1.92 1.05 1.92 2.59V20h3.37v-6.28z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+            <h4>Bishoy Sabri</h4>
+            <p class="role">Data Architect Engineer</p>
+          </div>
+
+          <div class="team-member reveal">
+            <figure>
+              <img src="media/team/team-5.jpg" alt="Kristen Samir" loading="lazy" />
+              <figcaption>
+                <p>Builds complete application features from robust backend logic to polished frontend interactions.</p>
+                <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/kristeen-samir-443267193/" target="_blank" rel="noopener noreferrer" aria-label="Kristen Samir LinkedIn profile">
+                      <svg viewBox="0 0 24 24"><path d="M6.94 8.86H3.56V20h3.38V8.86zM5.25 3.5A1.96 1.96 0 1 0 5.3 7.42a1.96 1.96 0 0 0-.05-3.92zM20.44 13.72c0-3.33-1.78-4.88-4.15-4.88-1.91 0-2.76 1.05-3.24 1.78v-1.53H9.68c.04 1.01 0 10.91 0 10.91h3.37v-6.09c0-.33.03-.66.12-.9.27-.66.89-1.35 1.94-1.35 1.37 0 1.92 1.05 1.92 2.59V20h3.37v-6.28z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+            <h4>Kristen Samir</h4>
+            <p class="role">Full Stack Developer</p>
+          </div>
+
+          <div class="team-member reveal">
+            <figure>
+              <img src="media/team/team-6.jpg" alt="Mary Mikhail" loading="lazy" />
+              <figcaption>
+                <p>Delivers high-performance web and cross-platform interfaces with a sharp focus on product usability.</p>
+                <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/marymikhailadeeb/" target="_blank" rel="noopener noreferrer" aria-label="Mary Mikhail LinkedIn profile">
+                      <svg viewBox="0 0 24 24"><path d="M6.94 8.86H3.56V20h3.38V8.86zM5.25 3.5A1.96 1.96 0 1 0 5.3 7.42a1.96 1.96 0 0 0-.05-3.92zM20.44 13.72c0-3.33-1.78-4.88-4.15-4.88-1.91 0-2.76 1.05-3.24 1.78v-1.53H9.68c.04 1.01 0 10.91 0 10.91h3.37v-6.09c0-.33.03-.66.12-.9.27-.66.89-1.35 1.94-1.35 1.37 0 1.92 1.05 1.92 2.59V20h3.37v-6.28z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+            <h4>Mary Mikhail</h4>
+            <p class="role">Frontend &amp; Cross-Platform Developer</p>
+          </div>
+        </div>
+
+        <div class="team-row team-row-2">
+          <div class="team-member reveal">
+            <figure>
+              <img src="media/team/team-7.jpg" alt="Andrew Amir" loading="lazy" />
+              <figcaption>
+                <p>Builds scalable software components and resilient integrations that hold up under real-world growth.</p>
+                <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/andrew-amir-7b8b8b/" target="_blank" rel="noopener noreferrer" aria-label="Andrew Amir LinkedIn profile">
+                      <svg viewBox="0 0 24 24"><path d="M6.94 8.86H3.56V20h3.38V8.86zM5.25 3.5A1.96 1.96 0 1 0 5.3 7.42a1.96 1.96 0 0 0-.05-3.92zM20.44 13.72c0-3.33-1.78-4.88-4.15-4.88-1.91 0-2.76 1.05-3.24 1.78v-1.53H9.68c.04 1.01 0 10.91 0 10.91h3.37v-6.09c0-.33.03-.66.12-.9.27-.66.89-1.35 1.94-1.35 1.37 0 1.92 1.05 1.92 2.59V20h3.37v-6.28z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+            <h4>Andrew Amir</h4>
+            <p class="role">Software Engineer</p>
+          </div>
+
+          <div class="team-member reveal">
+            <figure>
+              <img src="media/team/team-8.jpg" alt="Maximous Atef" loading="lazy" />
+              <figcaption>
+                <p>Creates responsive web and mobile products that blend performance, maintainability, and business utility.</p>
+                <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/maximous-atef-shafiq/" target="_blank" rel="noopener noreferrer" aria-label="Maximous Atef LinkedIn profile">
+                      <svg viewBox="0 0 24 24"><path d="M6.94 8.86H3.56V20h3.38V8.86zM5.25 3.5A1.96 1.96 0 1 0 5.3 7.42a1.96 1.96 0 0 0-.05-3.92zM20.44 13.72c0-3.33-1.78-4.88-4.15-4.88-1.91 0-2.76 1.05-3.24 1.78v-1.53H9.68c.04 1.01 0 10.91 0 10.91h3.37v-6.09c0-.33.03-.66.12-.9.27-.66.89-1.35 1.94-1.35 1.37 0 1.92 1.05 1.92 2.59V20h3.37v-6.28z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+            <h4>Maximous Atef</h4>
+            <p class="role">Web &amp; Mobile app. Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="numbers">
+    <div class="numbers-wrap">
+      <div class="numbers-head reveal">
+        <div class="section-label">By The Numbers</div>
+        <h2 class="section-title">Our Track Record Speaks for Itself</h2>
+      </div>
+      <div class="numbers-grid">
+        <div class="number-chip reveal">
+          <strong>5+</strong>
+          <span>Years in Business</span>
+        </div>
+        <div class="number-chip reveal">
+          <strong>120+</strong>
+          <span>Projects Delivered</span>
+        </div>
+        <div class="number-chip reveal">
+          <strong>90+</strong>
+          <span>Happy Clients</span>
+        </div>
+        <div class="number-chip reveal">
+          <strong>5</strong>
+          <span>Core Service Lines</span>
+        </div>
+        <div class="number-chip reveal">
+          <strong>US + INTL</strong>
+          <span>Serving Clients Nationwide &amp; Internationally</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div class="about-cta-inner reveal">
+      <div class="section-label" style="justify-content:center;">Bottom CTA</div>
+      <h2 class="section-title">Let's Build Something Together</h2>
+      <p>We're selective about the projects we take on because we commit fully to every client we work with. If you're ready to partner with a team that treats your business like their own, we'd love to hear from you.</p>
+      <a href="contact.html" class="btn-primary">Get in Touch</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
+          of engineering and design expertise.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links-list">
+          <li><a href="#">Web Design &amp; Dev</a></li>
+          <li><a href="#">Mobile Apps</a></li>
+          <li><a href="#">SEO, GEO &amp; AEO</a></li>
+          <li><a href="#">Custom Software</a></li>
+          <li><a href="#">AI Integrations</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links-list">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blogs.html">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links-list">
+          <li><a href="tel:+15597128024">+1 (559) 712-8024</a></li>
+          <li><a href="mailto:editors@kemetmediagroup.com">editors@kemetmediagroup.com</a></li>
+          <li><a href="#">Clovis, CA 93612</a></li>
+          <li><a href="#">Book a Call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 70);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach((item) => observer.observe(item));
+  </script>
+</body>
+
+</html>

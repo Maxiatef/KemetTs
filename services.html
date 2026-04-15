@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Kemet Technologies</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F7FA;
+      --surface: #EBEEF4;
+      --surface2: #E0E5EE;
+      --text: #0F1419;
+      --muted: #5A6B7F;
+      --primary: #143c93;
+      --accent: #ba1d49;
+      --accent-warm: #d96f18;
+      --primary-light: #2E5CB8;
+      --primary-dim: rgba(20, 60, 147, 0.1);
+      --accent-dim: rgba(186, 29, 73, 0.1);
+      --border: rgba(20, 60, 147, 0.15);
+      --dark: #0D0E10;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+
+
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      background: rgba(250, 248, 244, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Open Sans', 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      height: auto;
+      min-height: 46px;
+    }
+
+    .nav-logo img {
+      height: 46px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.6rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* underline that expands from center */
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.28rem;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      background: var(--text);
+      color: var(--bg);
+      padding: 0.4rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: var(--text);
+    }
+
+    /* PAGE HERO */
+    .page-hero {
+      min-height: 52vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 9rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--dark);
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(20, 60, 147, 0.06) 80px);
+      pointer-events: none;
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 40%, rgba(186, 29, 73, 0.04) 100%);
+      pointer-events: none;
+    }
+
+    .page-hero-eyebrow {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-hero-eyebrow::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 6vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: #F5F7FA;
+      max-width: 700px;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .page-hero-sub {
+      margin-top: 1.75rem;
+      font-size: 1rem;
+      color: rgba(245, 247, 250, 0.55);
+      max-width: 480px;
+      line-height: 1.85;
+    }
+
+    .hero-deco-num {
+      position: absolute;
+      right: 4rem;
+      bottom: 4rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 18rem;
+      font-weight: 900;
+      color: var(--accent);
+      opacity: 0.04;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* MARQUEE */
+    .marquee-strip {
+      width: 100%;
+      background: var(--accent);
+      overflow: hidden;
+      padding: 0.85rem 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marqueeScroll 28s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 2.5rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: var(--dark);
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    .marquee-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--dark);
+      opacity: 0.5;
+    }
+
+    @keyframes marqueeScroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* SERVICES GRID */
+    .services-section {
+      padding: 7rem 4rem;
+    }
+
+    .services-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: end;
+      margin-bottom: 6rem;
+    }
+
+    .services-intro-right {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 420px;
+      justify-self: end;
+    }
+
+    .section-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+
+    /* Service Cards — editorial grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .svc-card {
+      background: var(--bg);
+      padding: 3.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background 0.35s;
+    }
+
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--bg-image, none);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .svc-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .svc-card:hover {
+      background: var(--surface);
+    }
+
+    .svc-card.wide {
+      grid-column: span 7;
+    }
+
+    .svc-card.narrow {
+      grid-column: span 5;
+    }
+
+    .svc-card.full {
+      grid-column: span 12;
+    }
+
+    .svc-card.half {
+      grid-column: span 6;
+    }
+
+    .svc-card.trio {
+      grid-column: span 4;
+    }
+
+    .svc-num {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .svc-icon {
+      width: 52px;
+      height: 52px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      background: var(--surface);
+    }
+
+    .svc-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.4;
+    }
+
+    .svc-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .svc-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 420px;
+      margin-bottom: 2rem;
+    }
+
+    .svc-list {
+      list-style: none;
+      margin-bottom: 2.5rem;
+    }
+
+    .svc-list li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .svc-list li::before {
+      content: '▸';
+      color: var(--accent);
+      font-size: 0.65rem;
+    }
+
+    .svc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+      transition: color 0.2s, gap 0.2s;
+    }
+
+    .svc-link:hover {
+      color: var(--accent);
+      gap: 0.9rem;
+    }
+
+    .svc-bg-num {
+      position: absolute;
+      bottom: -1rem;
+      right: 1.5rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 9rem;
+      font-weight: 900;
+      color: var(--accent);
+      opacity: 0.04;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .svc-card.dark-card {
+      background: var(--dark);
+    }
+
+    .svc-card.dark-card:hover {
+      background: #161820;
+    }
+
+    .svc-card.dark-card h2 {
+      color: #F5F7FA;
+    }
+
+    .svc-card.dark-card p {
+      color: rgba(245, 247, 250, 0.5);
+    }
+
+    .svc-card.dark-card .svc-num {
+      color: var(--accent);
+    }
+
+    .svc-card.dark-card .svc-list li {
+      color: rgba(245, 247, 250, 0.5);
+      border-color: rgba(20, 60, 147, 0.15);
+    }
+
+    .svc-card.dark-card .svc-icon {
+      border-color: rgba(20, 60, 147, 0.2);
+      background: rgba(20, 60, 147, 0.05);
+    }
+
+    .svc-card.dark-card .svc-link {
+      color: #F5F7FA;
+    }
+
+    /* PROCESS SECTION */
+    .process-section {
+      padding: 7rem 4rem;
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .process-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(20, 60, 147, 0.04) 80px);
+      pointer-events: none;
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.4;
+    }
+
+    .process-step {
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .process-step-num {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      background: var(--bg);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+
+    .process-step h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .process-step p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* CTA STRIP */
+    .cta-strip {
+      padding: 6rem 4rem;
+      background: var(--dark);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .cta-strip-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 700;
+      color: #F5F7FA;
+      line-height: 1.2;
+    }
+
+    .cta-strip-text em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #F5F7FA;
+      padding: 1rem 2.2rem;
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      padding: 3rem 4rem 2rem;
+      border-top: 1px solid rgba(20, 60, 147, 0.2);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(20, 60, 147, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.45);
+      line-height: 1.8;
+      margin-top: 1rem;
+      max-width: 260px;
+    }
+
+    .footer-col-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .footer-links-list a {
+      font-size: 0.82rem;
+      color: rgba(245, 247, 250, 0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-links-list a::before {
+      content: '·';
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .footer-links-list a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #F5F7FA;
+      letter-spacing: 0.12em;
+    }
+
+    .footer-logo span {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(245, 247, 250, 0.3);
+      letter-spacing: 0.05em;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media(max-width:900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .page-hero {
+        padding: 8rem 1.5rem 4rem;
+      }
+
+      .hero-deco-num {
+        display: none;
+      }
+
+      .services-section,
+      .process-section {
+        padding: 5rem 1.5rem;
+      }
+
+      .services-intro {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+        background: none;
+        gap: 1px;
+      }
+
+      .svc-card.wide,
+      .svc-card.narrow,
+      .svc-card.full,
+      .svc-card.half,
+      .svc-card.trio {
+        grid-column: span 1;
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+
+      .process-steps::before {
+        display: none;
+      }
+
+      .cta-strip {
+        padding: 4rem 1.5rem;
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer {
+        padding: 3rem 1.5rem 2rem;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+
+    /* Hide scroll progress bar on services page */
+    .kemet-scroll-progress {
+      display: none !important;
+    }
+  </style>
+  <link rel="stylesheet" href="site-enhancements.css" />
+  <script src="site-enhancements.js" defer></script>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <ul class="nav-links">
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blogs.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start Project</a>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-eyebrow">What We Build</div>
+    <h1>Services Built<br />for <em>Real Growth</em></h1>
+    <p class="page-hero-sub">Five focused disciplines. One integrated team. Every engagement is scoped with intent and
+      delivered with accountability.</p>
+    <div class="hero-deco-num">05</div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span class="marquee-item">WEB DESIGN <span class="marquee-dot"></span></span>
+      <span class="marquee-item">MOBILE APPS <span class="marquee-dot"></span></span>
+      <span class="marquee-item">SEO &amp; GEO &amp; AEO <span class="marquee-dot"></span></span>
+      <span class="marquee-item">CUSTOM SOFTWARE <span class="marquee-dot"></span></span>
+      <span class="marquee-item">AI INTEGRATIONS <span class="marquee-dot"></span></span>
+      <span class="marquee-item">WEB DESIGN <span class="marquee-dot"></span></span>
+      <span class="marquee-item">MOBILE APPS <span class="marquee-dot"></span></span>
+      <span class="marquee-item">SEO &amp; GEO &amp; AEO <span class="marquee-dot"></span></span>
+      <span class="marquee-item">CUSTOM SOFTWARE <span class="marquee-dot"></span></span>
+      <span class="marquee-item">AI INTEGRATIONS <span class="marquee-dot"></span></span>
+    </div>
+  </div>
+
+  <!-- SERVICES GRID -->
+  <section class="services-section">
+    <div class="services-intro reveal">
+      <div>
+        <div class="section-label">Our Disciplines</div>
+        <h2 class="section-title">Every Service<br />Engineered to<br /><em
+            style="font-style:italic;color:var(--accent);">Deliver Results</em></h2>
+      </div>
+      <p class="services-intro-right">We don't offer services as a menu. We build partnerships — scoping each engagement
+        around your goals, your timeline, and your market. Here's what we bring to the table.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- 01 Web Design — Wide -->
+      <div class="svc-card wide reveal" style="--bg-image: url('media/WebDesign Development.png');">
+        <div class="svc-num">01 / 05</div>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <line x1="2" y1="8" x2="22" y2="8" />
+            <circle cx="5" cy="5.5" r="1" />
+            <circle cx="8.5" cy="5.5" r="1" />
+            <circle cx="12" cy="5.5" r="1" />
+            <rect x="6" y="11" width="12" height="4" rx="1" opacity="0.5" />
+          </svg>
+        </div>
+        <h2>Web Design &<br />Development</h2>
+        <p>Your website is often the first — and most critical — interaction a potential client has with your brand. We
+          design experiences that convert visitors into customers, built on solid engineering foundations.</p>
+        <ul class="svc-list">
+          <li>Custom UI/UX design & wireframing</li>
+          <li>Responsive, mobile-first development</li>
+          <li>CMS integration (WordPress, Webflow)</li>
+          <li>E-commerce development & optimization</li>
+          <li>Performance & Core Web Vitals compliance</li>
+        </ul>
+        <a href="contact.html" class="svc-link">Request a Quote →</a>
+        <div class="svc-bg-num">01</div>
+      </div>
+
+      <!-- 02 Mobile — Narrow Dark -->
+      <div class="svc-card narrow dark-card reveal" style="--bg-image: url('media/MobileAppDevelopment.png');">
+        <div class="svc-num">02 / 05</div>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="7" y="2" width="10" height="20" rx="2" />
+            <line x1="7" y1="6" x2="17" y2="6" />
+            <line x1="7" y1="18" x2="17" y2="18" />
+            <circle cx="12" cy="20.5" r="0.8" />
+            <rect x="9" y="8" width="6" height="7" rx="1" opacity="0.5" />
+          </svg>
+        </div>
+        <h2>Mobile App<br />Development</h2>
+        <p>Native and cross-platform mobile applications for iOS and Android — built to scale with your business and
+          loved by your users.</p>
+        <ul class="svc-list">
+          <li>iOS & Android native development</li>
+          <li>React Native & Flutter</li>
+          <li>UI/UX design for mobile</li>
+          <li>API integration & backend</li>
+          <li>App Store & Play submission</li>
+        </ul>
+        <a href="contact.html" class="svc-link">Start Your App →</a>
+        <div class="svc-bg-num">02</div>
+      </div>
+
+      <!-- 03 SEO — Half -->
+      <div class="svc-card half reveal" style="--bg-image: url('media/SEO-AEO-GEO.jpg');">
+        <div class="svc-num">03 / 05</div>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="16.5" y1="16.5" x2="22" y2="22" />
+            <circle cx="11" cy="11" r="3.5" opacity="0.5" />
+            <line x1="5" y1="11" x2="17" y2="11" opacity="0.5" />
+            <line x1="11" y1="5" x2="11" y2="17" opacity="0.5" />
+          </svg>
+        </div>
+        <h2>SEO, GEO<br />&amp; AEO</h2>
+        <p>Be found on search engines, AI platforms, and everywhere that matters. The way people discover businesses is
+          changing fast — we cover all three dimensions of discoverability.</p>
+        <ul class="svc-list">
+          <li>Technical SEO audit & remediation</li>
+          <li>Keyword strategy & content planning</li>
+          <li>GEO for AI-generated results</li>
+          <li>Voice & answer engine optimization</li>
+          <li>Monthly reporting & analytics</li>
+        </ul>
+        <a href="contact.html" class="svc-link">Free SEO Assessment →</a>
+        <div class="svc-bg-num">03</div>
+      </div>
+
+      <!-- 04 Custom Software — Half -->
+      <div class="svc-card half reveal" style="background:var(--surface); --bg-image: url('media/CustomSoftwareDevelopment.jpg');">
+        <div class="svc-num">04 / 05</div>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="16 18 22 12 16 6" />
+            <polyline points="8 6 2 12 8 18" />
+            <line x1="14" y1="4" x2="10" y2="20" opacity="0.6" />
+          </svg>
+        </div>
+        <h2>Custom Software<br />Development</h2>
+        <p>Off-the-shelf tools hit a ceiling. When your business demands something built precisely for how you operate,
+          we engineer it — from internal tools to full SaaS platforms.</p>
+        <ul class="svc-list">
+          <li>Business process automation</li>
+          <li>SaaS & internal tooling</li>
+          <li>API design & integration</li>
+          <li>Database architecture</li>
+          <li>Cloud deployment & scaling</li>
+        </ul>
+        <a href="contact.html" class="svc-link">Discuss Your Project →</a>
+        <div class="svc-bg-num">04</div>
+      </div>
+
+      <!-- 05 AI — Full Dark -->
+      <div class="svc-card full dark-card reveal" style="--bg-image: url('media/AIIntegrationsAutomation.jpg');">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+          <div>
+            <div class="svc-num">05 / 05</div>
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="5" />
+                <path d="M7 16 Q12 22 17 16" opacity="0.5" />
+                <line x1="12" y1="13" x2="12" y2="17" />
+                <line x1="8" y1="20" x2="16" y2="20" />
+                <circle cx="9.5" cy="7" r="1" />
+                <circle cx="14.5" cy="7" r="1" />
+                <path d="M9.5 10 Q12 12.5 14.5 10" opacity="0.7" />
+              </svg>
+            </div>
+            <h2>AI Integrations<br />&amp; Automation</h2>
+            <p>Artificial intelligence isn't a product — it's infrastructure. We embed AI into your existing workflows
+              and products to eliminate friction, surface insights, and create compounding advantages your competitors
+              can't match.</p>
+            <a href="contact.html" class="svc-link">Explore AI Solutions →</a>
+          </div>
+          <div>
+            <ul class="svc-list" style="margin-top:3.5rem;">
+              <li>LLM integration (OpenAI, Claude, Gemini)</li>
+              <li>Chatbot & customer service automation</li>
+              <li>Predictive analytics & reporting</li>
+              <li>Automated document processing</li>
+              <li>AI-enhanced CRM features</li>
+              <li>Custom model fine-tuning & RAG pipelines</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-bg-num">05</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="process-header reveal">
+      <div class="section-label" style="justify-content:center;">How We Work</div>
+      <h2 class="section-title" style="text-align:center;">Our Process</h2>
+      <p
+        style="text-align:center;color:var(--muted);margin-top:1rem;font-size:0.95rem;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8;">
+        Clear communication, predictable delivery, zero surprises. Here's how every Kemet project runs.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="process-step-num">01</div>
+        <h3>Discovery</h3>
+        <p>We listen before we propose. Every engagement starts with deep discovery — understanding your business, your
+          users, and your goals.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step-num">02</div>
+        <h3>Strategy</h3>
+        <p>A detailed scope, timeline, and architecture roadmap — agreed before a single line of code is written.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step-num">03</div>
+        <h3>Build</h3>
+        <p>Iterative sprints with regular check-ins. You see progress every week, not just at the end.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step-num">04</div>
+        <h3>Launch & Support</h3>
+        <p>QA, launch, and ongoing support. We don't disappear after delivery — we're your long-term tech partner.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-strip reveal">
+    <div class="cta-strip-text">Ready to start?<br /><em>Let's talk about your project.</em></div>
+    <a href="contact.html" class="btn-primary">Start a Conversation →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
+          of engineering and design expertise.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links-list">
+          <li><a href="#">Web Design &amp; Dev</a></li>
+          <li><a href="#">Mobile Apps</a></li>
+          <li><a href="#">SEO, GEO &amp; AEO</a></li>
+          <li><a href="#">Custom Software</a></li>
+          <li><a href="#">AI Integrations</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links-list">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blogs.html">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links-list">
+          <li><a href="tel:+15597128024">+1 (559) 712-8024</a></li>
+          <li><a href="mailto:editors@kemetmediagroup.com">editors@kemetmediagroup.com</a></li>
+          <li><a href="#">Clovis, CA 93612</a></li>
+          <li><a href="#">Book a Call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+
+</html>
