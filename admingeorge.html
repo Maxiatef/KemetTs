@@ -980,7 +980,26 @@
 
         isFetchingBlogs = true;
 
-        // Prefer server-side `data.json` (local file) - fallback to localStorage
+        // Prefer MongoDB via API endpoint
+        try {
+          const resp = await fetch('/api/blog', { 
+            method: 'GET',
+            cache: 'no-store',
+            headers: { 'Content-Type': 'application/json' }
+          });
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data && Array.isArray(data.posts)) {
+              cachedBlogs = data.posts;
+              lastBlogsFetch = Date.now();
+              return cachedBlogs;
+            }
+          }
+        } catch (err) {
+          console.warn('Could not fetch from MongoDB, trying data.json:', err);
+        }
+
+        // Fallback to data.json
         try {
           const resp = await fetch('data.json?' + Date.now(), { cache: 'no-store' });
           if (resp.ok) {
@@ -992,7 +1011,7 @@
             }
           }
         } catch (err) {
-          console.warn('Could not fetch data.json, falling back to localStorage:', err);
+          console.warn('Could not fetch data.json:', err);
         }
 
         // Fallback: read from localStorage
@@ -1022,7 +1041,30 @@
 
         isFetchingMessages = true;
 
-        // Always prefer server-side `data.json` for messages.
+        // Always prefer MongoDB via API endpoint
+        try {
+          const resp = await fetch('/api/contact', { 
+            method: 'GET',
+            cache: 'no-store',
+            headers: { 'Content-Type': 'application/json' }
+          });
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data && Array.isArray(data.messages)) {
+              cachedMessages = data.messages;
+            } else if (data && data.data && Array.isArray(data.data)) {
+              cachedMessages = data.data;
+            } else {
+              cachedMessages = [];
+            }
+            lastMessagesFetch = Date.now();
+            return cachedMessages;
+          }
+        } catch (err) {
+          console.warn('Could not fetch from MongoDB, trying data.json:', err);
+        }
+
+        // Fallback to data.json
         try {
           const resp = await fetch('/data.json?' + Date.now(), { cache: 'no-store' });
           if (resp.ok) {
@@ -1036,7 +1078,7 @@
             return cachedMessages;
           }
         } catch (err) {
-          console.warn('Could not fetch data.json for messages:', err);
+          console.warn('Could not fetch data.json:', err);
         }
 
         // If server fetch fails, return empty array (no localStorage fallback)
@@ -1197,7 +1239,7 @@
           <td>
             <div class=\"table-actions\">
               <a href=\"blog-create.html?id=${p.id}\" class=\"btn-edit\">Edit</a>
-              <button class=\"btn-delete\" onclick=\"deleteBlogPost(${p.id})\">Delete</button>
+              <button class=\"btn-delete\" onclick=\"deleteBlogPost(${p.id}, '${p._id || ''}')\">Delete</button>
             </div>
           </td>
         </tr>
@@ -1386,19 +1428,26 @@
 
           // Update the local posts array then persist the full data file via save-data.php
           let posts = await getBlogs(false);
-          const idx = posts.findIndex(p => String(p.id) === String(blog.id));
-          if (idx >= 0) {
-            posts[idx] = Object.assign({}, posts[idx], blog);
-          } else {
-            posts.unshift(blog);
-          }
+          const existingPost = posts.find(p => String(p.id) === String(blog.id));
+          
+          // Prepare request body for API
+          const apiPayload = {
+            id: blog.id,
+            mongoId: existingPost?._id || undefined,
+            title: blog.title,
+            category: blog.category,
+            author: blog.author,
+            excerpt: blog.excerpt,
+            content: blog.content,
+            image: blog.image || ''
+          };
 
-          const messages = await getMessages(false);
-
-          const response = await fetch('save-data.php', {
-            method: 'POST',
+          // Use PUT for updates, POST for new
+          const method = existingPost ? 'PUT' : 'POST';
+          const response = await fetch('/api/blog', {
+            method: method,
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ posts: posts, messages: messages }),
+            body: JSON.stringify(apiPayload),
             cache: 'no-store'
           });
 
@@ -1410,9 +1459,10 @@
           if (response.ok && data && data.success) {
             closeBlogModal();
             // Update cache and UI
-            cachedBlogs = posts;
+            const updatedPosts = await getBlogs(false);
+            cachedBlogs = updatedPosts;
             lastBlogsFetch = Date.now();
-            try { savePosts(posts); } catch (e) { console.warn('Failed to update local cache:', e); }
+            try { savePosts(updatedPosts); } catch (e) { console.warn('Failed to update local cache:', e); }
             await renderBlogTable();
             updateStats();
             alert('Blog post saved successfully!');
@@ -1509,13 +1559,17 @@
       document.getElementById('blogModal').classList.add('active');
     }
 
-    async function deleteBlogPost(id) {
+    async function deleteBlogPost(id, mongoId) {
       if (!confirm('Are you sure you want to delete this post?')) return;
       
       try {
-        const response = await fetch('/api/blog/' + encodeURIComponent(id), {
+        const response = await fetch('/api/blog', {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            id: id,
+            mongoId: mongoId  // MongoDB ID if available
+          }),
           cache: 'no-store'
         });
 
@@ -1643,9 +1697,13 @@
       }
 
       try {
-        const response = await fetch('/api/message/' + encodeURIComponent(msg.id), {
+        const response = await fetch('/api/contact', {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            id: msg.id,
+            mongoId: msg._id  // MongoDB ID if available
+          }),
           cache: 'no-store'
         });
 
