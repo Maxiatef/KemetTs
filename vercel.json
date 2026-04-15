@@ -1,5 +1,23 @@
 {
-  "redirects": [
-    { "source": "/", "destination": "/home.html", "permanent": false }
+  "version": 2,
+  "builds": [
+    { "src": "api/*.js", "use": "@vercel/node" },
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "site-enhancements.css", "use": "@vercel/static" },
+    { "src": "site-enhancements.js", "use": "@vercel/static" },
+    { "src": "chat-widget.js", "use": "@vercel/static" },
+    { "src": "projects.json", "use": "@vercel/static" },
+    { "src": "data.json", "use": "@vercel/static" },
+    { "src": "media/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/chat", "dest": "/api/chat.js" },
+    { "src": "/api/health", "dest": "/api/health.js" },
+    { "src": "/api/contact", "dest": "/api/contact.js" },
+    { "src": "/api/blogs", "dest": "/api/blogs.js" },
+    { "src": "/api/blog", "dest": "/api/blog.js" },
+    { "src": "/api/message", "dest": "/api/message.js" },
+    { "src": "/", "dest": "/home.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
