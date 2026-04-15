@@ -17,7 +17,7 @@
       --accent: #ba1d49;
       --accent-warm: #d96f18;
       --border: rgba(20, 60, 147, 0.15);
-      --dark: #0D0E10;
+      --dark: #2a2a2a;
     }
 
     *,
@@ -75,11 +75,11 @@
       align-items: center;
       gap: 0.5rem;
       height: auto;
-      min-height: 46px;
+      min-height: 58px;
     }
 
     .nav-logo img {
-      height: 46px;
+      height: 58px;
       width: auto;
       display: block;
     }
@@ -354,7 +354,7 @@
       max-width: 1220px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
@@ -367,6 +367,12 @@
       padding: 2rem;
       min-height: 225px;
       transition: background 0.25s ease;
+      grid-column: span 2;
+    }
+
+    .value-card:nth-child(4),
+    .value-card:nth-child(5) {
+      grid-column: span 3;
     }
 
     .value-card:hover {
@@ -894,7 +900,7 @@
 
 <body>
   <nav>
-    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <a href="home.html" class="nav-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></a>
     <ul class="nav-links">
       <li><a href="services.html">Services</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
@@ -1185,7 +1191,6 @@
 
   <section class="about-cta">
     <div class="about-cta-inner reveal">
-      <div class="section-label" style="justify-content:center;">Bottom CTA</div>
       <h2 class="section-title">Let's Build Something Together</h2>
       <p>We're selective about the projects we take on because we commit fully to every client we work with. If you're ready to partner with a team that treats your business like their own, we'd love to hear from you.</p>
       <a href="contact.html" class="btn-primary">Get in Touch</a>
@@ -1195,7 +1200,7 @@
   <footer class="footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
         <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
           of engineering and design expertise.</p>
       </div>
@@ -1230,7 +1235,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
       <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
     </div>
   </footer>

@@ -392,9 +392,6 @@ body.nav-open nav .nav-links a {
 .blog-card:hover::before,
 .svc-card:hover::before,
 .value-card:hover::before,
-.book-call:hover::before,
-.info-item:hover::before,
-.stat-card:hover::before,
 .number-chip:hover::before {
   opacity: 1;
 }
@@ -402,9 +399,6 @@ body.nav-open nav .nav-links a {
 .mv-card:hover,
 .team-card:hover,
 .value-card:hover,
-.info-item:hover,
-.book-call:hover,
-.stat-card:hover,
 .number-chip:hover,
 .login-box:hover,
 .cover-image-upload:hover,

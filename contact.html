@@ -17,7 +17,7 @@
       --muted: #5A6B7F;
       --accent: #ba1d49;
       --border: rgba(20, 60, 147, 0.15);
-      --dark: #0D0E10;
+      --dark: #2a2a2a;
     }
 
     *,
@@ -75,11 +75,11 @@
       align-items: center;
       gap: 0.5rem;
       height: auto;
-      min-height: 46px;
+      min-height: 58px;
     }
 
     .nav-logo img {
-      height: 46px;
+      height: 58px;
       width: auto;
       display: block;
     }
@@ -296,9 +296,6 @@
       transition: color 0.2s;
     }
 
-    .info-value a:hover {
-      color: var(--accent);
-    }
 
     /* Hours badge */
     .hours-badge {
@@ -388,10 +385,6 @@
       transition: opacity 0.2s, transform 0.2s;
     }
 
-    .btn-accent:hover {
-      opacity: 0.88;
-      transform: translateY(-2px);
-    }
 
     /* RIGHT — FORM */
     .hero-right {
@@ -551,9 +544,6 @@
       flex: 1;
     }
 
-    .btn-next:hover {
-      background: var(--accent);
-    }
 
     .btn-prev {
       background: none;
@@ -562,10 +552,6 @@
       border: 1px solid var(--border);
     }
 
-    .btn-prev:hover {
-      color: var(--text);
-      border-color: var(--text);
-    }
 
     .btn-submit {
       background: var(--accent);
@@ -583,10 +569,6 @@
       transition: opacity 0.2s, transform 0.2s;
     }
 
-    .btn-submit:hover {
-      opacity: 0.85;
-      transform: translateY(-2px);
-    }
 
     .step-indicator {
       font-family: 'Open Sans', sans-serif;
@@ -773,7 +755,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <a href="home.html" class="nav-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></a>
     <ul class="nav-links">
       <li><a href="services.html">Services</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
@@ -819,7 +801,7 @@
             </div>
             <div>
               <div class="info-label">Email</div>
-              <div class="info-value"><a href="mailto:editors@kemetmediagroup.com">editors@kemetmediagroup.com</a></div>
+              <div class="info-value"><a href="mailto:founder@kemetts.com">founder@kemetts.com</a></div>
             </div>
           </div>
           <div class="info-item">
@@ -994,7 +976,7 @@
   <footer class="footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
         <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
           of engineering and design expertise.</p>
       </div>
@@ -1022,14 +1004,14 @@
         <div class="footer-col-title">Contact</div>
         <ul class="footer-links-list">
           <li><a href="tel:+15597128024">+1 (559) 712-8024</a></li>
-          <li><a href="mailto:editors@kemetmediagroup.com">editors@kemetmediagroup.com</a></li>
+          <li><a href="mailto:founder@kemetts.com">founder@kemetts.com</a></li>
           <li><a href="#">Clovis, CA 93612</a></li>
           <li><a href="#">Book a Call</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
       <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
     </div>
   </footer>
@@ -1114,13 +1096,13 @@
         if (!resp.ok || !result.success) {
           if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send My Message →'; }
           const errEl = document.getElementById('formError');
-          if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Unable to send your message right now. Please email us directly at editors@kemetmediagroup.com'; }
+          if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Unable to send your message right now. Please email us directly at founder@kemetts.com'; }
           return;
         }
       } catch (e) {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send My Message →'; }
         const errEl = document.getElementById('formError');
-        if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Connection error. Please email us directly at editors@kemetmediagroup.com'; }
+        if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Connection error. Please email us directly at founder@kemetts.com'; }
         return;
       }
 

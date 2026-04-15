@@ -39,7 +39,7 @@
       --primary-dim: rgba(20, 60, 147, 0.1);
       --accent-dim: rgba(186, 29, 73, 0.1);
       --border: rgba(20, 60, 147, 0.15);
-      --dark: #0D0E10;
+      --dark: #2a2a2a;
     }
 
     *,
@@ -101,11 +101,11 @@
       align-items: center;
       gap: 0.5rem;
       height: auto;
-      min-height: 46px;
+      min-height: 58px;
     }
 
     .nav-logo img {
-      height: 46px;
+      height: 58px;
       width: auto;
       display: block;
     }
@@ -205,26 +205,131 @@
 
     .hero-trust {
       display: flex;
-      gap: 1.5rem;
+      gap: 3.5rem;
       align-items: center;
-      margin-bottom: 2.5rem;
+      justify-content: flex-start;
+      margin-top: 4rem;
+      margin-bottom: 0;
       opacity: 0;
-      animation: fadeUp 0.8s 0.1s ease forwards;
+      animation: fadeUp 0.8s 0.5s ease forwards;
+      flex-wrap: wrap;
     }
 
     .trust-item {
       font-family: 'Open Sans', 'Roboto', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      color: var(--muted);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-transform: uppercase;
     }
 
     .trust-sep {
-      width: 3px;
-      height: 3px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════
+    HERO STATS SHOWCASE
+═══════════════════════════════════════════ */
+    .hero-stats-container {
+      grid-column: 1 / -1;
+      width: 100vw;
+      margin-left: -2.5rem;
+      background: linear-gradient(135deg, rgba(20, 60, 147, 0.06) 0%, rgba(186, 29, 73, 0.03) 100%);
+      border-top: 1px solid rgba(20, 60, 147, 0.15);
+      border-bottom: 1px solid rgba(20, 60, 147, 0.1);
+      padding: 2.5rem 2.5rem;
+    }
+
+    .hero-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .hero-stat-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(20, 60, 147, 0.1);
+      transition: all 0.3s ease;
+      cursor: default;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .hero-stat-card:nth-child(1) { animation-delay: 0.6s; }
+    .hero-stat-card:nth-child(2) { animation-delay: 0.7s; }
+    .hero-stat-card:nth-child(3) { animation-delay: 0.8s; }
+    .hero-stat-card:nth-child(4) { animation-delay: 0.9s; }
+
+    .hero-stat-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.75);
+      border-color: var(--accent);
+      box-shadow: 0 16px 40px rgba(20, 60, 147, 0.15);
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-family: 'Open Sans', 'Roboto', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    /* Responsive Stats */
+    @media (max-width: 1024px) {
+      .hero-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        padding: 2rem;
+      }
+
+      .hero-stats-container {
+        padding: 2.5rem 2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .hero-stats-container {
+        padding: 2rem 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 2.2rem;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+      }
     }
 
     .hero h1 {
@@ -255,7 +360,7 @@
       opacity: 0;
       animation: fadeUp 0.9s 0.35s ease forwards;
     }
- 
+
 
 
     .hero-actions {
@@ -363,7 +468,7 @@
       font-size: 0.7rem;
       font-weight: 400;
       letter-spacing: 0.18em;
-      color: var(--accent);
+      color: #ffffff;
       white-space: nowrap;
       text-transform: uppercase;
     }
@@ -477,13 +582,12 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      height: 6px;
-      background: linear-gradient(90deg, var(--accent), var(--primary));
+      height: 5px;
+      background: var(--accent);
       width: 0%;
       transition: width 0.1s linear;
       z-index: 10;
-      box-shadow: 0 0 12px rgba(186, 29, 73, 0.5), 0 -2px 8px rgba(186, 29, 73, 0.3);
-      border-radius: 0 3px 3px 0;
+      border-radius: 0;
     }
 
     .services-track {
@@ -684,8 +788,13 @@
     }
 
     @media (max-width: 900px) {
-      .portfolio-bg-svg { display: none; }
-      .portfolio { background: transparent; }
+      .portfolio-bg-svg {
+        display: none;
+      }
+
+      .portfolio {
+        background: transparent;
+      }
     }
 
     .portfolio-header {
@@ -825,8 +934,17 @@
     }
 
     @keyframes orbitPulse {
-      0%, 100% { transform: scale(1); opacity: 0.35; }
-      50% { transform: scale(1.4); opacity: 0.15; }
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.35;
+      }
+
+      50% {
+        transform: scale(1.4);
+        opacity: 0.15;
+      }
     }
 
     /* Portfolio Grid */
@@ -846,6 +964,22 @@
       position: relative;
       overflow: hidden;
       opacity: 1;
+    }
+
+    .card-bg-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      opacity: 0.12;
+      z-index: 0;
+      border-radius: 4px;
+    }
+
+    .portfolio-card > *:not(.card-bg-img) {
+      position: relative;
+      z-index: 1;
     }
 
     .portfolio-card.hidden {
@@ -1101,15 +1235,16 @@
     }
 
     .wcu-card-icon {
-      width: 48px;
-      height: 48px;
+      width: 60px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(186, 29, 73, 0.25);
+      border: 2px solid var(--accent);
       border-radius: 50%;
       margin-bottom: 2rem;
       color: var(--accent);
+      background: rgba(186, 29, 73, 0.08);
       transition: border-color 0.4s ease,
         background 0.4s ease,
         transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -1117,13 +1252,15 @@
 
     .wcu-card:hover .wcu-card-icon {
       border-color: var(--accent);
-      background: rgba(186, 29, 73, 0.1);
+      background: rgba(186, 29, 73, 0.18);
       transform: scale(1.08);
     }
 
     .wcu-card-icon svg {
-      width: 22px;
-      height: 22px;
+      width: 28px;
+      height: 28px;
+      stroke: var(--accent);
+      stroke-width: 1.8;
     }
 
     .wcu-card-title {
@@ -1159,13 +1296,6 @@
       border: 1px solid rgba(186, 29, 73, 0.2);
       border-radius: 2px;
       padding: 0.25rem 0.6rem;
-      transition: background 0.3s ease,
-        border-color 0.3s ease;
-    }
-
-    .wcu-card:hover .wcu-tag {
-      border-color: rgba(186, 29, 73, 0.4);
-      background: rgba(186, 29, 73, 0.06);
     }
 
     /* ═══════════════════════════════════════════
@@ -1453,7 +1583,9 @@
       display: none;
       animation: testFadeIn 0.6s ease forwards;
       position: relative;
-      padding: 1rem 0.5rem;
+      padding: 2rem 2rem;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
     }
 
     .test-slide.active {
@@ -1468,6 +1600,7 @@
         opacity: 0;
         transform: translateY(16px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -2550,6 +2683,7 @@
         transform: translateY(20px);
         opacity: 0;
       }
+
       to {
         transform: translateY(0);
         opacity: 1;
@@ -2644,6 +2778,7 @@
         opacity: 0;
         transform: translateY(8px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -2738,8 +2873,8 @@
       color: white;
     }
 
-    .chat-message-text br + li,
-    .chat-message-text li + br {
+    .chat-message-text br+li,
+    .chat-message-text li+br {
       display: block;
       height: 0.25rem;
     }
@@ -2821,10 +2956,14 @@
     }
 
     @keyframes typingBounce {
-      0%, 60%, 100% {
+
+      0%,
+      60%,
+      100% {
         transform: translateY(0);
         opacity: 0.6;
       }
+
       30% {
         transform: translateY(-0.6rem);
         opacity: 1;
@@ -2937,42 +3076,43 @@
     </script>
   <script type="application/ld+json"> {
     <script src="site-enhancements.js" defer></script>
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Kemet Technologies",
-      "image": "https://kemetechnologies.com/hero-image.png",
-      "description": "Digital solutions provider offering web design, mobile apps, custom software, AI integrations, and SEO services",
-      "url": "https://kemetechnologies.com",
-      "telephone": "+1-559-712-8024",
-      "email": "editors@kemetmediagroup.com",
-      "address": {
-        "@type": "PostalAddress",
-          "streetAddress": "777 Minnewawa Ave",
-          "addressLocality": "Clovis",
-          "addressRegion": "CA",
-          "postalCode": "93612",
-          "addressCountry": "US"
-      }
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Kemet Technologies",
+  "image": "https://kemetechnologies.com/hero-image.png",
+  "description": "Digital solutions provider offering web design, mobile apps, custom software, AI integrations, and SEO
+  services",
+  "url": "https://kemetechnologies.com",
+  "telephone": "+1-559-712-8024",
+  "email": "founder@kemetts.com",
+  "address": {
+  "@type": "PostalAddress",
+  "streetAddress": "777 Minnewawa Ave",
+  "addressLocality": "Clovis",
+  "addressRegion": "CA",
+  "postalCode": "93612",
+  "addressCountry": "US"
+  }
 
-      ,
+  ,
 
-      "@type": "GeoCoordinates",
-      "latitude": "36.8252",
-      "longitude": "-120.0574"
-    }
+  "@type": "GeoCoordinates",
+  "latitude": "36.8252",
+  "longitude": "-120.0574"
+  }
 
-    ,
-    "openingHoursSpecification": [ {
-      "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "09:00",
-        "closes": "18:00"
-    }
+  ,
+  "openingHoursSpecification": [ {
+  "@type": "OpeningHoursSpecification",
+  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+  "opens": "09:00",
+  "closes": "18:00"
+  }
 
-    ]
-    }
+  ]
+  }
 
-    </script>
+  </script>
   <script type="application/ld+json"> {
 
       "@context": "https://schema.org",
@@ -3048,7 +3188,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <a href="home.html" class="nav-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></a>
     <ul class="nav-links">
       <li><a href="services.html">Services</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
@@ -3065,16 +3205,6 @@
       Your browser does not support the video tag.
     </video>
     <div class="hero-left">
-      <div class="hero-trust">
-        <span class="trust-item">5+ Years</span>
-        <span class="trust-sep"></span>
-        <span class="trust-item">120+ Projects</span>
-        <span class="trust-sep"></span>
-        <span class="trust-item">100+ Clients</span>
-        <span class="trust-sep"></span>
-        <span class="trust-item">Nationwide</span>
-      </div>
-
       <h1>Building <em><span class="text">
             <span class="word">Digital Solutions</span>
             <span class="word">Beautiful Interfaces</span>
@@ -3142,6 +3272,28 @@
           <circle cx="0" cy="-30" r="3" />
         </g>
       </svg>
+    </div>
+
+    <!-- Stats Showcase -->
+    <div class="hero-stats-container">
+      <div class="hero-stats-grid">
+        <div class="hero-stat-card">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat-number">120+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Satisfied Clients</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Nationwide Reach</div>
+        </div>
+      </div>
     </div>
 
     <!-- Marquee Strip -->
@@ -3349,41 +3501,74 @@
     <div class="wcu-container">
       <div class="wcu-header">
         <div class="section-label">Why Choose Us</div>
-        <h2 class="section-title wcu-title">A Partnership Built on<br /><em style="font-style:italic; color:var(--accent);">Accountability, Expertise &amp; Execution</em></h2>
-        <p class="wcu-intro">We understand that choosing a technology partner is a significant decision. Our clients — from emerging startups to established enterprises — trust Kemet Technologies because we earn that trust on every project.</p>
+        <h2 class="section-title wcu-title">A Partnership Built on<br /><em
+            style="font-style:italic; color:var(--accent);">Accountability, Expertise &amp; Execution</em></h2>
+        <p class="wcu-intro">We understand that choosing a technology partner is a significant decision. Our clients —
+          from emerging startups to established enterprises — trust Kemet Technologies because we earn that trust on
+          every project.</p>
       </div>
       <div class="wcu-grid">
         <div class="wcu-card">
-          <div class="wcu-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="1.5" /><path d="M16 24l6 6 10-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+          <div class="wcu-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="1.5" />
+              <path d="M16 24l6 6 10-12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></div>
           <div class="wcu-card-num">01</div>
           <div class="wcu-card-accent"></div>
           <h3 class="wcu-card-title">Experienced,<br />Cross-Functional Team</h3>
-          <p class="wcu-card-desc">Our team spans UI/UX design, full-stack development, mobile engineering, and AI implementation — all under one roof.</p>
-          <div class="wcu-card-tags"><span class="wcu-tag">UI/UX</span><span class="wcu-tag">Full-Stack</span><span class="wcu-tag">Mobile</span><span class="wcu-tag">AI</span></div>
+          <p class="wcu-card-desc">Our team spans UI/UX design, full-stack development, mobile engineering, and AI
+            implementation — all under one roof.</p>
+          <div class="wcu-card-tags"><span class="wcu-tag">UI/UX</span><span class="wcu-tag">Full-Stack</span><span
+              class="wcu-tag">Mobile</span><span class="wcu-tag">AI</span></div>
         </div>
         <div class="wcu-card">
-          <div class="wcu-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 12h32M8 24h32M8 36h32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /><circle cx="18" cy="12" r="3" fill="currentColor" opacity="0.3" /><circle cx="30" cy="24" r="3" fill="currentColor" opacity="0.3" /><circle cx="14" cy="36" r="3" fill="currentColor" opacity="0.3" /></svg></div>
+          <div class="wcu-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 12h32M8 24h32M8 36h32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <circle cx="18" cy="12" r="3" fill="currentColor" opacity="0.3" />
+              <circle cx="30" cy="24" r="3" fill="currentColor" opacity="0.3" />
+              <circle cx="14" cy="36" r="3" fill="currentColor" opacity="0.3" />
+            </svg></div>
           <div class="wcu-card-num">02</div>
           <div class="wcu-card-accent"></div>
           <h3 class="wcu-card-title">Transparent<br />Communication</h3>
-          <p class="wcu-card-desc">You'll always know where your project stands. Clear communication is as important as clean code. An assigned project manager handles every aspect through each stage of the timeline.</p>
-          <div class="wcu-card-tags"><span class="wcu-tag">Dedicated PM</span><span class="wcu-tag">Live Updates</span></div>
+          <p class="wcu-card-desc">You'll always know where your project stands. Clear communication is as important as
+            clean code. An assigned project manager handles every aspect through each stage of the timeline.</p>
+          <div class="wcu-card-tags"><span class="wcu-tag">Dedicated PM</span><span class="wcu-tag">Live Updates</span>
+          </div>
         </div>
         <div class="wcu-card">
-          <div class="wcu-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 6v36M6 24h36" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /><path d="M14 14c4 4 6 6 10 10s6 6 10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5" /><circle cx="24" cy="24" r="4" stroke="currentColor" stroke-width="1.5" /></svg></div>
+          <div class="wcu-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 6v36M6 24h36" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M14 14c4 4 6 6 10 10s6 6 10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                opacity="0.5" />
+              <circle cx="24" cy="24" r="4" stroke="currentColor" stroke-width="1.5" />
+            </svg></div>
           <div class="wcu-card-num">03</div>
           <div class="wcu-card-accent"></div>
           <h3 class="wcu-card-title">Scalable,<br />Future-Ready Solutions</h3>
-          <p class="wcu-card-desc">We build with growth in mind. Every solution is architected to evolve alongside your business — never boxing you into yesterday's technology.</p>
-          <div class="wcu-card-tags"><span class="wcu-tag">Scalable</span><span class="wcu-tag">Future-Proof</span></div>
+          <p class="wcu-card-desc">We build with growth in mind. Every solution is architected to evolve alongside your
+            business — never boxing you into yesterday's technology.</p>
+          <div class="wcu-card-tags"><span class="wcu-tag">Scalable</span><span class="wcu-tag">Future-Proof</span>
+          </div>
         </div>
         <div class="wcu-card">
-          <div class="wcu-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="1.5" /><path d="M12 24c4-8 8-12 12-12s8 4 12 12-4 12-12 12-8-4-12-12z" stroke="currentColor" stroke-width="1.5" /><circle cx="24" cy="12" r="2" fill="currentColor" opacity="0.4" /><circle cx="24" cy="36" r="2" fill="currentColor" opacity="0.4" /><circle cx="12" cy="24" r="2" fill="currentColor" opacity="0.4" /><circle cx="36" cy="24" r="2" fill="currentColor" opacity="0.4" /></svg></div>
+          <div class="wcu-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="1.5" />
+              <path d="M12 24c4-8 8-12 12-12s8 4 12 12-4 12-12 12-8-4-12-12z" stroke="currentColor"
+                stroke-width="1.5" />
+              <circle cx="24" cy="12" r="2" fill="currentColor" opacity="0.4" />
+              <circle cx="24" cy="36" r="2" fill="currentColor" opacity="0.4" />
+              <circle cx="12" cy="24" r="2" fill="currentColor" opacity="0.4" />
+              <circle cx="36" cy="24" r="2" fill="currentColor" opacity="0.4" />
+            </svg></div>
           <div class="wcu-card-num">04</div>
           <div class="wcu-card-accent"></div>
           <h3 class="wcu-card-title">Nationwide Reach,<br />Personalized Attention</h3>
-          <p class="wcu-card-desc">Remote-first and coast-to-coast capable, while never losing the personal, responsive service of a dedicated local firm.</p>
-          <div class="wcu-card-tags"><span class="wcu-tag">Remote-First</span><span class="wcu-tag">Nationwide</span></div>
+          <p class="wcu-card-desc">Remote-first and coast-to-coast capable, while never losing the personal, responsive
+            service of a dedicated local firm.</p>
+          <div class="wcu-card-tags"><span class="wcu-tag">Remote-First</span><span class="wcu-tag">Nationwide</span>
+          </div>
         </div>
       </div>
     </div>
@@ -3392,7 +3577,8 @@
   <!-- ══════════ PORTFOLIO ══════════ -->
   <section class="portfolio" id="portfolio">
     <div class="portfolio-bg-svg-wrap" aria-hidden="true">
-      <svg class="portfolio-bg-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
+      <svg class="portfolio-bg-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"
+        xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
         <g stroke="rgba(20,60,147,0.10)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="-300,900 450,120 1300,900"></polygon>
           <polygon points="50,900 800,150 1550,900"></polygon>
@@ -3432,47 +3618,23 @@
     <div class="portfolio-grid" id="portfolioGrid">
       <!-- Cards injected by JS -->
     </div>
-    <script>
-      (async function(){
-        try {
-          const resp = await fetch('projects.json?' + Date.now(), { cache: 'no-store' });
-          if (!resp.ok) throw new Error('Failed to load projects.json');
-          const projects = await resp.json();
-          const grid = document.getElementById('portfolioGrid');
-          if (!grid) return;
-
-          grid.innerHTML = projects.map(p => `
-            <div class="portfolio-card">
-              <div class="card-cat">${p.cat}</div>
-              <div class="card-num">${p.num}</div>
-              <div class="card-name">${p.name}</div>
-              <div class="card-location">📍 ${p.location || ''}</div>
-              <div class="card-desc">${p.desc || ''}</div>
-              <a href="${p.url || '#'}" class="card-link" ${p.url ? 'target="_blank" rel="noopener noreferrer"' : ''}>View Project →</a>
-            </div>
-          `).join('');
-
-          // Animate in (stagger)
-          Array.from(grid.children).forEach((card, i) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(10px) scale(0.98)';
-            setTimeout(() => {
-              card.style.transition = 'opacity 0.36s, transform 0.36s';
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0) scale(1)';
-            }, 60 + i * 40);
-          });
-        } catch (e) {
-          console.error('Could not load projects.json for portfolio grid:', e);
-        }
-      })();
-    </script>
   </section>
 
   <!-- ══════════ FEATURED WORK ══════════ -->
   <section class="featured-work" id="featuredWork">
     <div class="fw-bg-grid"></div>
-    <div class="fw-vertical-lines"><svg viewBox="0 0 1600 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" role="img" focusable="false"><g stroke="#ba1d49" stroke-width="1.2" fill="none" opacity="0.12"><line x1="200" y1="0" x2="200" y2="900" /><line x1="400" y1="0" x2="400" y2="900" /><line x1="600" y1="0" x2="600" y2="900" /><line x1="800" y1="0" x2="800" y2="900" /><line x1="1000" y1="0" x2="1000" y2="900" /><line x1="1200" y1="0" x2="1200" y2="900" /><line x1="1400" y1="0" x2="1400" y2="900" /></g></svg></div>
+    <div class="fw-vertical-lines"><svg viewBox="0 0 1600 900" preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
+        <g stroke="#ba1d49" stroke-width="1.2" fill="none" opacity="0.12">
+          <line x1="200" y1="0" x2="200" y2="900" />
+          <line x1="400" y1="0" x2="400" y2="900" />
+          <line x1="600" y1="0" x2="600" y2="900" />
+          <line x1="800" y1="0" x2="800" y2="900" />
+          <line x1="1000" y1="0" x2="1000" y2="900" />
+          <line x1="1200" y1="0" x2="1200" y2="900" />
+          <line x1="1400" y1="0" x2="1400" y2="900" />
+        </g>
+      </svg></div>
     <div class="fw-container">
       <div class="fw-header">
         <div class="section-label">Featured Work</div>
@@ -3480,9 +3642,39 @@
         <p class="fw-subtitle">A snapshot of the digital experiences we've built for our clients.</p>
       </div>
       <div class="fw-cards">
-        <a href="https://gksus.com/" target="_blank" rel="noopener noreferrer" class="fw-card" data-images='["media/gks/gksweb1.png","media/gks/gksweb2.png","media/gks/gksweb3.png","media/gks/gksweb4.png"]'><div class="fw-card-image"><img src="media/gks/gksweb1.png" alt="German Kitchen Studio Project" loading="lazy" class="fw-main-image"></div><div class="fw-card-body"><div class="fw-card-meta"><span class="fw-card-tag">E-Commerce</span></div><h3 class="fw-card-name">German Kitchen Studio</h3><p class="fw-card-desc">Full e-commerce platform redesign with custom product builder and streamlined checkout flow.</p></div></a>
-        <a href="https://gnmusa.com/" target="_blank" rel="noopener noreferrer" class="fw-card" data-images='["media/globalnexus/globalnexusweb1.png","media/globalnexus/globalnexusweb2.png","media/globalnexus/globalnexusweb3.png"]'><div class="fw-card-image"><img src="media/globalnexus/globalnexusweb1.png" alt="Global Nexus Management Project" loading="lazy" class="fw-main-image"></div><div class="fw-card-body"><div class="fw-card-meta"><span class="fw-card-tag">Corporate Website</span></div><h3 class="fw-card-name">Global Nexus Management</h3><p class="fw-card-desc">Corporate website with service showcase, project portfolio, and lead generation system.</p></div></a>
-        <a href="https://urbandesignengineering.com/" target="_blank" rel="noopener noreferrer" class="fw-card" data-images='["media/urban/urbanweb1.png","media/urban/urbanweb2.png","media/urban/urbanweb3.png"]'><div class="fw-card-image"><img src="media/urban/urbanweb1.png" alt="Urban Design Engineering Project" loading="lazy" class="fw-main-image"></div><div class="fw-card-body"><div class="fw-card-meta"><span class="fw-card-tag">Engineering Firm</span></div><h3 class="fw-card-name">Urban Design Engineering</h3><p class="fw-card-desc">Professional engineering firm website with project gallery, services directory, and client portal.</p></div></a>
+        <a href="https://gksus.com/" target="_blank" rel="noopener noreferrer" class="fw-card"
+          data-images='["media/gks/gksweb1.png","media/gks/gksweb2.png","media/gks/gksweb3.png","media/gks/gksweb4.png"]'>
+          <div class="fw-card-image"><img src="media/gks/gksweb1.png" alt="German Kitchen Studio Project" loading="lazy"
+              class="fw-main-image"></div>
+          <div class="fw-card-body">
+            <div class="fw-card-meta"><span class="fw-card-tag">E-Commerce</span></div>
+            <h3 class="fw-card-name">German Kitchen Studio</h3>
+            <p class="fw-card-desc">Full e-commerce platform redesign with custom product builder and streamlined
+              checkout flow.</p>
+          </div>
+        </a>
+        <a href="https://gnmusa.com/" target="_blank" rel="noopener noreferrer" class="fw-card"
+          data-images='["media/globalnexus/globalnexusweb1.png","media/globalnexus/globalnexusweb2.png","media/globalnexus/globalnexusweb3.png"]'>
+          <div class="fw-card-image"><img src="media/globalnexus/globalnexusweb1.png"
+              alt="Global Nexus Management Project" loading="lazy" class="fw-main-image"></div>
+          <div class="fw-card-body">
+            <div class="fw-card-meta"><span class="fw-card-tag">Corporate Website</span></div>
+            <h3 class="fw-card-name">Global Nexus Management</h3>
+            <p class="fw-card-desc">Corporate website with service showcase, project portfolio, and lead generation
+              system.</p>
+          </div>
+        </a>
+        <a href="https://urbandesignengineering.com/" target="_blank" rel="noopener noreferrer" class="fw-card"
+          data-images='["media/urban/urbanweb1.png","media/urban/urbanweb2.png","media/urban/urbanweb3.png"]'>
+          <div class="fw-card-image"><img src="media/urban/urbanweb1.png" alt="Urban Design Engineering Project"
+              loading="lazy" class="fw-main-image"></div>
+          <div class="fw-card-body">
+            <div class="fw-card-meta"><span class="fw-card-tag">Engineering Firm</span></div>
+            <h3 class="fw-card-name">Urban Design Engineering</h3>
+            <p class="fw-card-desc">Professional engineering firm website with project gallery, services directory, and
+              client portal.</p>
+          </div>
+        </a>
       </div>
       <div class="fw-cta"><a href="portfolio.html" class="fw-cta-link">View All Projects →</a></div>
     </div>
@@ -3499,21 +3691,124 @@
       </div>
       <div class="test-slider">
         <div class="test-track" id="testTrack">
-          <div class="test-slide active"><div class="test-quote-mark">"</div><blockquote class="test-quote">Kemet Technologies did an amazing job building our website for Hero Expressway Inc. From start to finish, their team made the process smooth and stress-free. They really took the time to understand our business and delivered a site that not only looks professional but also works perfectly for our needs. We love the tech, the people, and the outstanding customer service. They're always responsive, knowledgeable, and willing to go the extra mile. I highly recommend Kemet Technologies to any business looking for a reliable web design and development partner.</blockquote><div class="test-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg></div><div class="test-author"><div class="test-author-avatar"><span>H</span></div><div class="test-author-info"><div class="test-author-name">Hana Soliman</div></div></div></div>
-          <div class="test-slide"><div class="test-quote-mark">"</div><blockquote class="test-quote">Working with Kemet Technologies on our B2B online store was a fantastic experience. They delivered a platform that's not only visually appealing but also incredibly functional for our wholesale business. Our order processing is more efficient, and we've received great feedback from our customers. We highly recommend them!</blockquote><div class="test-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg></div><div class="test-author"><div class="test-author-avatar"><span>N</span></div><div class="test-author-info"><div class="test-author-name">Nader Shokry</div></div></div></div>
-          <div class="test-slide"><div class="test-quote-mark">"</div><blockquote class="test-quote">We are thrilled with our new website from Kemet Technologies! They built our site from the ground up, including an innovative, custom-built booking form that has transformed our business. It's incredibly easy for our clients to use and has made managing our reservations much more efficient. Highly recommend them</blockquote><div class="test-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg></div><div class="test-author"><div class="test-author-avatar"><span>G</span></div><div class="test-author-info"><div class="test-author-name">Gerges Ibrahim</div></div></div></div>
-          <div class="test-slide"><div class="test-quote-mark">"</div><blockquote class="test-quote">Kemet Technology is the best service ever I have a great experience with them to make my business and better prices than any website company I love to work with them more often.</blockquote><div class="test-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg></div><div class="test-author"><div class="test-author-avatar"><span>A</span></div><div class="test-author-info"><div class="test-author-name">Alber Mounir</div></div></div></div>
+          <div class="test-slide active">
+            <div class="test-quote-mark">"</div>
+            <blockquote class="test-quote">Kemet Technologies did an amazing job building our website for Hero
+              Expressway Inc. From start to finish, their team made the process smooth and stress-free. They really took
+              the time to understand our business and delivered a site that not only looks professional but also works
+              perfectly for our needs. We love the tech, the people, and the outstanding customer service. They're
+              always responsive, knowledgeable, and willing to go the extra mile. I highly recommend Kemet Technologies
+              to any business looking for a reliable web design and development partner.</blockquote>
+            <div class="test-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg></div>
+            <div class="test-author">
+              <div class="test-author-avatar"><span>H</span></div>
+              <div class="test-author-info">
+                <div class="test-author-name">Hana Soliman</div>
+              </div>
+            </div>
+          </div>
+          <div class="test-slide">
+            <div class="test-quote-mark">"</div>
+            <blockquote class="test-quote">Working with Kemet Technologies on our B2B online store was a fantastic
+              experience. They delivered a platform that's not only visually appealing but also incredibly functional
+              for our wholesale business. Our order processing is more efficient, and we've received great feedback from
+              our customers. We highly recommend them!</blockquote>
+            <div class="test-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg></div>
+            <div class="test-author">
+              <div class="test-author-avatar"><span>N</span></div>
+              <div class="test-author-info">
+                <div class="test-author-name">Nader Shokry</div>
+              </div>
+            </div>
+          </div>
+          <div class="test-slide">
+            <div class="test-quote-mark">"</div>
+            <blockquote class="test-quote">We are thrilled with our new website from Kemet Technologies! They built our
+              site from the ground up, including an innovative, custom-built booking form that has transformed our
+              business. It's incredibly easy for our clients to use and has made managing our reservations much more
+              efficient. Highly recommend them</blockquote>
+            <div class="test-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg></div>
+            <div class="test-author">
+              <div class="test-author-avatar"><span>G</span></div>
+              <div class="test-author-info">
+                <div class="test-author-name">Gerges Ibrahim</div>
+              </div>
+            </div>
+          </div>
+          <div class="test-slide">
+            <div class="test-quote-mark">"</div>
+            <blockquote class="test-quote">Kemet Technology is the best service ever I have a great experience with them
+              to make my business and better prices than any website company I love to work with them more often.
+            </blockquote>
+            <div class="test-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg></div>
+            <div class="test-author">
+              <div class="test-author-avatar"><span>A</span></div>
+              <div class="test-author-info">
+                <div class="test-author-name">Alber Mounir</div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="test-controls">
-          <button class="test-btn" id="testPrev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg></button>
-          <div class="test-progress-bar"><div class="test-progress-fill"></div></div>
+          <button class="test-btn" id="testPrev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" width="20"
+              height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg></button>
+          <div class="test-progress-bar">
+            <div class="test-progress-fill"></div>
+          </div>
           <div class="test-dots" id="testDots">
             <button class="test-dot active" data-index="0" aria-label="Testimonial 1"></button>
             <button class="test-dot" data-index="1" aria-label="Testimonial 2"></button>
             <button class="test-dot" data-index="2" aria-label="Testimonial 3"></button>
             <button class="test-dot" data-index="3" aria-label="Testimonial 4"></button>
           </div>
-          <button class="test-btn" id="testNext" aria-label="Next testimonial"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg></button>
+          <button class="test-btn" id="testNext" aria-label="Next testimonial"><svg viewBox="0 0 24 24" width="20"
+              height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg></button>
         </div>
       </div>
     </div>
@@ -3525,8 +3820,10 @@
     <div class="cta-container">
       <div class="cta-content">
         <div class="section-label" style="justify-content:center;">Get Started</div>
-        <h2 class="cta-title">Ready to Build Something<br /><em style="font-style:italic; color:var(--accent);">Exceptional?</em></h2>
-        <p class="cta-desc">Let's talk about your project. Schedule a free discovery call with our team and get a clear roadmap for your next digital initiative.</p>
+        <h2 class="cta-title">Ready to Build Something<br /><em
+            style="font-style:italic; color:var(--accent);">Exceptional?</em></h2>
+        <p class="cta-desc">Let's talk about your project. Schedule a free discovery call with our team and get a clear
+          roadmap for your next digital initiative.</p>
         <a href="#contact" class="cta-button">Book a Free Consultation</a>
       </div>
     </div>
@@ -3552,7 +3849,8 @@
       <div class="team-card">
         <div class="team-avatar-wrap">
           <div class="team-avatar-ring">
-            <img src="media/team/team-1.jpg" alt="George Wahba" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <img src="media/team/team-1.jpg" alt="George Wahba"
+              style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
           </div>
           <div class="team-avatar-pip"></div>
         </div>
@@ -3567,7 +3865,8 @@
       <div class="team-card">
         <div class="team-avatar-wrap">
           <div class="team-avatar-ring">
-            <img src="media/team/team-2.jpg" alt="Antonios Milad" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <img src="media/team/team-2.jpg" alt="Antonios Milad"
+              style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
           </div>
           <div class="team-avatar-pip"></div>
         </div>
@@ -3582,7 +3881,8 @@
       <div class="team-card">
         <div class="team-avatar-wrap">
           <div class="team-avatar-ring">
-            <img src="media/team/team-3.jpg" alt="Abanoub Mounir" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <img src="media/team/team-3.jpg" alt="Abanoub Mounir"
+              style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
           </div>
           <div class="team-avatar-pip"></div>
         </div>
@@ -3597,11 +3897,12 @@
       <div class="team-card">
         <div class="team-avatar-wrap">
           <div class="team-avatar-ring">
-            <img src="media/team/team-4.jpg" alt="Bishoy Sabri" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <img src="media/team/team-4.jpg" alt="Bishoy Sabri"
+              style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
           </div>
           <div class="team-avatar-pip"></div>
         </div>
-        <div class="team-card-role">WordPress Developer</div>
+        <div class="team-card-role">Data Architect Engineer</div>
         <div class="team-card-name">Bishoy Sabri</div>
         <p class="team-card-desc">Specialist in building fast, scalable WordPress platforms — from custom themes and
           plugin development to CMS architecture and performance tuning.</p>
@@ -3612,7 +3913,8 @@
       <div class="team-card">
         <div class="team-avatar-wrap">
           <div class="team-avatar-ring">
-            <img src="media/team/team-5.jpg" alt="Kristen Samir" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <img src="media/team/team-5.jpg" alt="Kristen Samir"
+              style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
           </div>
           <div class="team-avatar-pip"></div>
         </div>
@@ -3627,7 +3929,8 @@
       <div class="team-card">
         <div class="team-avatar-wrap">
           <div class="team-avatar-ring">
-            <img src="media/team/team-6.jpg" alt="Mary Mikhail" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <img src="media/team/team-6.jpg" alt="Mary Mikhail"
+              style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
           </div>
           <div class="team-avatar-pip"></div>
         </div>
@@ -3642,7 +3945,8 @@
       <div class="team-card">
         <div class="team-avatar-wrap">
           <div class="team-avatar-ring">
-            <img src="media/team/team-7.jpg" alt="Andrew Amir" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <img src="media/team/team-7.jpg" alt="Andrew Amir"
+              style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
           </div>
           <div class="team-avatar-pip"></div>
         </div>
@@ -3657,7 +3961,8 @@
       <div class="team-card">
         <div class="team-avatar-wrap">
           <div class="team-avatar-ring">
-            <img src="media/team/team-8.jpg" alt="Maximous Atef" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <img src="media/team/team-8.jpg" alt="Maximous Atef"
+              style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
           </div>
           <div class="team-avatar-pip"></div>
         </div>
@@ -3714,7 +4019,7 @@
             <div>
               <div class="contact-info-label">Email</div>
               <div class="contact-info-value"><a
-                  href="mailto:editors@kemetmediagroup.com">editors@kemetmediagroup.com</a></div>
+                  href="mailto:founder@kemetts.com">founder@kemetts.com</a></div>
             </div>
           </div>
 
@@ -3850,7 +4155,7 @@
   <footer class="footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
         <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
           of engineering and design expertise.</p>
       </div>
@@ -3878,14 +4183,14 @@
         <div class="footer-col-title">Contact</div>
         <ul class="footer-links-list">
           <li><a href="tel:+15597128024">+1 (559) 712-8024</a></li>
-          <li><a href="mailto:editors@kemetmediagroup.com">editors@kemetmediagroup.com</a></li>
+          <li><a href="mailto:founder@kemetts.com">founder@kemetts.com</a></li>
           <li><a href="#">Clovis, CA 93612</a></li>
           <li><a href="#">Book a Call</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
       <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
     </div>
   </footer>
@@ -3928,25 +4233,9 @@
 
 
     /* ══════════════════════════════════════════
-       PORTFOLIO DATA
-    ══════════════════════════════════════════ */
-    const projects = [
-      { num: '01', cat: 'E-Commerce', filter: 'ecommerce', name: 'Queen Mini Market', location: 'Belleville, NJ', desc: 'A fully functional online grocery and deli store built for seamless ordering and local delivery management.' },
-      { num: '02', cat: 'E-Commerce', filter: 'ecommerce', name: 'SF-Shoply', location: 'Nationwide', desc: 'An e-commerce platform for specialty halal food delivery with comprehensive product catalog and shipping integrations.' },
-      { num: '03', cat: 'Marketing Site', filter: 'marketing', name: 'Hero Expressway', location: 'Wilmington, CA', desc: 'A professional marketing website for a drayage trucking company conveying operational capability and credibility.' },
-      { num: '04', cat: 'E-Commerce', filter: 'ecommerce', name: 'Golden Eagle Jewelry', location: 'Specialty Retail', desc: 'An e-commerce site for an exclusive distributor of professional jewelry-making alloys and plating solutions.' },
-      { num: '05', cat: 'Marketing Site', filter: 'marketing', name: 'Matteo Landscaping', location: 'California', desc: 'A visual, project-focused website showcasing completed work and driving local service inquiries.' },
-      { num: '06', cat: 'Marketing Site', filter: 'marketing', name: 'CA Solars', location: 'California', desc: 'A lead-generation website featuring service info, energy savings calculator, and consultation request flow.' },
-      { num: '07', cat: 'Marketing Site', filter: 'marketing', name: 'Elegant Transportation', location: 'California', desc: 'A clean, accessible website for a non-emergency medical transportation company highlighting service reliability.' },
-      { num: '08', cat: 'Marketing Site', filter: 'marketing', name: 'Urban Design Engineering', location: 'Architecture', desc: 'A professional digital presence for an architectural and engineering firm reflecting technical precision.' },
-      { num: '09', cat: 'Media', filter: 'media', name: 'Orthodox News', location: 'National', desc: 'A full-featured digital news platform delivering content built with robust CMS and optimized for readership engagement.' },
-      { num: '10', cat: 'E-Commerce', filter: 'ecommerce', name: 'Brothers Dream Distro', location: 'United States', desc: 'A digital storefront for a family-owned distribution business with product management and wholesale ordering flows.' },
-      { num: '11', cat: 'Marketing Site', filter: 'marketing', name: 'St. George Security', location: 'California', desc: 'A corporate website communicating professionalism, trust, and service range to commercial and residential clients.' },
-      { num: '12', cat: 'Marketing Site', filter: 'marketing', name: 'OC Irvine Microblading', location: 'Irvine, CA', desc: 'Beauty and wellness marketing site dedicated to helping clients look and feel beautiful at any time of the day.' },
-    ];
-    /* ══════════════════════════════════════════
            CIRCLE NAV SETUP
         ══════════════════════════════════════════ */
+    let projects = [];
     const categories = [
       { label: 'All', filter: 'all', angle: 270 },
       { label: 'Web', filter: 'web', angle: 315 },
@@ -3955,7 +4244,7 @@
       { label: 'Software', filter: 'software', angle: 90 },
       { label: 'AI', filter: 'ai', angle: 135 },
       { label: 'Mobile', filter: 'mobile', angle: 180 },
-      { label: 'Media', filter: 'media', angle: 225 },
+      { label: 'SEO & GEO', filter: 'seo-geo', angle: 225 },
     ];
 
     const circleNav = document.getElementById('circleNav');
@@ -4026,18 +4315,21 @@
     function renderGrid(filter) {
       const filtered = filter === 'all' ? projects : projects.filter(p => p.filter === filter);
       grid.innerHTML = '';
-      filtered.forEach(p => {
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:var(--muted); font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.15em; padding:3rem;">NO PROJECTS IN THIS CATEGORY YET</div>`;
+        return;
+      }
+      filtered.forEach((p, i) => {
         const card = document.createElement('div');
         card.className = 'portfolio-card';
         card.innerHTML = `
-      <div class="card-cat">${p.cat}</div>
-      <div class="card-num">${p.num}</div>
-      <div class="card-name">${p.name}</div>
-      <div class="card-location">📍 ${p.location}</div>
-      <div class="card-desc">${p.desc}</div>
-      <a href="#" class="card-link">View Project →</a>
-    `;
-        // Animate in
+          ${p.image ? `<div class="card-bg-img" style="background-image:url('${p.image}')"></div>` : ''}
+          <div class="card-cat">${p.cat}</div>
+          <div class="card-num">${p.num}</div>
+          <div class="card-name">${p.name}</div>
+          <div class="card-location">📍 ${p.location || ''}</div>
+          <a href="${p.url || '#'}" class="card-link" ${p.url ? 'target="_blank" rel="noopener noreferrer"' : ''}>View Project →</a>
+        `;
         card.style.opacity = '0';
         card.style.transform = 'translateY(10px) scale(0.98)';
         grid.appendChild(card);
@@ -4045,15 +4337,16 @@
           card.style.transition = 'opacity 0.3s, transform 0.3s';
           card.style.opacity = '1';
           card.style.transform = 'translateY(0) scale(1)';
-        }, 20);
+        }, 60 + i * 40);
       });
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:var(--muted); font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.15em; padding:3rem;">NO PROJECTS IN THIS CATEGORY YET</div>`;
-      }
     }
-    // Init
+
+    // Init — fetch projects.json then render
     setOrbitPosition(270);
-    renderGrid('all');
+    fetch('projects.json?' + Date.now(), { cache: 'no-store' })
+      .then(r => r.json())
+      .then(data => { projects = data; renderGrid('all'); })
+      .catch(() => renderGrid('all'));
 
     /* ═══════════════════════════════
        CONTACT FORM SUBMIT
@@ -4089,7 +4382,7 @@
 
         if (resp.ok) {
           // Server accepted message
-          try { const data = await resp.json(); /* optional use */ } catch (e) {}
+          try { const data = await resp.json(); /* optional use */ } catch (e) { }
           form.style.transition = 'opacity 0.3s';
           form.style.opacity = '0';
           setTimeout(() => {
@@ -4151,7 +4444,7 @@
       el.style.transitionDelay = (i % 3) * 0.08 + 's';
       fadeObserver.observe(el);
     });
- /* 3D Letter Flip Word Rotator */
+    /* 3D Letter Flip Word Rotator */
     var words = document.getElementsByClassName('word');
     var wordArray = [];
     var currentWord = 0;
@@ -4341,12 +4634,12 @@
 
   <!-- Featured Work Carousel Script -->
   <script>
-    (function() {
+    (function () {
       console.log('🔄 Initializing featured work carousel...');
-      
+
       const featuredCards = document.querySelectorAll('.fw-card[data-images]');
       console.log(`Found ${featuredCards.length} featured work cards`);
-      
+
       if (!featuredCards.length) {
         console.warn('⚠️ No featured work cards found');
         return;
@@ -4361,7 +4654,7 @@
             console.warn(`Card ${cardIdx}: No data-images attribute`);
             return;
           }
-          
+
           const images = JSON.parse(imagesJSON);
           if (!images || !Array.isArray(images) || images.length === 0) {
             console.warn(`Card ${cardIdx}: Invalid images array`);
@@ -4439,7 +4732,7 @@
           console.warn(`⚠️ Error initializing carousel for card ${cardIdx}:`, e.message);
         }
       });
-      
+
       console.log('✓ Featured work carousel fully initialized');
     })();
   </script>

@@ -19,7 +19,7 @@
       --accent: #ba1d49;
       --accent-warm: #d96f18;
       --border: rgba(20, 60, 147, 0.15);
-      --dark: #0D0E10;
+      --dark: #2a2a2a;
     }
 
     *,
@@ -68,11 +68,11 @@
       align-items: center;
       gap: 0.5rem;
       height: auto;
-      min-height: 46px;
+      min-height: 58px;
     }
 
     .nav-logo img {
-      height: 46px;
+      height: 58px;
       width: auto;
       display: block;
     }
@@ -543,16 +543,29 @@
 
       
     }
+    /* Reading Progress Bar */
+    #reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: var(--accent);
+      z-index: 9999;
+      border-radius: 0;
+      transition: width 0.1s linear;
+    }
   </style>
   <link rel="stylesheet" href="site-enhancements.css" />
   <script src="site-enhancements.js" defer></script>
 </head>
 
 <body>
+  <div id="reading-progress"></div>
 
   <!-- NAV -->
   <nav>
-    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <a href="home.html" class="nav-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></a>
     <ul class="nav-links">
       <li><a href="services.html">Services</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
@@ -573,7 +586,7 @@
   <footer class="footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
         <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
           of engineering and design expertise.</p>
       </div>
@@ -608,7 +621,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
       <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
     </div>
   </footer>
@@ -784,6 +797,15 @@
 
     // Initialize - load from data.json first
     loadData();
+  </script>
+  <script>
+    const readingBar = document.getElementById('reading-progress');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      readingBar.style.width = pct + '%';
+    });
   </script>
 </body>
 

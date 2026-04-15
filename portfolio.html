@@ -19,7 +19,7 @@
       --accent: #ba1d49;
       --accent-warm: #d96f18;
       --border: rgba(20, 60, 147, 0.15);
-      --dark: #0D0E10;
+      --dark: #2a2a2a;
     }
 
     *,
@@ -68,11 +68,11 @@
       align-items: center;
       gap: 0.5rem;
       height: auto;
-      min-height: 46px;
+      min-height: 58px;
     }
 
     .nav-logo img {
-      height: 46px;
+      height: 58px;
       width: auto;
       display: block;
     }
@@ -866,7 +866,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="home.html" class="nav-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></a>
+    <a href="home.html" class="nav-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></a>
     <ul class="nav-links">
       <li><a href="services.html">Services</a></li>
       <li><a href="portfolio.html" class="active">Portfolio</a></li>
@@ -908,7 +908,7 @@
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
     <button class="filter-btn" data-filter="marketing">Marketing Sites</button>
-    <button class="filter-btn" data-filter="media">Media</button>
+    <button class="filter-btn" data-filter="seo-geo">SEO & GEO</button>
     <button class="filter-btn" data-filter="software">Software</button>
     <span class="filter-count" id="filterCount">Showing 12 projects</span>
   </div>
@@ -948,7 +948,7 @@
   <footer class="footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+        <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
         <p>A strategic technology partner headquartered in Clovis, California — serving clients nationwide with 7+ years
           of engineering and design expertise.</p>
       </div>
@@ -983,7 +983,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-logo"><img src="kemet-tec-op1-blue con-01.png" alt="Kemet Technologies Logo" /></div>
+      <div class="footer-logo"><img src="media/Kemet_Technologies_logo.png" alt="Kemet Technologies Logo" /></div>
       <div class="footer-copy">© 2025 Kemet Technologies. All Rights Reserved.</div>
     </div>
   </footer>
@@ -992,186 +992,16 @@
     const projects = [
       {
         num: '01',
-        cat: 'E-Commerce',
-        filter: 'ecommerce',
-        name: 'Queen Mini Market',
-        location: 'Belleville, NJ',
-        desc: 'A fully functional online grocery and deli store built for seamless ordering and local delivery management.',
-        image: 'media/queen/quennmockup.png',
-        url: 'https://queennj.com/'
+        cat: 'Corporate Website',
+        filter: 'web',
+        name: 'German Kitchen Studio',
+        location: 'United States',
+        desc: 'Full e-commerce platform redesign with custom product builder and streamlined checkout flow.',
+        image: 'media/gks/gksmockup.png',
+        url: 'https://gksus.com/'
       },
       {
         num: '02',
-        cat: 'E-Commerce',
-        filter: 'ecommerce',
-        name: 'SF-Shoply',
-        location: 'Nationwide',
-        desc: 'An e-commerce platform for specialty halal food delivery with comprehensive product catalog and shipping integrations.',
-        image: 'media/SF Shoply/sfmockup.png',
-        url: 'https://www.sfshoply.com/'
-      },
-      {
-        num: '03',
-        cat: 'Marketing Site',
-        filter: 'marketing',
-        name: 'Hero Expressway',
-        location: 'Wilmington, CA',
-        desc: 'A professional marketing website for a drayage trucking company conveying operational capability and credibility.',
-        image: 'media/hero/heromockup.png',
-        url: 'https://heroexpresswayinc.com/'
-      },
-      {
-        num: '04',
-        cat: 'E-Commerce',
-        filter: 'ecommerce',
-        name: 'Golden Eagle Jewelry',
-        location: 'Specialty Retail',
-        desc: 'An e-commerce site for an exclusive distributor of professional jewelry-making alloys and plating solutions.',
-        image: 'media/golden/goldenmockup.png',
-        url: 'https://goldeneaglejewelrytools.com/'
-      },
-      {
-        num: '05',
-        cat: 'Marketing Site',
-        filter: 'marketing',
-        name: 'Matteo Landscaping',
-        location: 'California',
-        desc: 'A visual, project-focused website showcasing completed work and driving local service inquiries.',
-        image: 'media/matteo/matteomockup.png',
-        url: 'https://www.matteolandscaping.com/'
-      },
-      {
-        num: '06',
-        cat: 'Marketing Site',
-        filter: 'marketing',
-        name: 'Elegant Transportation',
-        location: 'California',
-        desc: 'A clean, accessible website for a non-emergency medical transportation company highlighting service reliability.',
-        image: 'media/elegant/elegantmockup.png',
-        url: 'https://www.eleganttrans.net/'
-      },
-      {
-        num: '07',
-        cat: 'Marketing Site',
-        filter: 'marketing',
-        name: 'Urban Design Engineering',
-        location: 'Architecture',
-        desc: 'A professional digital presence for an architectural and engineering firm reflecting technical precision.',
-        image: 'media/urban/urbanmockup.png',
-        url: 'https://urbandesignengineering.com/'
-      },
-      {
-        num: '08',
-        cat: 'E-Commerce',
-        filter: 'ecommerce',
-        name: 'Brothers Dream Distro',
-        location: 'United States',
-        desc: 'A digital storefront for a family-owned distribution business with product management and wholesale ordering flows.',
-        image: 'media/bd/bdmockup.png',
-        url: 'https://brothersdreamdistro.com/'
-      },
-      {
-        num: '09',
-        cat: 'Marketing Site',
-        filter: 'marketing',
-        name: 'St. George Security',
-        location: 'California',
-        desc: 'A corporate website communicating professionalism, trust, and service range to commercial and residential clients.',
-        image: 'media/st/stmockup.png',
-        url: 'https://www.stgeorgeprivatesecurity.com/'
-      },
-      {
-        num: '10',
-        cat: 'Corporate Website',
-        filter: 'web',
-        name: 'Pacific Dental Clinic Fresno',
-        location: 'Fresno, CA',
-        desc: 'A trusted dental clinic website focused on service clarity, patient confidence, and appointment conversion.',
-        image: 'media/pacific/pacificmockup.png',
-        url: 'https://pacificdentalclinics.com/'
-      },
-      {
-        num: '11',
-        cat: 'Marketing Website',
-        filter: 'marketing',
-        name: 'C4 Fresno',
-        location: 'Fresno, CA',
-        desc: 'A mission-driven website designed to communicate programs clearly and support community engagement.',
-        image: 'media/c4/c4mockup.png',
-        url: 'https://www.c4fresno.org/'
-      },
-      {
-        num: '12',
-        cat: 'Corporate Website',
-        filter: 'web',
-        name: 'True Care Clinic Florida',
-        location: 'Florida',
-        desc: 'A healthcare web presence built to improve trust, communicate services, and support patient outreach.',
-        image: 'media/careclinic/careclinicmockup.png',
-        url: 'https://truecareclinic.net/'
-      },
-      {
-        num: '13',
-        cat: 'Marketing Website',
-        filter: 'marketing',
-        name: 'Crystal Housekeeping',
-        location: 'United States',
-        desc: 'A service-focused website for a housekeeping brand with clear offerings and lead generation flow.',
-        image: 'media/crystalhouse/crystalhousemockup.png',
-        url: 'https://www.crystalhousekeeping.net/'
-      },
-      {
-        num: '14',
-        cat: 'Marketing Website',
-        filter: 'marketing',
-        name: 'Stavros Catering',
-        location: 'United States',
-        desc: 'A polished catering website highlighting menu presentation, event credibility, and inquiry conversion.',
-        image: 'media/stavros/stavrosmockup.png',
-        url: 'https://stavroscatering.com/'
-      },
-      {
-        num: '15',
-        cat: 'Marketing Website',
-        filter: 'marketing',
-        name: 'Luxury Limo OC',
-        location: 'Orange County, CA',
-        desc: 'A premium transportation website showcasing services, fleet appeal, and fast booking pathways.',
-        image: 'media/luxurylimo/luxurylimomockup.png',
-        url: 'https://www.luxurylimooc.com/'
-      },
-      {
-        num: '16',
-        cat: 'Marketing Website',
-        filter: 'marketing',
-        name: 'Zuni\'s Plumbing Lamoore',
-        location: 'Lamoore, CA',
-        desc: 'A local-service website structured for trust, service discovery, and direct customer conversion.',
-        image: 'media/zunis/zunismockup.png',
-        url: 'https://www.zunisplumbing.com/'
-      },
-      {
-        num: '17',
-        cat: 'Marketing Website',
-        filter: 'marketing',
-        name: 'I.E. Finish Carpentry',
-        location: 'United States',
-        desc: 'A craftsmanship-focused marketing website for finish carpentry services and project lead capture.',
-        image: 'media/ie/iemockup.png',
-        url: 'https://www.iefinish.com/'
-      },
-      {
-        num: '18',
-        cat: 'Corporate Website',
-        filter: 'web',
-        name: 'Archangel Michael & Gabriel Coptic Orthodox Church Fresno',
-        location: 'Fresno, CA',
-        desc: 'A community-centered church website built for announcements, events, ministries, and visitor guidance.',
-        image: 'media/aamgcoc/aamgcocmockup.png',
-        url: 'https://www.aamgcoc.org/'
-      },
-      {
-        num: '19',
         cat: 'Corporate Website',
         filter: 'web',
         name: 'Global Nexus Management',
@@ -1181,14 +1011,194 @@
         url: 'https://gnmusa.com/'
       },
       {
-        num: '20',
+        num: '03',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'Urban Design Engineering',
+        location: 'Architecture',
+        desc: 'A professional digital presence for an architectural and engineering firm reflecting technical precision.',
+        image: 'media/urban/urbanmockup.png',
+        url: 'https://urbandesignengineering.com/'
+      },
+      {
+        num: '04',
         cat: 'E-Commerce',
         filter: 'ecommerce',
-        name: 'German Kitchen Studio',
+        name: 'Queen Mini Market',
+        location: 'Belleville, NJ',
+        desc: 'A fully functional online grocery and deli store built for seamless ordering and local delivery management.',
+        image: 'media/queen/quennmockup.png',
+        url: 'https://queennj.com/'
+      },
+      {
+        num: '05',
+        cat: 'E-Commerce',
+        filter: 'ecommerce',
+        name: 'SF-Shoply',
+        location: 'Nationwide',
+        desc: 'An e-commerce platform for specialty halal food delivery with comprehensive product catalog and shipping integrations.',
+        image: 'media/SF Shoply/sfmockup.png',
+        url: 'https://www.sfshoply.com/'
+      },
+      {
+        num: '06',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'Hero Expressway',
+        location: 'Wilmington, CA',
+        desc: 'A professional marketing website for a drayage trucking company conveying operational capability and credibility.',
+        image: 'media/hero/heromockup.png',
+        url: 'https://heroexpresswayinc.com/'
+      },
+      {
+        num: '07',
+        cat: 'E-Commerce',
+        filter: 'ecommerce',
+        name: 'Golden Eagle Jewelry',
+        location: 'Specialty Retail',
+        desc: 'An e-commerce site for an exclusive distributor of professional jewelry-making alloys and plating solutions.',
+        image: 'media/golden/goldenmockup.png',
+        url: 'https://goldeneaglejewelrytools.com/'
+      },
+      {
+        num: '08',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'Matteo Landscaping',
+        location: 'California',
+        desc: 'A visual, project-focused website showcasing completed work and driving local service inquiries.',
+        image: 'media/matteo/matteomockup.png',
+        url: 'https://www.matteolandscaping.com/'
+      },
+      {
+        num: '09',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'Elegant Transportation',
+        location: 'California',
+        desc: 'A clean, accessible website for a non-emergency medical transportation company highlighting service reliability.',
+        image: 'media/elegant/elegantmockup.png',
+        url: 'https://www.eleganttrans.net/'
+      },
+      {
+        num: '10',
+        cat: 'E-Commerce',
+        filter: 'ecommerce',
+        name: 'Brothers Dream Distro',
         location: 'United States',
-        desc: 'Full e-commerce platform redesign with custom product builder and streamlined checkout flow.',
-        image: 'media/gks/gksmockup.png',
-        url: 'https://gksus.com/'
+        desc: 'A digital storefront for a family-owned distribution business with product management and wholesale ordering flows.',
+        image: 'media/bd/bdmockup.png',
+        url: 'https://brothersdreamdistro.com/'
+      },
+      {
+        num: '11',
+        cat: 'Marketing Site',
+        filter: 'marketing',
+        name: 'St. George Security',
+        location: 'California',
+        desc: 'A corporate website communicating professionalism, trust, and service range to commercial and residential clients.',
+        image: 'media/st/stmockup.png',
+        url: 'https://www.stgeorgeprivatesecurity.com/'
+      },
+      {
+        num: '12',
+        cat: 'Corporate Website',
+        filter: 'web',
+        name: 'Pacific Dental Clinic Fresno',
+        location: 'Fresno, CA',
+        desc: 'A trusted dental clinic website focused on service clarity, patient confidence, and appointment conversion.',
+        image: 'media/pacific/pacificmockup.png',
+        url: 'https://pacificdentalclinics.com/'
+      },
+      {
+        num: '13',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'C4 Fresno',
+        location: 'Fresno, CA',
+        desc: 'A mission-driven website designed to communicate programs clearly and support community engagement.',
+        image: 'media/c4/c4mockup.png',
+        url: 'https://www.c4fresno.org/'
+      },
+      {
+        num: '14',
+        cat: 'Corporate Website',
+        filter: 'web',
+        name: 'True Care Clinic Florida',
+        location: 'Florida',
+        desc: 'A healthcare web presence built to improve trust, communicate services, and support patient outreach.',
+        image: 'media/careclinic/careclinicmockup.png',
+        url: 'https://truecareclinic.net/'
+      },
+      {
+        num: '15',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'Crystal Housekeeping',
+        location: 'United States',
+        desc: 'A service-focused website for a housekeeping brand with clear offerings and lead generation flow.',
+        image: 'media/crystalhouse/crystalhousemockup.png',
+        url: 'https://www.crystalhousekeeping.net/'
+      },
+      {
+        num: '16',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'Stavros Catering',
+        location: 'United States',
+        desc: 'A polished catering website highlighting menu presentation, event credibility, and inquiry conversion.',
+        image: 'media/stavros/stavrosmockup.png',
+        url: 'https://stavroscatering.com/'
+      },
+      {
+        num: '17',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'Luxury Limo OC',
+        location: 'Orange County, CA',
+        desc: 'A premium transportation website showcasing services, fleet appeal, and fast booking pathways.',
+        image: 'media/luxurylimo/luxurylimomockup.png',
+        url: 'https://www.luxurylimooc.com/'
+      },
+      {
+        num: '18',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'Zuni\'s Plumbing Lamoore',
+        location: 'Lamoore, CA',
+        desc: 'A local-service website structured for trust, service discovery, and direct customer conversion.',
+        image: 'media/zunis/zunismockup.png',
+        url: 'https://www.zunisplumbing.com/'
+      },
+      {
+        num: '19',
+        cat: 'Marketing Website',
+        filter: 'marketing',
+        name: 'I.E. Finish Carpentry',
+        location: 'United States',
+        desc: 'A craftsmanship-focused marketing website for finish carpentry services and project lead capture.',
+        image: 'media/ie/iemockup.png',
+        url: 'https://www.iefinish.com/'
+      },
+      {
+        num: '20',
+        cat: 'Corporate Website',
+        filter: 'web',
+        name: 'Archangel Michael & Gabriel Coptic Orthodox Church Fresno',
+        location: 'Fresno, CA',
+        desc: 'A community-centered church website built for announcements, events, ministries, and visitor guidance.',
+        image: 'media/aamgcoc/aamgcocmockup.png',
+        url: 'https://www.aamgcoc.org/'
+      },
+      {
+        num: '21',
+        cat: 'Mobile Application',
+        filter: 'mobile',
+        name: 'WedCart',
+        location: 'United States',
+        desc: 'A wedding planning mobile application with seamless vendor discovery, budgeting tools, and guest management.',
+        image: 'media/wedcart/wedcartmockup.png',
+        url: ''
       }
     ];
 

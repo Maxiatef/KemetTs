@@ -198,5 +198,15 @@
     "desc": "Full e-commerce platform redesign with custom product builder and streamlined checkout flow.",
     "image": "media/gks/gksmockup.png",
     "url": "https://gksus.com/"
+  },
+  {
+    "num": "21",
+    "cat": "Mobile Application",
+    "filter": "mobile",
+    "name": "WedCart",
+    "location": "United States",
+    "desc": "A wedding planning mobile application with seamless vendor discovery, budgeting tools, and guest management.",
+    "image": "media/wedcart/wedcartmockup.png",
+    "url": ""
   }
 ]
