@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/", "destination": "/home.html", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/api/chat", "destination": "/api/chat.js" },
     { "source": "/api/health", "destination": "/api/health.js" },
