@@ -1,46 +1,10 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "**/*.{html,css,js,json,png,jpg,jpeg,gif,svg,ico,woff,woff2,ttf,mp4,webm}",
-      "use": "@vercel/static",
-      "config": {
-        "exclude": ["api/**", "server.js", "node_modules/**"]
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/chat",
-      "dest": "/api/chat.js"
-    },
-    {
-      "src": "/api/health",
-      "dest": "/api/health.js"
-    },
-    {
-      "src": "/api/contact",
-      "dest": "/api/contact.js"
-    },
-    {
-      "src": "/api/blogs",
-      "dest": "/api/blogs.js"
-    },
-    {
-      "src": "/api/blog",
-      "dest": "/api/blog.js"
-    },
-    {
-      "src": "/api/message",
-      "dest": "/api/message.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
+  "rewrites": [
+    { "source": "/api/chat", "destination": "/api/chat.js" },
+    { "source": "/api/health", "destination": "/api/health.js" },
+    { "source": "/api/contact", "destination": "/api/contact.js" },
+    { "source": "/api/blogs", "destination": "/api/blogs.js" },
+    { "source": "/api/blog", "destination": "/api/blog.js" },
+    { "source": "/api/message", "destination": "/api/message.js" }
   ]
 }
