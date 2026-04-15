@@ -4,6 +4,13 @@
     {
       "src": "api/*.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "**/*.{html,css,js,json,png,jpg,jpeg,gif,svg,ico,woff,woff2,ttf,mp4,webm}",
+      "use": "@vercel/static",
+      "config": {
+        "exclude": ["api/**", "server.js", "node_modules/**"]
+      }
     }
   ],
   "routes": [
