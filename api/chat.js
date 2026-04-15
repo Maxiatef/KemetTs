@@ -60,7 +60,7 @@ export default async function handler(req, res) {
     ];
 
     const response = await openaiClient.chat.completions.create({
-      model: 'zhipuai/glm-4-9b-chat',
+      model: 'meta/llama-3.1-8b-instruct',
       messages: messages,
       temperature: 0.7,
       top_p: 0.9,
