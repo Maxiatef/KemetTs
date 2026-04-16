@@ -260,7 +260,8 @@ export default async function handler(req, res) {
       try {
         const data = await getDataFile();
         const initialLength = data.posts.length;
-        data.posts = data.posts.filter(p => p.id !== id);
+        // Convert both to strings for comparison to handle string/number mismatch
+        data.posts = data.posts.filter(p => String(p.id) !== String(id));
         if (data.posts.length < initialLength) {
           await saveDataFile(data);
           console.log(`✅ Blog post synced deleted in data.json`);

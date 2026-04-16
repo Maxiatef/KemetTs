@@ -141,6 +141,99 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// Get all messages endpoint (for admin dashboard)
+app.get('/api/contact', async (req, res) => {
+  console.log('\n📨 Get messages request received');
+
+  try {
+    const dataPath = path.join(__dirname, 'data.json');
+
+    let data = {};
+    if (fs.existsSync(dataPath)) {
+      const fileContent = fs.readFileSync(dataPath, 'utf-8');
+      data = JSON.parse(fileContent);
+    }
+
+    const messages = data.messages || [];
+
+    console.log(`✅ Retrieved ${messages.length} messages from data.json`);
+
+    res.json({
+      success: true,
+      messages: messages,
+      data: messages,
+      source: 'data.json'
+    });
+
+  } catch (err) {
+    console.error('\n❌ ERROR in /api/contact GET endpoint');
+    console.error('Error message:', err.message);
+
+    res.status(500).json({
+      error: 'Failed to retrieve messages. Please try again.',
+      details: err.message
+    });
+  }
+});
+
+// Delete message endpoint (for admin dashboard)
+app.delete('/api/contact', async (req, res) => {
+  console.log('\n🗑️ Delete message request received');
+  console.log('Body:', JSON.stringify(req.body, null, 2));
+
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      console.warn('⚠️ Missing message ID');
+      return res.status(400).json({ error: 'Message ID is required' });
+    }
+
+    const dataPath = path.join(__dirname, 'data.json');
+
+    if (!fs.existsSync(dataPath)) {
+      console.warn('⚠️ data.json not found');
+      return res.status(404).json({ error: 'Data file not found' });
+    }
+
+    const fileContent = fs.readFileSync(dataPath, 'utf-8');
+    let data = JSON.parse(fileContent);
+
+    if (!Array.isArray(data.messages)) {
+      return res.status(404).json({ error: 'No messages found' });
+    }
+
+    const initialLength = data.messages.length;
+    // Convert both to strings for comparison to handle string/number mismatch
+    data.messages = data.messages.filter(m => String(m.id) !== String(id));
+
+    if (data.messages.length === initialLength) {
+      console.warn('⚠️ Message not found with ID:', id);
+      return res.status(404).json({ error: 'Message not found' });
+    }
+
+    console.log('💾 Saving to data.json...');
+    fs.writeFileSync(dataPath, JSON.stringify(data, null, 4), 'utf-8');
+
+    console.log('✅ Message deleted successfully');
+    console.log(`📊 Total messages remaining: ${data.messages.length}`);
+
+    res.json({
+      success: true,
+      message: 'Message deleted successfully!'
+    });
+
+  } catch (err) {
+    console.error('\n❌ ERROR in /api/contact DELETE endpoint');
+    console.error('Error message:', err.message);
+
+    res.status(500).json({
+      error: 'Failed to delete message. Please try again.',
+      details: err.message
+    });
+  }
+});
+
 // Create blog post endpoint
 app.post('/api/blog', async (req, res) => {
   console.log('\n📝 Blog post creation request received');

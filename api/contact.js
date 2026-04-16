@@ -146,7 +146,8 @@ export default async function handler(req, res) {
         const data = await getDataFile();
         if (data.messages && Array.isArray(data.messages)) {
           const initialLength = data.messages.length;
-          data.messages = data.messages.filter(m => m.id !== id);
+          // Convert both to strings for comparison to handle string/number mismatch
+          data.messages = data.messages.filter(m => String(m.id) !== String(id));
           if (data.messages.length < initialLength) {
             await saveDataFile(data);
             console.log(`✅ Message synced deleted in data.json: ${id}`);
