@@ -208,5 +208,15 @@
     "desc": "A wedding planning mobile application with seamless vendor discovery, budgeting tools, and guest management.",
     "image": "media/wedcart/wedcartmockup.png",
     "url": ""
+  },
+  {
+        "num": "22",
+        "cat": "Software",
+        "filter": "software",
+        "name": "Al Zahraa Nursery ERP",
+        "location": "Dubai, UAE",
+        "desc": "A custom ERP solution for a large nursery operation, integrating inventory management, sales tracking, and supplier coordination.",
+        "image": "media/zahraa/zahraamockup.png",
+        "url": ""
   }
 ]
