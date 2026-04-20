@@ -306,6 +306,41 @@ app.post('/api/blog', async (req, res) => {
   }
 });
 
+// Get all blog posts endpoint (for admin dashboard)
+app.get('/api/blog', async (req, res) => {
+  console.log('\n📚 Get blog posts request received');
+
+  try {
+    const dataPath = path.join(__dirname, 'data.json');
+
+    let data = {};
+    if (fs.existsSync(dataPath)) {
+      const fileContent = fs.readFileSync(dataPath, 'utf-8');
+      data = JSON.parse(fileContent);
+    }
+
+    const posts = data.posts || [];
+
+    console.log(`✅ Retrieved ${posts.length} blog posts from data.json`);
+
+    res.json({
+      success: true,
+      posts: posts,
+      data: posts,
+      source: 'data.json'
+    });
+
+  } catch (err) {
+    console.error('\n❌ ERROR in /api/blog GET endpoint');
+    console.error('Error message:', err.message);
+
+    res.status(500).json({
+      error: 'Failed to retrieve blog posts. Please try again.',
+      details: err.message
+    });
+  }
+});
+
 // Edit blog post endpoint
 app.put('/api/blog/:id', async (req, res) => {
   console.log('\n✏️ Blog post edit request received');
@@ -383,7 +418,65 @@ app.put('/api/blog/:id', async (req, res) => {
   }
 });
 
-// Delete blog post endpoint
+// Delete blog post endpoint (from request body - for admin dashboard compatibility)
+app.delete('/api/blog', async (req, res) => {
+  console.log('\n🗑️ Blog post deletion request received');
+  console.log('Body:', JSON.stringify(req.body, null, 2));
+
+  try {
+    const { id, mongoId } = req.body;
+
+    if (!id) {
+      console.warn('⚠️ Missing blog ID');
+      return res.status(400).json({ error: 'Blog ID is required' });
+    }
+
+    const dataPath = path.join(__dirname, 'data.json');
+
+    if (!fs.existsSync(dataPath)) {
+      console.warn('⚠️ data.json not found');
+      return res.status(404).json({ error: 'Data file not found' });
+    }
+
+    const fileContent = fs.readFileSync(dataPath, 'utf-8');
+    let data = JSON.parse(fileContent);
+
+    if (!Array.isArray(data.posts)) {
+      return res.status(404).json({ error: 'No posts found' });
+    }
+
+    const initialLength = data.posts.length;
+    // Convert both to strings for comparison to handle string/number mismatch
+    data.posts = data.posts.filter(p => String(p.id) !== String(id));
+
+    if (data.posts.length === initialLength) {
+      console.warn('⚠️ Post not found with ID:', id);
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    console.log('💾 Saving to data.json...');
+    fs.writeFileSync(dataPath, JSON.stringify(data, null, 4), 'utf-8');
+
+    console.log('✅ Blog post deleted successfully');
+    console.log(`📊 Total posts remaining: ${data.posts.length}`);
+
+    res.json({
+      success: true,
+      message: 'Blog post deleted successfully!'
+    });
+
+  } catch (err) {
+    console.error('\n❌ ERROR in /api/blog DELETE endpoint');
+    console.error('Error message:', err.message);
+
+    res.status(500).json({
+      error: 'Failed to delete blog post. Please try again.',
+      details: err.message
+    });
+  }
+});
+
+// Delete blog post endpoint (from URL parameter - alternative format)
 app.delete('/api/blog/:id', async (req, res) => {
   console.log('\n🗑️ Blog post deletion request received');
   console.log('Post ID:', req.params.id);
@@ -436,7 +529,7 @@ app.delete('/api/blog/:id', async (req, res) => {
     });
 
   } catch (err) {
-    console.error('\n❌ ERROR in /api/blog DELETE endpoint');
+    console.error('\n❌ ERROR in /api/blog/:id DELETE endpoint');
     console.error('Error type:', err.constructor.name);
     console.error('Error message:', err.message);
     console.error('Error stack:', err.stack);
