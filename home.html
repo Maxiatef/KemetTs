@@ -3187,6 +3187,68 @@
         padding: 0.8rem 1rem;
       }
     }
+
+    /* ═══════════════════════════════════════════
+    LIGHTBOX
+═══════════════════════════════════════════ */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+
+    .lightbox-img {
+      width: 100%;
+      height: auto;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+    }
+
+    .lightbox-close:hover {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 900px) {
+      .lightbox-close {
+        top: 1rem;
+        right: 1rem;
+        color: #fff;
+      }
+    }
   </style>
 
   <!-- JSON-LD Structured Data for SEO -->
@@ -4850,6 +4912,40 @@
       navLinks.classList.remove('open');
       burger.classList.remove('open');
     }));
+  </script>
+
+  <!-- Lightbox removed - cards now link directly to projects -->
+
+  <script>
+    // Lightbox functionality removed
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+      lightbox.style.display = 'none';
+    }
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    if (lightboxClose) {
+      lightboxClose.removeEventListener('click', () => lightbox.classList.remove('open'));
+    }
+    if (lightbox) {
+      lightbox.removeEventListener('click', (e) => {
+        if (e.target === lightbox) lightbox.classList.remove('open');
+      });
+    }
+
+    // Portfolio card click handler - navigate to project
+    setTimeout(() => {
+      document.querySelectorAll('.portfolio-card').forEach(card => {
+        card.style.cursor = 'pointer';
+        const link = card.querySelector('.card-link');
+        if (link && link.href && link.href !== '#') {
+          card.addEventListener('click', () => {
+            window.location.href = link.href;
+          });
+        }
+      });
+    }, 500);
   </script>
 
 </body>

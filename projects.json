@@ -210,13 +210,24 @@
     "url": ""
   },
   {
-        "num": "22",
-        "cat": "Software",
-        "filter": "software",
-        "name": "Al Zahraa Nursery ERP",
-        "location": "Dubai, UAE",
-        "desc": "A custom ERP solution for a large nursery operation, integrating inventory management, sales tracking, and supplier coordination.",
-        "image": "media/zahraa/zahraamockup.png",
-        "url": ""
+    "num": "22",
+    "cat": "Software",
+    "filter": "software",
+    "name": "Al Zahraa Nursery ERP",
+    "location": "Dubai, UAE",
+    "desc": "A custom ERP solution for a large nursery operation, integrating inventory management, sales tracking, and supplier coordination.",
+    "image": "media/zahraa/zahraamockup.png",
+    "url": "portfolio.html?num=22"
+  },
+  {
+    "num": "23",
+    "cat": "SEO & GEO",
+    "filter": "seo-geo",
+    "name": "True Care Clinic SEO",
+    "location": "Florida",
+    "desc": "Google Ads performance and ROAS analytics across 3 months, demonstrating 200-300% return on ad spend through strategic SEO and geo-targeted campaigns.",
+    "image": "media/careclinic/careclinicseo.png",
+    "url": "portfolio.html?num=23",
+    "gallery": ["media/careclinic/careclinicseo.png"]
   }
 ]

@@ -857,6 +857,65 @@
         text-align: center;
       }
     }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+
+    .lightbox-img {
+      width: 100%;
+      height: auto;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+    }
+
+    .lightbox-close:hover {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 900px) {
+      .lightbox-close {
+        top: 1rem;
+        right: 1rem;
+      }
+    }
   </style>
   <link rel="stylesheet" href="site-enhancements.css" />
   <script src="site-enhancements.js" defer></script>
@@ -1211,6 +1270,17 @@
         desc: 'A custom ERP solution for a large nursery operation, integrating inventory management, sales tracking, and supplier coordination.',
         image: 'media/zahraa/zahraamockup.png',
         url: ''
+      },
+      {
+        num: '23',
+        cat: 'SEO & GEO',
+        filter: 'seo-geo',
+        name: 'True Care Clinic SEO',
+        location: 'Florida',
+        desc: 'Google Ads performance and ROAS analytics across 3 months, demonstrating 200-300% return on ad spend through strategic SEO and geo-targeted campaigns.',
+        image: 'media/careclinic/careclinicseo.png',
+        url: '',
+        gallery: ['media/careclinic/careclinicseo.png']
       }
     ];
 
@@ -1306,6 +1376,33 @@
     // Initial render
     renderGrid('all');
 
+    // Check for project number in URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectNum = urlParams.get('num');
+    if (projectNum) {
+      const targetProject = projects.find(p => p.num === projectNum);
+      if (targetProject) {
+        // Activate the filter for this project's category
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        const filterBtn = document.querySelector(`[data-filter="${targetProject.filter}"]`);
+        if (filterBtn) {
+          filterBtn.classList.add('active');
+          renderGrid(targetProject.filter);
+          
+          // Scroll to the project after rendering
+          setTimeout(() => {
+            const projectRows = document.querySelectorAll('.project-row');
+            const targetRow = Array.from(projectRows).find(row => 
+              row.textContent.includes(targetProject.name)
+            );
+            if (targetRow) {
+              targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 500);
+        }
+      }
+    }
+
     // Observe all project rows for scroll animation
     setTimeout(() => {
       document.querySelectorAll('.project-row').forEach(row => {
@@ -1313,6 +1410,59 @@
       });
     }, 100);
   </script>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose">&times;</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery image" />
+    </div>
+  </div>
+
+  <script>
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) lightbox.classList.remove('open');
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') lightbox.classList.remove('open');
+    });
+
+    // Function to attach lightbox handlers to project images
+    function attachLightboxHandlers() {
+      document.querySelectorAll('.project-image').forEach((imgContainer, index) => {
+        const img = imgContainer.querySelector('img');
+        if (img && img.src) {
+          imgContainer.style.cursor = 'pointer';
+          imgContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+            lightboxImg.src = img.src;
+            lightbox.classList.add('open');
+          });
+        }
+      });
+    }
+
+    // Attach handlers after initial render
+    setTimeout(() => {
+      attachLightboxHandlers();
+    }, 500);
+
+    // Re-attach handlers when filter changes (grid updates)
+    const originalRenderGrid = renderGrid;
+    renderGrid = function(filter) {
+      originalRenderGrid.call(this, filter);
+      setTimeout(() => {
+        attachLightboxHandlers();
+      }, 300);
+    };
+  </script>
+
 </body>
 
 </html>
