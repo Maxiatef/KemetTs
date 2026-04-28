@@ -229,5 +229,15 @@
     "image": "media/careclinic/careclinicseo.png",
     "url": "portfolio.html?num=23",
     "gallery": ["media/careclinic/careclinicseo.png"]
+  },
+  {
+    "num": "24",
+    "cat": "AI Integration",
+    "filter": "ai",
+    "name": "Zuni's Plumbing Lamoore AI",
+    "location": "Lamoore, CA",
+    "desc": "AI-powered marketing agent that automates customer engagement, lead qualification, and service appointment scheduling through intelligent chatbot integration.",
+    "image": "media/zunis/zunisai.png",
+    "url": "portfolio.html?num=24"
   }
 ]
