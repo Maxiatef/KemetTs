@@ -4,7 +4,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog Post — Kemet Technologies</title>
+  <link rel="icon" type="image/png" href="media/kemeticon.png" />
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SEO BLOCK — Static fallback tags (the JS below overrides
+       title, description, and og:title per post at runtime).
+  ════════════════════════════════════════════════════════════════ -->
+  <title>Blog — Kemet Technologies</title>
+  <meta name="description" content="Read expert insights on web design, mobile development, AI, and digital business growth from the Kemet Technologies team." />
+  <meta name="keywords" content="web design blog, tech insights, SEO tips, digital marketing, AI, Kemet Technologies" />
+  <meta name="author" content="Kemet Technologies" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://kemetts.com/blogs.html" id="canonicalTag" />
+  <meta property="og:title" content="Blog — Kemet Technologies" id="ogTitle" />
+  <meta property="og:description" content="Expert articles on web design, AI, SEO and growing your business online." id="ogDesc" />
+  <meta property="og:image" content="https://kemetts.com/media/Kemet_Technologies_logo.png" id="ogImage" />
+  <meta property="og:url" content="https://kemetts.com/blogs.html" id="ogUrl" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Kemet Technologies" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog — Kemet Technologies" id="twTitle" />
+  <meta name="twitter:description" content="Expert insights from the Kemet Technologies team." id="twDesc" />
+  <meta name="twitter:image" content="https://kemetts.com/media/Kemet_Technologies_logo.png" id="twImage" />
+  <!-- ═══ END SEO BLOCK ════════════════════════════════════════ -->
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap"
     rel="stylesheet" />
@@ -701,8 +723,21 @@
         return;
       }
 
-      // Update page title
+      // Update page title + SEO meta tags dynamically per post
       document.title = `${post.title} — Kemet Blog`;
+      const postUrl = `https://kemetts.com/blog-post.html?id=${post.id || ''}`;
+      const postDesc = post.excerpt || post.description || 'Read this article on the Kemet Technologies blog.';
+      const postImg = post.image || post.coverimg || 'https://kemetts.com/media/Kemet_Technologies_logo.png';
+      const setMeta = (id, attr, val) => { const el = document.getElementById(id); if (el) el.setAttribute(attr, val); };
+      document.querySelector('meta[name="description"]').setAttribute('content', postDesc);
+      setMeta('canonicalTag', 'href', postUrl);
+      setMeta('ogTitle', 'content', `${post.title} — Kemet Blog`);
+      setMeta('ogDesc', 'content', postDesc);
+      setMeta('ogImage', 'content', postImg.startsWith('http') ? postImg : `https://kemetts.com/${postImg}`);
+      setMeta('ogUrl', 'content', postUrl);
+      setMeta('twTitle', 'content', `${post.title} — Kemet Blog`);
+      setMeta('twDesc', 'content', postDesc);
+      setMeta('twImage', 'content', postImg.startsWith('http') ? postImg : `https://kemetts.com/${postImg}`);
 
       const coverImageRaw = post.image || post.coverimg || '';
       const coverImage = isImgTag(coverImageRaw) ? coverImageRaw : (coverImageRaw ? String(coverImageRaw).replace(/\\/g, '/') : '');
